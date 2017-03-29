@@ -42,16 +42,6 @@ exports.searchRecipes = function(req, res) {
       });
 };
 
-
-/*
-recipes with the top forks and creators recipe
-
-1. use current search for recipes
-2. sub-query 
-
-
-*/
-
 // for Nav Component - from getUsername function
 exports.getUsername = function(req, res) {
   if (req.user) {
