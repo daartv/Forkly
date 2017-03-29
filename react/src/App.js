@@ -2,11 +2,16 @@ import React from 'react'
 import $ from 'jquery'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
+// import '../node_modules/react-grid-layout/css/styles.css'
+// import '../node_modules/react-resizable/css/styles.css'
+
 import Home from './components/Home'
+import LandingPage from './components/landingPage/LandingPage'
 import AddRecipe from './components/AddRecipe'
 import Login from './components/Login'
 import ViewFork from './components/ViewFork'
 import ViewRecipes from './components/ViewRecipes'
+
 import {
   BrowserRouter as Router,
   Route,
@@ -64,9 +69,9 @@ class App extends React.Component {
       <Router>
         <div>
           <div className='group'>
-            <section className='floatLeft'> {/* top left forkly / login */}
+            <section className='floatLeft'>
               <img className='logo' src='assets/images/forkly.png' alt='FORKLY' />
-              <h3 className='title username'><Login username={this.state.username} /></h3> {/* fb login */}
+              <h3 className='title username'><Login username={this.state.username} /></h3>
             </section>
             <section className='floatRight'>
               <nav>
@@ -88,19 +93,8 @@ class App extends React.Component {
                 </div>
               </nav>
             </section>
+            <Route exact path='/' component={Home} />
           </div>
-
-          <Route exact path='/' component={Home} />
-          {/* landing. if logged in, take straight to userpage, else, to homepage
-        log in option / page / modal
-        recipe search page */}
-          <Route path='/signup' component={SignUpPage} />
-          <Route path='/main' component={MainPageNonUser} />
-
-          <Route path='/addrecipe' component={AddRecipe} />
-          <Route path='/myrecipes' component={ViewRecipes} />
-          <Route path='/recipe' component={ViewFork} />
-
           <br />
           <br />
           <br />
@@ -110,11 +104,19 @@ class App extends React.Component {
           </footer>
         </div>
       </Router>
+
     )
   }
 }
 
 export default App
+
+          // <Route path='/signup' component={SignUpPage} />
+          // <Route path='/main' component={MainPageNonUser} />
+
+          // <Route path='/addrecipe' component={AddRecipe} />
+          // <Route path='/myrecipes' component={ViewRecipes} />
+          // <Route path='/recipe' component={ViewFork} />
 
 // To start, run from terminal the following...
 // npm run react-dev
