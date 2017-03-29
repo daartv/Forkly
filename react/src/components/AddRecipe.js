@@ -79,13 +79,29 @@ class AddRecipe extends React.Component {
   }
 
   handleIngredientsChange (ingredientInd, updatedIngredient) {
-    console.log('hello')
-    // const target = event.target
-    // const name = target.name
-    // const value = target.value
 
-    // let ing = this.state.ingredients
-    // ing[index][name] = value
+    console.log('hello')
+
+
+    if(this.state.ingredients[ingredientInd] === undefined){
+      let newIngredients = {
+        quantity: updatedIngredient.quantity, 
+        units: updatedIngredient.unit, 
+        ingredient: updatedIngredient.ingredient
+      }
+      console.log('NEW INGREDIENTS', newIngredients);
+      this.setState( (state) => {
+        state.ingredients = state.ingredients.concat([newIngredients]);
+        return state;
+     })
+    } else {
+    let revisedIngredients = this.state.ingredients;
+    Object.keys(updatedIngredient).forEach(ingKey => {
+      revisedIngredients[ingKey] = updatedIngredient[ingKey];
+    })
+
+    this.setState({ingredients: revisedIngredients}, function(){
+      
 
     // this.setState({
     //   ingredients: ing

@@ -4,6 +4,7 @@ import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow,
   from 'material-ui/Table'
 import TextField from 'material-ui/TextField'
 import Toggle from 'material-ui/Toggle'
+
 import EditTable from './editTableDev'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
@@ -69,6 +70,20 @@ const buttonStyle = {
   marginTop: 10
 }
 
+const containerStyle = {
+  display: 'flex',
+  flexFlow: 'column nowrap',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  fontFamily: 'Roboto, sans-serif'
+}
+
+const buttonStyle = {
+  display: 'flex',
+  flexFlow: 'row nowrap',
+  marginTop: 10
+}
+
 
 
 class AddIngredientsTable extends Component {
@@ -84,7 +99,25 @@ constructor(props) {
       accum[column.ref] = column.value;
       return accum;
     },{})
+
     console.log(row.id, updatedIngredient);
+    this.props.handleChange(ingredientInd, updatedIngredient);
+  }
+
+  handleChange(event){
+  let value = event.target.value
+  let field = event.target.ref
+   this.props.handleInputChange(field, value);
+  };
+
+  render() {
+    let { recipeName, ingredients, directions, forking } = this.props
+    recipeName = recipeName || ''
+    directions = directions || ''
+
+    let rows = ingredients.map((ingredient, ind) => {
+
+    console.log(ingredientInd, updatedIngredient)
     this.props.handleChange(ingredientInd, updatedIngredient);
   }
 
@@ -114,8 +147,6 @@ constructor(props) {
         {value: 'Amount', type: fieldType, width: 200},
         {value: 'Ingredient', type: fieldType, width: 200} 
       ]
-
-
     return (
       <div>
       <div style={{margin: '0 auto'}}>
@@ -126,7 +157,9 @@ constructor(props) {
         floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
        />
       </div>
+
       <div>
+
         <EditTable forking={this.props.forking}
         onChange={this.onChange}
         rows={rows}
@@ -134,6 +167,7 @@ constructor(props) {
       />
       </div>
       <div style={{margin: '0 auto'}}>
+
       <TextField ref="directions" defaultValue={directions} style={{width: 500, height: 200, border: '1px'}}
       floatingLabelText="Directions"
       floatingLabelStyle={styles.floatingLabelStyle}
@@ -145,4 +179,7 @@ constructor(props) {
   }
 }
 
+
+
 export default AddIngredientsTable
+
