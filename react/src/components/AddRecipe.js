@@ -2,6 +2,7 @@ import React from 'react'
 import AddRecipeIngredients from './AddRecipeIngredients'
 import AddIngredientsTable from './IngredientsTable'
 import $ from 'jquery'
+import axios from 'Axios'
 
     const styleProps = {
       fixedHeader: true,
@@ -122,13 +123,6 @@ class AddRecipe extends React.Component {
         <img className='recipeImage' src='assets/images/sushi.jpg' alt='sushi' />
         <br />
         <form onSubmit={this.handleSubmit}>
-
-          <h3 className='recipeName'>Recipe Name:</h3>
-          <input type='text' value={this.state.name} name='name' onChange={this.handleInputChange} />
-          <br />
-          <br />
-
-          <h3 className='title'>Ingredients:</h3>
 
             <AddIngredientsTable recipeName={this.state.name} stats={this.state} edit={true} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
          

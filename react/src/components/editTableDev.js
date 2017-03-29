@@ -207,7 +207,8 @@ module.exports = React.createClass({
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      fontFamily: 'Roboto, sans-serif'
+      fontFamily: 'Roboto, sans-serif',
+      margin: '10px'
     }
     const buttonStyle = {
       display: 'flex',

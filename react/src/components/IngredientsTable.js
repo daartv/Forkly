@@ -16,6 +16,14 @@ import ContentAdd from 'material-ui/svg-icons/content/add'
 
 
 const styles = {
+  formContainer: {
+    margin: '0 auto',
+    display: 'block',
+    padding: '10px'
+  }, 
+  ingredientsGrid: {
+    margin: '10px 0px'
+  },
   errorStyle: {
     color: orange500,
   },
@@ -78,9 +86,26 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '20px',
+    padding: '10px 0px 10px 0px',
     display: '-ms-flexbox',
     display: '-webkit-flex'
+  },
+  headerH2 : {
+
+  },
+  headerContainer: {
+    display: 'inline-block',
+    // borderBottom: '2px solid #cccccc',
+    padding: '2px',
+    margin: '10px'
+  },
+  recipeName: {
+    display: 'inlineBlock',
+    marginRight: 'auto'
+  },
+  imageLocal: {
+    display: 'inlineBlock',
+     marginLeft: 'auto'
   }
 }
 
@@ -155,16 +180,20 @@ constructor(props) {
         {value: 'Ingredient', type: fieldType, width: 200} 
       ]
     return (
-      <div>
+      <div style={styles.formContainer}>
+      <div style={styles.headerContainer}>
+       <h2 style={styles.headerH2}>Recipe</h2>
+      </div>
       <div style={styles.aligner}>
-      <div style={{ display: 'inlineBlock', marginRight: '20%'}}> 
+      <div style={styles.recipeName}> 
       <TextField multiLine="true" name="name" defaultValue={recipeName} onChange={this.handleChange} style={{width: 200, marginBottom: '5px'}}
         floatingLabelText="Recipe Name"
         floatingLabelStyle={styles.floatingLabelStyle}
         floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
        />
        </div>
-    <div style={{display: 'inlineBlock', marginLeft: '20%'}}>
+    <div style={styles.imageLocal}>
+
     <FlatButton
       label="+ Choose an Image"
       labelPosition="before"
@@ -177,7 +206,10 @@ constructor(props) {
     </div>
       </div>
 
-      <div>
+      <div style={styles.ingredientsGrid}>
+      <div style={styles.headerContainer}>
+       <h2 style={styles.headerH2}>Ingredients:</h2>
+      </div>
         <EditTable forking={forking}
         onChange={this.onChange}
         rows={rows}
