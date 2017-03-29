@@ -5,8 +5,21 @@ import App from './App'
 // import injectTapEventPlugin from 'react-tap-event-plugin'
 
 // injectTapEventPlugin()
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
+import injectTapEventPlugin from 'react-tap-event-plugin'
+
+injectTapEventPlugin();
+
+const muiTheme = getMuiTheme({
+  toolbar: {
+    height: '56px'
+  }
+});
 ReactDOM.render(
-  <App />,
+  <MuiThemeProvider muiTheme={muiTheme}>
+    <App />
+  </MuiThemeProvider>,
   document.getElementById('root')
 )
