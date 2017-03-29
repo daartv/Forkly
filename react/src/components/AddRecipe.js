@@ -19,8 +19,8 @@ class AddRecipe extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      name: 'poop',
-      directions: 'eat poop',
+      name: '',
+      directions: '',
       ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}],
       creator: ''
     }
