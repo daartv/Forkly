@@ -1,9 +1,9 @@
-const React = require('react')
-const mui = require('material-ui')
+import React from 'react'
+import {IconButton, Toggle, TextField, RaisedButton} from 'material-ui'
+
 const ModeEdit = require('material-ui/svg-icons/editor/mode-edit').default
 const Check = require('material-ui/svg-icons/navigation/check').default
-const times = require('lodash.times')
-const {IconButton, Toggle, TextField, RaisedButton} = mui
+const times = require('lodash').times 
 
 module.exports = React.createClass({
   getDefaultProps: () => {
@@ -229,7 +229,7 @@ module.exports = React.createClass({
 
         const value = defaults[columnTypes[index]]
 
-        return {value: value}
+        return {value: value }
       })
 
       const updatedRows = rows.map((row) => {
@@ -241,6 +241,9 @@ module.exports = React.createClass({
       })
       updatedRows.push({columns: newColumns, selected: true})
       self.setState({rows: updatedRows})
+    }
+    const onDeleteRow = (e) => {
+      this.state.rows.pop()
     }
     const twoButtons =  <div style={buttonContainer}>
         <RaisedButton

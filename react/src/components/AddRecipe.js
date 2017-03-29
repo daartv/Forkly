@@ -80,13 +80,10 @@ class AddRecipe extends React.Component {
 
   handleIngredientsChange (ingredientInd, updatedIngredient) {
 
-    console.log('hello')
-
-
     if(this.state.ingredients[ingredientInd] === undefined){
       let newIngredients = {
         quantity: updatedIngredient.quantity, 
-        units: updatedIngredient.unit, 
+        units: updatedIngredient.units, 
         ingredient: updatedIngredient.ingredient
       }
       console.log('NEW INGREDIENTS', newIngredients);
@@ -94,41 +91,18 @@ class AddRecipe extends React.Component {
         state.ingredients = state.ingredients.concat([newIngredients]);
         return state;
      })
-    } else {
+    } 
+      else {
     let revisedIngredients = this.state.ingredients;
     Object.keys(updatedIngredient).forEach(ingKey => {
       revisedIngredients[ingKey] = updatedIngredient[ingKey];
     })
 
     this.setState({ingredients: revisedIngredients}, function(){
-      
-
-    // this.setState({
-    //   ingredients: ing
-    // })
-    if(this.state.ingredients[ingredientInd] === undefined){
-      let newIngredients = {
-        quantity: updatedIngredient.quantity, 
-        units: updatedIngredient.unit, 
-        ingredient: updatedIngredient.ingredient
-      }
-      console.log('NEW INGREDIENTS', newIngredients);
-      this.setState( (state) => {
-        state.ingredients = state.ingredients.concat([newIngredients]);
-        return state;
-     })
-    } else {
-    let revisedIngredients = this.state.ingredients;
-    Object.keys(updatedIngredient).forEach(ingKey => {
-      revisedIngredients[ingKey] = updatedIngredient[ingKey];
-    })
-
-    this.setState({ingredients: revisedIngredients}, function(){
-      
-    })
-    }
     console.log(this.state.ingredients);
+    })
   }
+}
 
   handleInputChange (field, value) {
     console.log(field, value)
@@ -162,7 +136,7 @@ class AddRecipe extends React.Component {
                 <td>Ingredient</td>
               </tr>
             </thead>
-            <AddIngredientsTable recipeName={this.state.name} directions={this.state.directions} ingredients={this.state.ingredients} edit={true} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
+            <AddIngredientsTable recipeName={this.state.name} directions={this.state.directions} ingredients={this.state.ingredients} forking={true} edit={true} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
           </table>
           <br />
 

@@ -70,19 +70,6 @@ const buttonStyle = {
   marginTop: 10
 }
 
-const containerStyle = {
-  display: 'flex',
-  flexFlow: 'column nowrap',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  fontFamily: 'Roboto, sans-serif'
-}
-
-const buttonStyle = {
-  display: 'flex',
-  flexFlow: 'row nowrap',
-  marginTop: 10
-}
 
 
 
@@ -95,31 +82,22 @@ constructor(props) {
 
   onChange(row) {
     const ingredientInd = row.id
-    let updatedIngredient = row.columns.reduce((accum, column) => {
-      accum[column.ref] = column.value;
-      return accum;
-    },{})
+    console.log('row columns', row.columns);
+    let updatedIngredient = {
+      quantity: row.columns[0].value,
+      units: row.columns[1].value,
+      ingredient: row.columns[2].value
+    }
+    // let updatedIngredient = row.columns.reduce((accum, column) => {
+
+    //   accum[column.ref] = column.value;
+    //   return accum;
+    // },{})
 
     console.log(row.id, updatedIngredient);
     this.props.handleChange(ingredientInd, updatedIngredient);
   }
 
-  handleChange(event){
-  let value = event.target.value
-  let field = event.target.ref
-   this.props.handleInputChange(field, value);
-  };
-
-  render() {
-    let { recipeName, ingredients, directions, forking } = this.props
-    recipeName = recipeName || ''
-    directions = directions || ''
-
-    let rows = ingredients.map((ingredient, ind) => {
-
-    console.log(ingredientInd, updatedIngredient)
-    this.props.handleChange(ingredientInd, updatedIngredient);
-  }
 
   handleChange(event){
   let value = event.target.value
@@ -159,7 +137,6 @@ constructor(props) {
       </div>
 
       <div>
-
         <EditTable forking={this.props.forking}
         onChange={this.onChange}
         rows={rows}
