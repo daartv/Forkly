@@ -1,6 +1,6 @@
 import React from 'react'
 import AddRecipeIngredients from './AddRecipeIngredients'
-import IngredientsTable from './IngredientsTable'
+import AddIngredientsTable from './IngredientsTable'
 import $ from 'jquery'
 
     const styleProps = {
@@ -19,9 +19,10 @@ class AddRecipe extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      name: '',
-      directions: '',
-      ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}]
+      name: 'poop',
+      directions: 'eat poop',
+      ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}],
+      creator: ''
     }
     this.addRow = this.addRow.bind(this)
     this.handleIngredientsChange = this.handleIngredientsChange.bind(this)
@@ -78,6 +79,7 @@ class AddRecipe extends React.Component {
   }
 
   handleIngredientsChange (ingredientInd, updatedIngredient) {
+    console.log('hello')
     // const target = event.target
     // const name = target.name
     // const value = target.value
@@ -88,23 +90,34 @@ class AddRecipe extends React.Component {
     // this.setState({
     //   ingredients: ing
     // })
+    if(this.state.ingredients[ingredientInd] === undefined){
+      let newIngredients = {
+        quantity: updatedIngredient.quantity, 
+        units: updatedIngredient.unit, 
+        ingredient: updatedIngredient.ingredient
+      }
+      console.log('NEW INGREDIENTS', newIngredients);
+      this.setState( (state) => {
+        state.ingredients = state.ingredients.concat([newIngredients]);
+        return state;
+     })
+    } else {
     let revisedIngredients = this.state.ingredients;
     Object.keys(updatedIngredient).forEach(ingKey => {
       revisedIngredients[ingKey] = updatedIngredient[ingKey];
     })
 
     this.setState({ingredients: revisedIngredients}, function(){
-      console.log(this.state.ingredients);
+      
     })
+    }
+    console.log(this.state.ingredients);
   }
 
-  handleInputChange (event) {
-    const target = event.target
-    const name = target.name
-    const value = target.value
-
+  handleInputChange (field, value) {
+    console.log(field, value)
     this.setState({
-      [name]: value
+      field: value
     })
   }
 
@@ -133,7 +146,7 @@ class AddRecipe extends React.Component {
                 <td>Ingredient</td>
               </tr>
             </thead>
-            <IngredientsTable directions={this.state.directions} ingredients={this.state.ingredients} edit={true} handleChange={this.handleIngredientsChange} styleProps={styleProps} />
+            <AddIngredientsTable recipeName={this.state.name} directions={this.state.directions} ingredients={this.state.ingredients} edit={true} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
           </table>
           <br />
 
