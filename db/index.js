@@ -46,6 +46,7 @@ var selectAllRecipes = function(callback) {
   });
 };
 
+/** ORIGINAL **
 // User schema
 var userSchema = mongoose.Schema({
   // username: {type: String, unique: true},
@@ -57,6 +58,26 @@ var userSchema = mongoose.Schema({
   provider: String,
   facebook: Object,
   recipes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Recipe'
+  }]
+});
+** ORIGINAL **/
+
+var userSchema = mongoose.Schema({
+  // username: {type: String, unique: true},
+  // hash: String,
+  // salt: String,
+  // username: String,
+  // _id: String,
+  name: String,
+  provider: String,
+  facebook: Object,
+  recipes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Recipe'
+  }],
+  originalRecipes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Recipe'
   }]

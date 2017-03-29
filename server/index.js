@@ -32,6 +32,9 @@ app.post('/searchRecipes', handler.searchRecipes);
 // for AddRecipe Component - from handleSubmit function
 app.post('/api/addRecipe', handler.addRecipe);
 
+// for new Feature
+app.post('api/addForkedRecipe', handler.addForkedRecipe);
+
 // for Nav Component - from getUsername function
 app.get('/username', handler.getUsername);
 

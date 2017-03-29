@@ -74,7 +74,7 @@ exports.getUserRecipes = function(req, res) {
   }
 }
 
-/** ORIGINAL **
+/** ORIGINAL **/
 exports.addRecipe = function(req, res) {
   if (req.user) {
     req.body._creator = req.user._id;
@@ -93,26 +93,40 @@ exports.addRecipe = function(req, res) {
     res.end();
   }
 };
-** ORIGINAL **/
-
-exports.addRecipe = function(req, res) {
+/** ORIGINAL **/
+/*
+  I: req.body.original, req.body.recipe
+  O: recipeId of the recipe (ask steve whats the expected output)
+*/
+exports.addForkedRecipe = function(req, res) {
   if (req.user) {
-    req.body._creator = req.user._id;
+    // uncomment if the front-end can send back the object with the creator value
+    // req.body.original._creator = req.body.original._creator || req.user._id;
+    // req.body.recipe._creator = req.body.recipe._creator || req.user._id;
 
-    // create recipe in database
-    let recipeId;
-    db.Recipe.create(req.body).then((recipe) => {
-      // push recipe into user's recipes array
-      recipeId = recipe.id;
-      db.User.findByIdAndUpdate(req.user._id, {$push: {recipes: recipe.id}})
-      .then(() => {
-        res.json(recipeId);
+    db.Recipe.create(req.body.original)
+      .then( origRecipe => {        
+        console.log('exports.addRecipe original recipe created origRecipe:', origRecipe);
+        return db.Recipe.create(req.body.recipe)
+          .then( updatedRecipe => {
+            console.log('exports.addRecipe successfully created updatedRecipe:', updatedRecipe);
+            return db.User.findByIdAndUpdate(req.user._id, {$push: {recipes: updatedRecipe._id, originalRecipes: origRecipe._id}})
+              .then((user) => {
+                // res.json(recipeId);
+                res.send(200);
+              });
+          });
       })
-    });
+      .catch(err => {
+        console.log('exports.addRecipe origRecipe err:', err);
+        res.send(500);
+      });
   } else {
-    res.end();
+    res.send(500);
   }
 };
+
+
 
 
 exports.getRecipeById = function(req, res) {
