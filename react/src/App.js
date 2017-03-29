@@ -1,5 +1,7 @@
 import React from 'react'
 import $ from 'jquery'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Home from './components/Home'
 import AddRecipe from './components/AddRecipe'
 import Login from './components/Login'
