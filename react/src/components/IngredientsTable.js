@@ -10,6 +10,9 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import RaisedButton from 'material-ui/RaisedButton'
 import {orange500, blue500} from 'material-ui/styles/colors'
+import FlatButton from 'material-ui/FlatButton'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ContentAdd from 'material-ui/svg-icons/content/add'
 
 
 const styles = {
@@ -53,6 +56,31 @@ const styles = {
     fontWeight: '200', 
     color: '#000', 
     textAlign: 'center'
+  },
+  fabButton:  {
+    marginRight: 20,
+    cursor: 'pointer'
+  },
+  uploadButton: {
+    verticalAlign: 'middle',
+  },
+  uploadInput: {
+    cursor: 'pointer',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    width: '100%',
+    opacity: 0,
+  },
+  aligner : {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '20px',
+    display: '-ms-flexbox',
+    display: '-webkit-flex'
   }
 }
 
@@ -101,12 +129,13 @@ constructor(props) {
 
   handleChange(event){
   let value = event.target.value
-  let field = event.target.ref
+  let field = event.target.name
+  console.log(event.target.name);
    this.props.handleInputChange(field, value);
   };
 
   render() {
-    let { recipeName, ingredients, directions, forking } = this.props
+    let { recipeName, ingredients, directions, forking } = this.props.stats
     recipeName = recipeName || ''
     directions = directions || ''
 
@@ -127,17 +156,29 @@ constructor(props) {
       ]
     return (
       <div>
-      <div style={{margin: '0 auto'}}>
-
-      <TextField ref="name" defaultValue={recipeName} onChange={this.handleChange} style={{width: 200}}
+      <div style={styles.aligner}>
+      <div style={{ display: 'inlineBlock', marginRight: '20%'}}> 
+      <TextField multiLine="true" name="name" defaultValue={recipeName} onChange={this.handleChange} style={{width: 200, marginBottom: '5px'}}
         floatingLabelText="Recipe Name"
         floatingLabelStyle={styles.floatingLabelStyle}
         floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
        />
+       </div>
+    <div style={{display: 'inlineBlock', marginLeft: '20%'}}>
+    <FlatButton
+      label="+ Choose an Image"
+      labelPosition="before"
+      style={styles.uploadButton}
+      containerElement="label"
+    >
+      <input type="file" style={styles.uploadInput} />
+    </FlatButton>
+    
+    </div>
       </div>
 
       <div>
-        <EditTable forking={this.props.forking}
+        <EditTable forking={forking}
         onChange={this.onChange}
         rows={rows}
         headerColumns={headers}
@@ -145,7 +186,7 @@ constructor(props) {
       </div>
       <div style={{margin: '0 auto'}}>
 
-      <TextField ref="directions" defaultValue={directions} style={{width: 500, height: 200, border: '1px'}}
+      <TextField multiLine="true" name="directions" defaultValue={directions} style={{width: 500, border: '1px'}} onChange={this.handleChange}
       floatingLabelText="Directions"
       floatingLabelStyle={styles.floatingLabelStyle}
       floatingLabelFocusStyle={styles.floatingLabelFocusStyle}

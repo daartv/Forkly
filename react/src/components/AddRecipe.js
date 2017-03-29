@@ -22,7 +22,8 @@ class AddRecipe extends React.Component {
       name: '',
       directions: '',
       ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}],
-      creator: ''
+      creator: '',
+      forking: true
     }
     this.addRow = this.addRow.bind(this)
     this.handleIngredientsChange = this.handleIngredientsChange.bind(this)
@@ -128,16 +129,9 @@ class AddRecipe extends React.Component {
           <br />
 
           <h3 className='title'>Ingredients:</h3>
-          <table className='ingredients'>
-            <thead>
-              <tr>
-                <td>Quantity</td>
-                <td>Units</td>
-                <td>Ingredient</td>
-              </tr>
-            </thead>
-            <AddIngredientsTable recipeName={this.state.name} directions={this.state.directions} ingredients={this.state.ingredients} forking={true} edit={true} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
-          </table>
+
+            <AddIngredientsTable recipeName={this.state.name} stats={this.state} edit={true} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
+         
           <br />
 
           <h3 className='title'> Directions: </h3>
@@ -165,6 +159,16 @@ AddRecipe.contextTypes = {
 
 export default AddRecipe
 
-/*            {this.state.ingredients.map(function (val, index) {
+/*              <table className='ingredients'>
+            <thead>
+              <tr>
+                <td>Quantity</td>
+                <td>Units</td>
+                <td>Ingredient</td>
+              </tr>
+            </thead>
+             </table>     
+
+   {this.state.ingredients.map(function (val, index) {
               return <AddRecipeIngredients key={index} index={index} quantity={val.quantity} units={val.units} ingredient={val.ingredient} showButton={val.showButton} addRow={this.addRow} handleIngredientsChange={this.handleIngredientsChange} />
             }, this)}*/
