@@ -1,6 +1,19 @@
 import React from 'react'
 import AddRecipeIngredients from './AddRecipeIngredients'
+import IngredientsTable from './IngredientsTable'
 import $ from 'jquery'
+
+    const styleProps = {
+      fixedHeader: true,
+      fixedFooter: true,
+      stripedRows: false,
+      showRowHover: true,
+      selectable: false,
+      multiSelectable: false,
+      enableSelectAll: false,
+      deselectOnClickaway: true,
+      showCheckboxes: false
+    }
 
 class AddRecipe extends React.Component {
   constructor (props) {
@@ -8,12 +21,13 @@ class AddRecipe extends React.Component {
     this.state = {
       name: '',
       directions: '',
-      ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar', showButton: true}]
+      ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}]
     }
     this.addRow = this.addRow.bind(this)
     this.handleIngredientsChange = this.handleIngredientsChange.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+
   }
 
   componentDidMount () {
@@ -59,20 +73,28 @@ class AddRecipe extends React.Component {
   addRow () {
     let myIngredients = this.state.ingredients
     myIngredients[myIngredients.length - 1].showButton = false
-    myIngredients.push({quantity: 0, units: '', ingredient: '', showButton: true})
+    myIngredients.push({quantity: 0, units: '', ingredient: ''})
     this.setState({ingredients: myIngredients})
   }
 
-  handleIngredientsChange (event, index) {
-    const target = event.target
-    const name = target.name
-    const value = target.value
+  handleIngredientsChange (ingredientInd, updatedIngredient) {
+    // const target = event.target
+    // const name = target.name
+    // const value = target.value
 
-    let ing = this.state.ingredients
-    ing[index][name] = value
+    // let ing = this.state.ingredients
+    // ing[index][name] = value
 
-    this.setState({
-      ingredients: ing
+    // this.setState({
+    //   ingredients: ing
+    // })
+    let revisedIngredients = this.state.ingredients;
+    Object.keys(updatedIngredient).forEach(ingKey => {
+      revisedIngredients[ingKey] = updatedIngredient[ingKey];
+    })
+
+    this.setState({ingredients: revisedIngredients}, function(){
+      console.log(this.state.ingredients);
     })
   }
 
@@ -111,9 +133,7 @@ class AddRecipe extends React.Component {
                 <td>Ingredient</td>
               </tr>
             </thead>
-            {this.state.ingredients.map(function (val, index) {
-              return <AddRecipeIngredients key={index} index={index} quantity={val.quantity} units={val.units} ingredient={val.ingredient} showButton={val.showButton} addRow={this.addRow} handleIngredientsChange={this.handleIngredientsChange} />
-            }, this)}
+            <IngredientsTable directions={this.state.directions} ingredients={this.state.ingredients} edit={true} handleChange={this.handleIngredientsChange} styleProps={styleProps} />
           </table>
           <br />
 
@@ -141,3 +161,7 @@ AddRecipe.contextTypes = {
 }
 
 export default AddRecipe
+
+/*            {this.state.ingredients.map(function (val, index) {
+              return <AddRecipeIngredients key={index} index={index} quantity={val.quantity} units={val.units} ingredient={val.ingredient} showButton={val.showButton} addRow={this.addRow} handleIngredientsChange={this.handleIngredientsChange} />
+            }, this)}*/

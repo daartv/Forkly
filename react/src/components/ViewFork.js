@@ -2,6 +2,7 @@ import React from 'react'
 import $ from 'jquery'
 import RecipeIngredients from './RecipeIngredients'
 
+
 class ViewFork extends React.Component {
   constructor (props) {
     super(props)
