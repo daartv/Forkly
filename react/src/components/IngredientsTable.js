@@ -16,11 +16,22 @@ import ContentAdd from 'material-ui/svg-icons/content/add'
 
 
 const styles = {
+  containerStyle : {
+  display: 'flex',
+  flexFlow: 'column nowrap',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  fontFamily: 'Roboto, sans-serif'
+},
   formContainer: {
     margin: '0 auto',
     display: 'block',
     padding: '10px'
   }, 
+  directionsBox: {
+    width: 500, 
+    border: '1px'
+  },
   ingredientsGrid: {
     margin: '10px 0px'
   },
@@ -80,7 +91,7 @@ const styles = {
     right: 0,
     left: 0,
     width: '100%',
-    opacity: 0,
+    opacity: 0
   },
   aligner : {
     display: 'flex',
@@ -99,32 +110,24 @@ const styles = {
     padding: '2px',
     margin: '10px'
   },
-  recipeName: {
+  recipeNameBox: {
     display: 'inlineBlock',
     marginRight: 'auto'
   },
   imageLocal: {
     display: 'inlineBlock',
      marginLeft: 'auto'
-  }
-}
-
-const containerStyle = {
-  display: 'flex',
-  flexFlow: 'column nowrap',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  fontFamily: 'Roboto, sans-serif'
-}
-
-const buttonStyle = {
+  },
+  recipeName: {
+    width: 200, 
+    marginBottom: '5px'
+  },
+  buttonStyle: {
   display: 'flex',
   flexFlow: 'row nowrap',
   marginTop: 10
+  }
 }
-
-
-
 
 class AddIngredientsTable extends Component {
 constructor(props) {
@@ -141,13 +144,7 @@ constructor(props) {
       units: row.columns[1].value,
       ingredient: row.columns[2].value
     }
-    // let updatedIngredient = row.columns.reduce((accum, column) => {
 
-    //   accum[column.ref] = column.value;
-    //   return accum;
-    // },{})
-
-    console.log(row.id, updatedIngredient);
     this.props.handleChange(ingredientInd, updatedIngredient);
   }
 
@@ -160,9 +157,14 @@ constructor(props) {
   };
 
   render() {
-    let { recipeName, ingredients, directions, forking } = this.props.stats
+    let { recipeName, ingredients, recipeDirections, forking } = this.props.stats
+
+    const isDisabled = this.props.edit
+    const fieldType = isDisabled ? 'TextField' : 'ReadOnly'
+
     recipeName = recipeName || ''
-    directions = directions || ''
+    recipeDirections = recipeDirections || ''
+
 
     let rows = ingredients.map((ingredient, ind) => {
       let col = {columns: [], index: ind}
@@ -172,8 +174,6 @@ constructor(props) {
       return col;
     })
 
-      const fieldType = this.props.edit === true ? 'TextField' : 'ReadOnly'
-
       const headers = [
         {value: 'Units', type: fieldType, width: 200},
         {value: 'Amount', type: fieldType, width: 200},
@@ -182,11 +182,11 @@ constructor(props) {
     return (
       <div style={styles.formContainer}>
       <div style={styles.headerContainer}>
-       <h2 style={styles.headerH2}>Recipe</h2>
+       <h2 style={styles.headerH2}>Recipe:</h2>
       </div>
       <div style={styles.aligner}>
-      <div style={styles.recipeName}> 
-      <TextField multiLine="true" name="name" defaultValue={recipeName} onChange={this.handleChange} style={{width: 200, marginBottom: '5px'}}
+      <div style={styles.recipeNameBox}> 
+      <TextField multiLine="true" disabled={{isDisabled}} name="recipeName" defaultValue={recipeName} onChange={this.handleChange} style={styles.recipeName}
         floatingLabelText="Recipe Name"
         floatingLabelStyle={styles.floatingLabelStyle}
         floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
@@ -217,8 +217,8 @@ constructor(props) {
       />
       </div>
       <div style={{margin: '0 auto'}}>
-
-      <TextField multiLine="true" name="directions" defaultValue={directions} style={{width: 500, border: '1px'}} onChange={this.handleChange}
+      <h2 style={styles.headerH2}>Directions:</h2>
+      <TextField multiLine="true" name="recipeDirections" defaultValue={recipeDirections} disabled={{isDisabled}} style={styles.directionsBox} onChange={this.handleChange}
       floatingLabelText="Directions"
       floatingLabelStyle={styles.floatingLabelStyle}
       floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
