@@ -1,6 +1,7 @@
 import React from 'react'
 import AddRecipeIngredients from './AddRecipeIngredients'
 import AddIngredientsTable from './IngredientsTable'
+
 import $ from 'jquery'
 
     const styleProps = {
@@ -19,8 +20,8 @@ class AddRecipe extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      name: 'poop',
-      directions: 'eat poop',
+      name: '',
+      directions: '',
       ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}],
       creator: ''
     }
@@ -79,17 +80,10 @@ class AddRecipe extends React.Component {
   }
 
   handleIngredientsChange (ingredientInd, updatedIngredient) {
+
     console.log('hello')
-    // const target = event.target
-    // const name = target.name
-    // const value = target.value
 
-    // let ing = this.state.ingredients
-    // ing[index][name] = value
 
-    // this.setState({
-    //   ingredients: ing
-    // })
     if(this.state.ingredients[ingredientInd] === undefined){
       let newIngredients = {
         quantity: updatedIngredient.quantity, 
@@ -109,6 +103,17 @@ class AddRecipe extends React.Component {
 
     this.setState({ingredients: revisedIngredients}, function(){
       
+
+    // this.setState({
+    //   ingredients: ing
+    // })
+    let revisedIngredients = this.state.ingredients;
+    Object.keys(updatedIngredient).forEach(ingKey => {
+      revisedIngredients[ingKey] = updatedIngredient[ingKey];
+    })
+
+    this.setState({ingredients: revisedIngredients}, function(){
+      console.log(this.state.ingredients);
     })
     }
     console.log(this.state.ingredients);
@@ -146,6 +151,7 @@ class AddRecipe extends React.Component {
                 <td>Ingredient</td>
               </tr>
             </thead>
+
             <AddIngredientsTable recipeName={this.state.name} directions={this.state.directions} ingredients={this.state.ingredients} edit={true} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
           </table>
           <br />
