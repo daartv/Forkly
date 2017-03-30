@@ -28,7 +28,7 @@ class AddRecipe extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      forkedRecipe: this.props.mainRecipe || testData,
+      currentRecipe: this.props.mainRecipe || testData,
       // recipeName: 'Sugar Recipe',
       // recipeDirections: '',
       // ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}, {quantity: 1, units: 'spoonful', ingredient: 'sugar'}],
@@ -43,7 +43,7 @@ class AddRecipe extends Component {
     // this.handleSubmit = this.handleSubmit.bind(this)
     this.handleRecipeSave = this.handleRecipeSave.bind(this)
 
-    this.handleSubmit = this.handleSubmit.bind(this)
+    // this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount () {
@@ -119,17 +119,19 @@ class AddRecipe extends Component {
       ingredient: updatedIngredient.ingredient
     }
 
-    if ([ingredientInd] === undefined) {
-      this.setState((state) => {
-        state.forkedRecipe.ingredients = state.forkedRecipe.ingredients.concat([newIngredients])
-        return state
-      })
-    } else {
-      let forkCopy = this.state.forkedRecipe
-      forkCopy.ingredients[ingredientInd] = newIngredients
-      this.setState({forkedRecipe: forkCopy}, function () {
-        console.log(this.state.forkedRecipe)
-      })
+
+    if(this.state.currentRecipe.ingredients[ingredientInd] === undefined){
+      this.setState( (state) => {
+        state.currentRecipe.ingredients = state.currentRecipe.ingredients.concat([newIngredients]);
+        return state;
+     })
+    } 
+    else {
+      let forkCopy = this.state.currentRecipe;
+      forkCopy.ingredients[ingredientInd] = newIngredients;
+      this.setState({currentRecipe: forkCopy}, function(){
+        console.log(this.state.currentRecipe);
+      })    
     }
   }
 
@@ -154,12 +156,14 @@ class AddRecipe extends Component {
     return (
 
       <div className='createRecipe'>
-        <h1>{recipeHeader}</h1>
-        <form onSubmit={this.handleSubmit}>
 
-          <AddIngredientsTable handleRecipeSave={this.handleRecipeSave} stats={this.state.forkedRecipe} isDisabled={!this.state.edit} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
+          <h1>{recipeHeader}</h1>
+        <form>
 
-          <div />
+            <IngredientsTable handleRecipeSave={this.handleRecipeSave} stats={this.state.currentRecipe} isDisabled={!this.state.edit} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
+         
+          <div>
+          </div>
         </form>
       </div>
     )
@@ -178,4 +182,5 @@ export default AddRecipe
         <br />
         <img className='recipeImage' src='assets/images/sushi.jpg' alt='sushi' />
         <br />
-        <form onSubmit={this.handleSubmit}> */
+        <form onSubmit={this.handleSubmit}>*/
+
