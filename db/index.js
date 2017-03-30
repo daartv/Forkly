@@ -11,13 +11,25 @@ db.once('open', function() {
   console.log('mongoose connected successfully');
 });
 
-
+/** ORIGINAL **
 var recipeSchema = mongoose.Schema({
   // dropDups will drop duplicates. will need to restart mongo router for these to kick in
   name: {type: String, unique: true, dropDups: true, required: true},
   ingredients: Array,
   directions: String,
   _creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+});
+*/
+var recipeSchema = mongoose.Schema({
+  // dropDups will drop duplicates. will need to restart mongo router for these to kick in
+  name: {type: String, required: true},
+  ingredients: Array,
+  directions: String,
+  _creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  forks: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Recipe'
+  }]
 });
 
 var Recipe = mongoose.model('Recipe', recipeSchema);
@@ -28,12 +40,13 @@ var selectAllRecipes = function(callback) {
   Recipe.find({}, function(err, items) {
     if(err) {
       callback(err, null);
-    } else {
+    } else { 
       callback(null, items);
     }
   });
 };
 
+/** ORIGINAL **
 // User schema
 var userSchema = mongoose.Schema({
   // username: {type: String, unique: true},
@@ -45,6 +58,26 @@ var userSchema = mongoose.Schema({
   provider: String,
   facebook: Object,
   recipes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Recipe'
+  }]
+});
+** ORIGINAL **/
+
+var userSchema = mongoose.Schema({
+  // username: {type: String, unique: true},
+  // hash: String,
+  // salt: String,
+  // username: String,
+  // _id: String,
+  name: String,
+  provider: String,
+  facebook: Object,
+  recipes: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Recipe'
+  }],
+  originalRecipes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Recipe'
   }]

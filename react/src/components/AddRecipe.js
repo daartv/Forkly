@@ -1,21 +1,23 @@
-import React from 'react'
+import React, { Component } from 'react'
 import AddRecipeIngredients from './AddRecipeIngredients'
-import AddIngredientsTable from './IngredientsTable'
+import IngredientsTable from './IngredientsTable'
 import $ from 'jquery'
 import axios from 'Axios'
 
 
-    const styleProps = {
-      fixedHeader: true,
-      fixedFooter: true,
-      stripedRows: false,
-      showRowHover: true,
-      selectable: false,
-      multiSelectable: false,
-      enableSelectAll: false,
-      deselectOnClickaway: true,
-      showCheckboxes: false
-    }
+
+
+const styleProps = {
+  fixedHeader: true,
+  fixedFooter: true,
+  stripedRows: false,
+  showRowHover: true,
+  selectable: false,
+  multiSelectable: false,
+  enableSelectAll: false,
+  deselectOnClickaway: true,
+  showCheckboxes: false
+}
 
 const testData = {
     recipeName: '',
@@ -24,7 +26,8 @@ const testData = {
       creator: '',
       originalRecipe: ''
     };
-class AddRecipe extends React.Component {
+
+class AddRecipe extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -42,6 +45,9 @@ class AddRecipe extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this)
     // this.handleSubmit = this.handleSubmit.bind(this)
     this.handleRecipeSave = this.handleRecipeSave.bind(this)
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+
   }
 
   componentDidMount () {
@@ -108,6 +114,9 @@ class AddRecipe extends React.Component {
   // }
 
   handleIngredientsChange (ingredientInd, updatedIngredient) {
+    // const target = event.target
+    // const name = target.name
+    // const value = target.value
 
     let newIngredients = {
       quantity: updatedIngredient.quantity, 
@@ -131,8 +140,14 @@ class AddRecipe extends React.Component {
 
   }
 
+    // let ing = this.state.ingredients
+    // ing[index][name] = value
 
-  handleInputChange (field, value) {
+    // this.setState({
+    //   ingredients: ing
+    // }
+
+   handleInputChange (field, value) {
     console.log(field, value)
     this.setState({
       field: value
@@ -172,35 +187,3 @@ export default AddRecipe
         <img className='recipeImage' src='assets/images/sushi.jpg' alt='sushi' />
         <br />
         <form onSubmit={this.handleSubmit}>
-
-            <AddIngredientsTable stats={this.state} edit={forking} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
-         
-          <br />
-
-          <h3 className='title'> Directions: </h3>
-          <textarea name='directions' value={this.state.directions} onChange={this.handleInputChange} />
-
-          <br />
-
-          <div>
-            <input type='submit' name='addRecipeSave' value='Save' />
-            <input type='button' name='addRecipeCancel' value='Cancel' />
-          </div>
-        </form>
-        <br />
-        <br />
-        <br />
-        <br />
-      </div><table className='ingredients'>
-            <thead>
-              <tr>
-                <td>Quantity</td>
-                <td>Units</td>
-                <td>Ingredient</td>
-              </tr>
-            </thead>
-             </table>     
-
-   {this.state.ingredients.map(function (val, index) {
-              return <AddRecipeIngredients key={index} index={index} quantity={val.quantity} units={val.units} ingredient={val.ingredient} showButton={val.showButton} addRow={this.addRow} handleIngredientsChange={this.handleIngredientsChange} />
-            }, this)}*/

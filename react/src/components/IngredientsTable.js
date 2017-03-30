@@ -8,16 +8,13 @@ import EditTable from './editTableDev'
 import TextField from 'material-ui/TextField'
 import Toggle from 'material-ui/Toggle'
 import Dialog from 'material-ui/Dialog'
+
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import RaisedButton from 'material-ui/RaisedButton'
-import {orange500, blue500} from 'material-ui/styles/colors'
-import FlatButton from 'material-ui/FlatButton'
-import FloatingActionButton from 'material-ui/FloatingActionButton'
-import ContentAdd from 'material-ui/svg-icons/content/add'
-
+import {orange500, blue500} from 'material-ui/styles/colors';
 
 const styles = {
+
   containerStyle : {
   display: 'flex',
   flexFlow: 'column nowrap',
@@ -133,6 +130,7 @@ const styles = {
   }
 }
 
+
 class AddIngredientsTable extends Component {
 constructor(props) {
     super(props);
@@ -142,8 +140,8 @@ constructor(props) {
     this.onChange = this.onChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onRecipeSave = this.onRecipeSave.bind(this);
-  }
 
+  }
   onChange(row) {
     const ingredientInd = row.id
 
@@ -179,8 +177,7 @@ constructor(props) {
     recipeName = recipeName || ''
     recipeDirections = recipeDirections || ''
 
-
-    let rows = ingredients.map((ingredient, ind) => {
+    let rows = this.props.ingredients.map((ingredient, ind) => {
       let col = {columns: [], index: ind}
       Object.keys(ingredient).forEach(key => {
         col.columns.push({value: ingredient[key], ref: key})
@@ -193,7 +190,9 @@ constructor(props) {
         {value: 'Amount', type: fieldType, width: 200},
         {value: 'Ingredient', type: fieldType, width: 200} 
       ]
+
     return (
+
       <div style={styles.formContainer}>
         <div style={{backgroundImage: `url('${recipeImage}')`, backgroundSize: 'cover', width: '100%', height: '30vh'}}>
         e
@@ -249,7 +248,47 @@ constructor(props) {
   }
 }
 
-
-
 export default AddIngredientsTable
 
+/*<Table  
+          height={this.props.styleProps.height}
+          fixedHeader={this.props.styleProps.fixedHeader}
+          fixedFooter={this.props.styleProps.fixedFooter}
+          selectable={this.props.styleProps.selectable}
+          multiSelectable={this.props.styleProps.multiSelectable}
+        >
+          <TableHeader
+            displaySelectAll={this.props.styleProps.showCheckboxes}
+            adjustForCheckbox={this.props.styleProps.showCheckboxes}
+            enableSelectAll={this.props.styleProps.enableSelectAll}
+          >
+            <TableRow>
+              <TableHeaderColumn colSpan="4" style={styles.ingredientsHeader}>
+                Ingredients
+              </TableHeaderColumn>
+            </TableRow>
+            <TableRow style={styles.ingredientsRow}>
+              <TableHeaderColumn tooltip="Quantity">Quantity</TableHeaderColumn>
+              <TableHeaderColumn tooltip="Units">Units</TableHeaderColumn>
+              <TableHeaderColumn tooltip="Ingredient">Ingredient</TableHeaderColumn>
+              <TableHeaderColumn tooltip="Remove Ingredient">Remove Ingredient</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody
+            displayRowCheckbox={this.props.styleProps.showCheckboxes}
+            deselectOnClickaway={this.props.styleProps.deselectOnClickaway}
+            showRowHover={this.props.styleProps.showRowHover}
+            stripedRows={this.props.styleProps.stripedRows}
+          >
+            {ingredients.map( (ingredient, index) => (
+              <TableRow key={index}>
+                <TableRowColumn readonly="false">{ingredient.quantity}</TableRowColumn>
+                <TableRowColumn readonly="false">{ingredient.units}</TableRowColumn>
+                <TableRowColumn readonly="false">{ingredient.ingredient}</TableRowColumn>
+                <TableRowColumn readonly="true"></TableRowColumn>
+              </TableRow>
+              ))}
+          </TableBody>
+          <TableFooter>
+          </TableFooter>
+        </Table>*/
