@@ -186,4 +186,4 @@ export default AddRecipe
         <br />
         <img className='recipeImage' src='assets/images/sushi.jpg' alt='sushi' />
         <br />
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>*/
