@@ -26,7 +26,9 @@ const styles = {
   formContainer: {
     margin: '0 auto',
     display: 'block',
-    padding: '10px'
+    padding: '10px',
+    margin: '5% 0 10%',
+    clear: 'both'
   }, 
   directionsBox: {
     width: 500, 
@@ -134,6 +136,8 @@ constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.onRecipeSave = this.onRecipeSave.bind(this);
+
   }
 
   onChange(row) {
@@ -148,19 +152,22 @@ constructor(props) {
     this.props.handleChange(ingredientInd, updatedIngredient);
   }
 
+  onRecipeSave(event) {
+    event.preventDefault();
+    this.props.handleRecipeSave();
+  }
 
   handleChange(event){
-  let value = event.target.value
-  let field = event.target.name
-  console.log(event.target.name);
-   this.props.handleInputChange(field, value);
+    let value = event.target.value
+    let field = event.target.name
+    this.props.handleInputChange(field, value);
   };
 
   render() {
     let { recipeName, ingredients, recipeDirections, forking } = this.props.stats
 
-    const isDisabled = this.props.edit
-    const fieldType = isDisabled ? 'TextField' : 'ReadOnly'
+    const isDisabled = this.props.isDisabled
+    const fieldType = isDisabled ? 'ReadOnly' : 'TextField'
 
     recipeName = recipeName || ''
     recipeDirections = recipeDirections || ''
@@ -186,7 +193,7 @@ constructor(props) {
       </div>
       <div style={styles.aligner}>
       <div style={styles.recipeNameBox}> 
-      <TextField multiLine="true" disabled={{isDisabled}} name="recipeName" defaultValue={recipeName} onChange={this.handleChange} style={styles.recipeName}
+      <TextField multiLine="true" disabled={isDisabled} name="recipeName" defaultValue={recipeName} onChange={this.handleChange} style={styles.recipeName}
         floatingLabelText="Recipe Name"
         floatingLabelStyle={styles.floatingLabelStyle}
         floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
@@ -218,11 +225,14 @@ constructor(props) {
       </div>
       <div style={{margin: '0 auto'}}>
       <h2 style={styles.headerH2}>Directions:</h2>
-      <TextField multiLine="true" name="recipeDirections" defaultValue={recipeDirections} disabled={{isDisabled}} style={styles.directionsBox} onChange={this.handleChange}
+      <TextField multiLine="true" name="recipeDirections" defaultValue={recipeDirections} disabled={isDisabled} style={styles.directionsBox} onChange={this.handleChange}
       floatingLabelText="Directions"
       floatingLabelStyle={styles.floatingLabelStyle}
       floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
     />
+      </div>
+      <div>
+      <RaisedButton type="submit" onClick={this.onRecipeSave} label="Save Recipe" className="addRecipeSaveButton" primary={true} />
       </div>
       </div>
     );

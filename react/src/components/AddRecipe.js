@@ -4,6 +4,7 @@ import AddIngredientsTable from './IngredientsTable'
 import $ from 'jquery'
 import axios from 'Axios'
 
+
     const styleProps = {
       fixedHeader: true,
       fixedFooter: true,
@@ -24,13 +25,14 @@ class AddRecipe extends React.Component {
       recipeDirections: '',
       ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}, {quantity: 1, units: 'spoonful', ingredient: 'sugar'}],
       creator: '',
-      forking: false
+      forking: false,
+      edit: false
     }
     // this.addRow = this.addRow.bind(this)
     this.handleIngredientsChange = this.handleIngredientsChange.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-
+    // this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleRecipeSave = this.handleRecipeSave.bind(this)
   }
 
   componentDidMount () {
@@ -59,19 +61,16 @@ class AddRecipe extends React.Component {
     }
   }
 
-  handleSubmit (event) {
-    event.preventDefault();
-    // const { router } = this.context
+  handleRecipeSave() {
+    const { router } = this.context
 
-    // axios.post('/api/addRecipe', {
-    //   this.state
-    // })
-    // .then(function(recipeId){
-    //   router.history.push('/recipe/' + recipeId)
-    // })
-    // .catch(function(error){
-    //   console.log(error)
-    // });
+    axios.post('/api/addRecipe' , this.state)
+    .then(function(recipeId){
+      router.history.push('/recipe/' + recipeId)
+    })
+    .catch(function(error){
+      console.log(error)
+    });
 }
 //jQUERY METHOD FOR REFERENCE
   //     function()
@@ -132,6 +131,7 @@ class AddRecipe extends React.Component {
   render () {
     const  { forking, name } = this.state
     const recipeHeader = forking ? 'Fork the Recipe' : 'Add Your Recipe'
+
     return (
 
       <div className='createRecipe'>
@@ -141,13 +141,13 @@ class AddRecipe extends React.Component {
         <br />
         <form onSubmit={this.handleSubmit}>
 
-            <AddIngredientsTable stats={this.state} edit={forking} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
+            <AddIngredientsTable handleRecipeSave={this.handleRecipeSave} stats={this.state} isDisabled={this.state.edit} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
          
           <br />
 
           <div>
-            <input type='submit' name='addRecipeSave' value='Save' />
-            <input type='button' name='addRecipeCancel' value='Cancel' />
+            
+           
           </div>
         </form>
       </div>
