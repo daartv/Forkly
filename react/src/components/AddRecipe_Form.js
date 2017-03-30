@@ -1,4 +1,4 @@
-//AddRecipereturn 
+// AddRecipereturn
 import React, { Component } from 'react'
 import AddRecipeIngredients from './AddRecipeIngredients'
 import $ from 'jquery'
@@ -8,10 +8,8 @@ import TextField from 'material-ui/TextField'
 import FlatButton from 'material-ui/FlatButton'
 
 const style = {
-  marginLeft: 20,
-};
-
-
+  marginLeft: 20
+}
 
 class AddRecipeForm extends Component {
   constructor (props) {
@@ -28,7 +26,7 @@ class AddRecipeForm extends Component {
   }
 
   componentDidMount () {
-    //Lets review this
+    // Lets review this
     var forked = this.context.router.history.location.pathname
     let forkedId = forked.slice(forked.lastIndexOf('/') + 1)
     let boundThis = this
@@ -98,23 +96,22 @@ class AddRecipeForm extends Component {
     })
   }
 
-    render () {
-      return (
-        <div className='createRecipe'>
-      <Paper zDepth={2}>
-        <TextField hintText="Recipe Name" style={style} underlineShow={false} />
-        <Divider />
-        <TextField hintText="Ingredients" inputRef={ref => {this.Ingredients = ref; }} style={style} underlineShow={false} />
-        <Divider />
-        <TextField hintText="Last name" style={style} underlineShow={false} />
-        <Divider />
-        <TextField hintText="Email address" style={style} underlineShow={false} />
-        <Divider />
-      </Paper>
+  render () {
+    return (
+      <div className='createRecipe'>
+        <Paper zDepth={2}>
+          <TextField hintText='Recipe Name' style={style} underlineShow={false} />
+          <Divider />
+          <TextField hintText='Ingredients' inputRef={ref => { this.Ingredients = ref }} style={style} underlineShow={false} />
+          <Divider />
+          <TextField hintText='Last name' style={style} underlineShow={false} />
+          <Divider />
+          <TextField hintText='Email address' style={style} underlineShow={false} />
+          <Divider />
+        </Paper>
       </div>
-    );
+    )
   }
 }
-
 
 export default AddRecipeForm

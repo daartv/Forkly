@@ -1,20 +1,19 @@
 import React from 'react'
 import AddRecipeIngredients from './AddRecipeIngredients'
-import AddIngredientsTable from './IngredientsTable'
+import IngredientsTable from './IngredientsTable'
 import $ from 'jquery'
-import axios from 'Axios'
 
-    const styleProps = {
-      fixedHeader: true,
-      fixedFooter: true,
-      stripedRows: false,
-      showRowHover: true,
-      selectable: false,
-      multiSelectable: false,
-      enableSelectAll: false,
-      deselectOnClickaway: true,
-      showCheckboxes: false
-    }
+const styleProps = {
+  fixedHeader: true,
+  fixedFooter: true,
+  stripedRows: false,
+  showRowHover: true,
+  selectable: false,
+  multiSelectable: false,
+  enableSelectAll: false,
+  deselectOnClickaway: true,
+  showCheckboxes: false
+}
 
 class AddRecipe extends React.Component {
   constructor (props) {
@@ -22,15 +21,12 @@ class AddRecipe extends React.Component {
     this.state = {
       name: '',
       directions: '',
-      ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}],
-      creator: '',
-      forking: true
+      ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}]
     }
     this.addRow = this.addRow.bind(this)
     this.handleIngredientsChange = this.handleIngredientsChange.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-
   }
 
   componentDidMount () {
@@ -81,35 +77,33 @@ class AddRecipe extends React.Component {
   }
 
   handleIngredientsChange (ingredientInd, updatedIngredient) {
+    // const target = event.target
+    // const name = target.name
+    // const value = target.value
 
-    if(this.state.ingredients[ingredientInd] === undefined){
-      let newIngredients = {
-        quantity: updatedIngredient.quantity, 
-        units: updatedIngredient.units, 
-        ingredient: updatedIngredient.ingredient
-      }
-      console.log('NEW INGREDIENTS', newIngredients);
-      this.setState( (state) => {
-        state.ingredients = state.ingredients.concat([newIngredients]);
-        return state;
-     })
-    } 
-      else {
-    let revisedIngredients = this.state.ingredients;
+    // let ing = this.state.ingredients
+    // ing[index][name] = value
+
+    // this.setState({
+    //   ingredients: ing
+    // })
+    let revisedIngredients = this.state.ingredients
     Object.keys(updatedIngredient).forEach(ingKey => {
-      revisedIngredients[ingKey] = updatedIngredient[ingKey];
+      revisedIngredients[ingKey] = updatedIngredient[ingKey]
     })
 
-    this.setState({ingredients: revisedIngredients}, function(){
-    console.log(this.state.ingredients);
+    this.setState({ingredients: revisedIngredients}, function () {
+      console.log(this.state.ingredients)
     })
   }
-}
 
-  handleInputChange (field, value) {
-    console.log(field, value)
+  handleInputChange (event) {
+    const target = event.target
+    const name = target.name
+    const value = target.value
+
     this.setState({
-      field: value
+      [name]: value
     })
   }
 
@@ -124,8 +118,22 @@ class AddRecipe extends React.Component {
         <br />
         <form onSubmit={this.handleSubmit}>
 
-            <AddIngredientsTable recipeName={this.state.name} stats={this.state} edit={true} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
-         
+          <h3 className='recipeName'>Recipe Name:</h3>
+          <input type='text' value={this.state.name} name='name' onChange={this.handleInputChange} />
+          <br />
+          <br />
+
+          <h3 className='title'>Ingredients:</h3>
+          <table className='ingredients'>
+            <thead>
+              <tr>
+                <td>Quantity</td>
+                <td>Units</td>
+                <td>Ingredient</td>
+              </tr>
+            </thead>
+            <IngredientsTable directions={this.state.directions} ingredients={this.state.ingredients} edit handleChange={this.handleIngredientsChange} styleProps={styleProps} />
+          </table>
           <br />
 
           <h3 className='title'> Directions: </h3>
@@ -153,16 +161,6 @@ AddRecipe.contextTypes = {
 
 export default AddRecipe
 
-/*              <table className='ingredients'>
-            <thead>
-              <tr>
-                <td>Quantity</td>
-                <td>Units</td>
-                <td>Ingredient</td>
-              </tr>
-            </thead>
-             </table>     
-
-   {this.state.ingredients.map(function (val, index) {
+/*            {this.state.ingredients.map(function (val, index) {
               return <AddRecipeIngredients key={index} index={index} quantity={val.quantity} units={val.units} ingredient={val.ingredient} showButton={val.showButton} addRow={this.addRow} handleIngredientsChange={this.handleIngredientsChange} />
-            }, this)}*/
+            }, this)} */
