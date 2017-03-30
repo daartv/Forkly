@@ -7,42 +7,46 @@ import BaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
 import * as mui from 'material-ui'
 
 const diets = [
-  {value: 0, name: 'low carb'},
-  {value: 1, name: 'high fat'},
-  {value: 2, name: 'gluten-free'},
-  {value: 3, name: 'dairy-free'},
-  {value: 4, name: 'vegan'},
-  {value: 5, name: 'vegetarian'}
+  {key: 0, name: 'low carb'},
+  {key: 1, name: 'high fat'},
+  {key: 2, name: 'gluten-free'},
+  {key: 3, name: 'dairy-free'},
+  {key: 4, name: 'vegan'},
+  {key: 5, name: 'vegetarian'}
 ]
 
 class DietOptionsDropdown extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      values: []
+      dietKeys: []
     }
   }
 
-  handleChange (event, index, values) {
-    this.setState({values})
+  handleChange (event, index, dietKeys) {
+    const { getDiets } = this.props
+    this.setState({dietKeys})
+    this.setState((prevState) => {
+      getDiets(prevState.dietKeys)
+    })
   }
 
-  selectionRenderer (values) {
-    if (values.length === 0) {
+  selectionRenderer (dietKeys) {
+    if (dietKeys.length === 0) {
       return ''
     }
-    return values.map(value => {
-      return diets[value].name
+    return dietKeys.map(key => {
+      return diets[key].name
     }).join(',  ')
   }
 
   menuItems (diets) {
     return diets.map((diet) => (
       <MenuItem
-        key={diet.value}
+        key={diet.key}
         insetChildren
-        checked={this.state.values.includes(diet.value)}
-        value={diet.value}
+        checked={this.state.dietKeys.includes(diet.key)}
+        value={diet.key}
         primaryText={diet.name}
       />
     ))
@@ -54,7 +58,7 @@ class DietOptionsDropdown extends Component {
         multiple
         fullWidth
         hintText='dietary options'
-        value={this.state.values}
+        value={this.state.dietKeys}
         onChange={this.handleChange.bind(this)}
         selectionRenderer={this.selectionRenderer}
       >
