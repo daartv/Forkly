@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import AddRecipeIngredients from './AddRecipeIngredients'
 import IngredientsTable from './IngredientsTable'
 import $ from 'jquery'
+import axios from 'Axios'
+
+
+
 
 const styleProps = {
   fixedHeader: true,
@@ -15,18 +19,35 @@ const styleProps = {
   showCheckboxes: false
 }
 
-class AddRecipe extends React.Component {
+const testData = {
+    recipeName: '',
+      recipeDirections: '',
+      ingredients: [{quantity: '', units: '', ingredient: ''}],
+      creator: '',
+      originalRecipe: ''
+    };
+
+class AddRecipe extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      name: '',
-      directions: '',
-      ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}]
+      forkedRecipe: this.props.mainRecipe || testData,
+      // recipeName: 'Sugar Recipe',
+      // recipeDirections: '',
+      // ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}, {quantity: 1, units: 'spoonful', ingredient: 'sugar'}],
+      // creator: '',
+      // originalRecipe: '',
+      forking: this.props.mainRecipe ? true : false,
+      edit: true
     }
-    this.addRow = this.addRow.bind(this)
+    // this.addRow = this.addRow.bind(this)
     this.handleIngredientsChange = this.handleIngredientsChange.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
+    // this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleRecipeSave = this.handleRecipeSave.bind(this)
+
     this.handleSubmit = this.handleSubmit.bind(this)
+
   }
 
   componentDidMount () {
@@ -43,8 +64,8 @@ class AddRecipe extends React.Component {
         contentType: 'application/json',
         success: function (data) {
           boundThis.setState({
-            name: data.name,
-            directions: data.directions,
+            recipeName: data.recipeName,
+            recipeDirections: data.recipeDirections,
             ingredients: data.ingredients
           })
         },
@@ -55,101 +76,99 @@ class AddRecipe extends React.Component {
     }
   }
 
-  handleSubmit (event) {
+  handleRecipeSave() {
     const { router } = this.context
-    $.ajax({
-      url: '/api/addRecipe',
-      data: JSON.stringify(this.state),
-      method: 'POST',
-      contentType: 'application/JSON',
-      success: (recipeId) => {
-        router.history.push('/recipe/' + recipeId)
-      }
-    })
-    event.preventDefault()
-  }
+    const { originalRecipe } = this.props
+    const sendOriginalRecipe = originalRecipe ? originalRecipe : this.state
+    this.setState( {originalRecipe: sendOriginalRecipe} ) 
 
-  addRow () {
-    let myIngredients = this.state.ingredients
-    myIngredients[myIngredients.length - 1].showButton = false
-    myIngredients.push({quantity: 0, units: '', ingredient: ''})
-    this.setState({ingredients: myIngredients})
-  }
+    axios.post('/api/addRecipe' , this.state)
+    .then(function(recipeId){
+      router.history.push('/recipe/' + recipeId)
+    })
+    .catch(function(error){
+      console.log(error)
+    });
+}
+//jQUERY METHOD FOR REFERENCE
+  //     function()
+  //   $.ajax({
+  //     url: '/api/addRecipe',
+  //     data: JSON.stringify(this.state),
+  //     method: 'POST',
+  //     contentType: 'application/JSON',
+  //     success: (recipeId) => {
+  //       router.history.push('/recipe/' + recipeId)
+  //     }
+  //   })
+  //   event.preventDefault()
+  // }
+
+
+//OG ADD ROW FOR REFERENCE 
+  // addRow () {
+  //   let myIngredients = this.state.ingredients
+  //   myIngredients[myIngredients.length - 1].showButton = false
+  //   myIngredients.push({quantity: 0, units: '', ingredient: ''})
+  //   this.setState({ingredients: myIngredients})
+  // }
 
   handleIngredientsChange (ingredientInd, updatedIngredient) {
     // const target = event.target
     // const name = target.name
     // const value = target.value
 
+    let newIngredients = {
+      quantity: updatedIngredient.quantity, 
+      units: updatedIngredient.units, 
+      ingredient: updatedIngredient.ingredient
+    }
+
+    if([ingredientInd] === undefined){
+      this.setState( (state) => {
+        state.forkedRecipe.ingredients = state.forkedRecipe.ingredients.concat([newIngredients]);
+        return state;
+     })
+    } 
+    else {
+      let forkCopy = this.state.forkedRecipe;
+      forkCopy.ingredients[ingredientInd] = newIngredients;
+      this.setState({forkedRecipe: forkCopy}, function(){
+        console.log(this.state.forkedRecipe);
+      })    
+    }
+
+  }
+
     // let ing = this.state.ingredients
     // ing[index][name] = value
 
     // this.setState({
     //   ingredients: ing
-    // })
-    let revisedIngredients = this.state.ingredients
-    Object.keys(updatedIngredient).forEach(ingKey => {
-      revisedIngredients[ingKey] = updatedIngredient[ingKey]
-    })
+    // }
 
-    this.setState({ingredients: revisedIngredients}, function () {
-      console.log(this.state.ingredients)
-    })
-  }
-
-  handleInputChange (event) {
-    const target = event.target
-    const name = target.name
-    const value = target.value
-
+   handleInputChange (field, value) {
+    console.log(field, value)
     this.setState({
-      [name]: value
+      field: value
     })
   }
 
   render () {
+    const  { forking, name } = this.state
+    const recipeHeader = forking ? 'Fork the Recipe' : 'Add Your Recipe'
+
     return (
+
       <div className='createRecipe'>
-        <header>
-          <h1 className='recipeHeader'>Create a Recipe</h1>
-        </header>
-        <br />
-        <img className='recipeImage' src='assets/images/sushi.jpg' alt='sushi' />
-        <br />
+          <h1>{recipeHeader}</h1>
         <form onSubmit={this.handleSubmit}>
 
-          <h3 className='recipeName'>Recipe Name:</h3>
-          <input type='text' value={this.state.name} name='name' onChange={this.handleInputChange} />
-          <br />
-          <br />
-
-          <h3 className='title'>Ingredients:</h3>
-          <table className='ingredients'>
-            <thead>
-              <tr>
-                <td>Quantity</td>
-                <td>Units</td>
-                <td>Ingredient</td>
-              </tr>
-            </thead>
-            <IngredientsTable directions={this.state.directions} ingredients={this.state.ingredients} edit handleChange={this.handleIngredientsChange} styleProps={styleProps} />
-          </table>
-          <br />
-
-          <h3 className='title'> Directions: </h3>
-          <textarea name='directions' value={this.state.directions} onChange={this.handleInputChange} />
-
-          <br />
-
+            <AddIngredientsTable handleRecipeSave={this.handleRecipeSave} stats={this.state.forkedRecipe} isDisabled={!this.state.edit} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
+         
           <div>
-            <input type='submit' name='addRecipeSave' value='Save' />
-            <input type='button' name='addRecipeCancel' value='Cancel' />
           </div>
         </form>
-        <br />
-        <br />
-        <br />
-        <br />
       </div>
     )
   }
@@ -161,6 +180,10 @@ AddRecipe.contextTypes = {
 
 export default AddRecipe
 
-/*            {this.state.ingredients.map(function (val, index) {
-              return <AddRecipeIngredients key={index} index={index} quantity={val.quantity} units={val.units} ingredient={val.ingredient} showButton={val.showButton} addRow={this.addRow} handleIngredientsChange={this.handleIngredientsChange} />
-            }, this)} */
+/*              
+<div className='createRecipe'>
+          <h1>{recipeHeader}</h1>
+        <br />
+        <img className='recipeImage' src='assets/images/sushi.jpg' alt='sushi' />
+        <br />
+        <form onSubmit={this.handleSubmit}>

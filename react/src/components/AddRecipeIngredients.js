@@ -12,6 +12,7 @@ class AddRecipeIngredients extends React.Component {
   }
 
   render () {
+    const { quantity, units, ingredient } = this.props.stats
     if (this.props.showButton) {
       return (
         <tbody>
