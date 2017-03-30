@@ -12,6 +12,8 @@ import Login from './components/Login'
 import ViewFork from './components/ViewFork'
 import ViewRecipes from './components/ViewRecipes'
 import SearchRecipes from './components/searchRecipes/SearchRecipes'
+import MainPageUser from './components/mainPageUser/MainPageUser'
+import MainPageNonUser from './components/mainPageNonUser/MainPageNonUser'
 
 import {
   BrowserRouter as Router,
@@ -94,7 +96,10 @@ class App extends Component {
               </nav>
             </section>
           </div> */}
-          <Route exact path='/' component={SearchRecipes} />
+          <Link to='Login'>Log in to your account</Link>
+          <Route exact path='/' component={Home} />
+          <Route path='/login' component={Login} />
+          <Route path='/user' component={MainPageUser} />
           {/* <br />
           <br />
           <br />
