@@ -1,17 +1,36 @@
 import React, { Component } from 'react'
-import AddRecipeIngredients from '../AddRecipeIngredients'
+/**
+ * Components
+ */
 import DietOptionsDropdown from '../dietOptionsDropdown/DietOptionsDropdown'
+import AddRecipeIngredients from '../AddRecipeIngredients'
 
-import ReactGridLayout from 'react-grid-layout'
+/**
+ * Material UI Components
+ */
+import SelectField from 'material-ui/SelectField'
+import FlatButton from 'material-ui/FlatButton'
+import ChipInput from 'material-ui-chip-input'
+import TextField from 'material-ui/TextField'
+import MenuItem from 'material-ui/MenuItem'
 import Divider from 'material-ui/Divider'
 import Paper from 'material-ui/Paper'
-import TextField from 'material-ui/TextField'
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
-import FlatButton from 'material-ui/FlatButton'
+
+/**
+ * Grid Layout
+ */
+import ReactGridLayout from 'react-grid-layout'
+
+/**
+ * Styles
+ */
 import {orange500, blue500} from 'material-ui/styles/colors'
-import ChipInput from 'material-ui-chip-input'
 import styles from './searchRecipes-css'
+
+/**
+ * Utilities
+ */
+import axios from 'axios'
 
 class SearchRecipes extends Component {
   constructor (props) {
@@ -28,10 +47,19 @@ class SearchRecipes extends Component {
   componentDidMount () {}
 
   handleSubmit () {
-    console.log(this.state)
-  /**
-  * will grab items from state, send to server for api call
-  */
+    const { dish, allowedIngredient, excludedIngredient, dietKeys } = this.state
+    const filters = {
+      dish,
+      allowedIngredient,
+      excludedIngredient,
+      dietKeys
+    }
+    axios.get('/api/recipes', filters)
+    .then(res => {
+    /* * do the things with the response * */
+    })
+    /* * implement proper error handling * */
+    .catch(error => console.log(error))
   }
 
   /**
