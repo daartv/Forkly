@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
+
+/**
+ * Grid Layout
+ */
 import ReactGridLayout from 'react-grid-layout'
+
 const style = {
   background: {
     backgroundImage: 'url(assets/images/sprinkleLips_2.jpg)',

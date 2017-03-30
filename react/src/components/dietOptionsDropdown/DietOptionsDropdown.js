@@ -1,9 +1,17 @@
 import React, {Component} from 'react'
+
+/**
+ * Material UI Components
+ */
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+
+/**
+ * Styles
+ */
+import BaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import BaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
 import * as mui from 'material-ui'
 
 const diets = [
