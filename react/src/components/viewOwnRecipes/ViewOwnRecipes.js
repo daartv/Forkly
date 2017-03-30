@@ -1,8 +1,12 @@
 import React from 'react'
+import OwnRecipeResultEntry from '../ownRecipeResultEntry/OwnRecipeResultEntry'
 
 const ViewOwnRecipes = () => {
   return (
-    <h1>View Own Recipes</h1>
+  	<div>
+  	  <OwnRecipeResultEntry />
+      <h1>View Own Recipes</h1>
+    </div>
   )
 }
 
