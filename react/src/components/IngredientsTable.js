@@ -2,10 +2,12 @@
 import React, { Component } from 'react'
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table'
+import ErrorDialog from './ReqFieldErrorDialog'
+import EditTable from './editTableDev'
+
 import TextField from 'material-ui/TextField'
 import Toggle from 'material-ui/Toggle'
-
-import EditTable from './editTableDev'
+import Dialog from 'material-ui/Dialog'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -134,15 +136,17 @@ const styles = {
 class AddIngredientsTable extends Component {
 constructor(props) {
     super(props);
+    this.state = {
+      alertError: false
+    }
     this.onChange = this.onChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.onRecipeSave = this.onRecipeSave.bind(this);
-
   }
 
   onChange(row) {
     const ingredientInd = row.id
-    console.log('row columns', row.columns);
+
     let updatedIngredient = {
       quantity: row.columns[0].value,
       units: row.columns[1].value,
@@ -157,6 +161,8 @@ constructor(props) {
     this.props.handleRecipeSave();
   }
 
+
+
   handleChange(event){
     let value = event.target.value
     let field = event.target.name
@@ -165,6 +171,7 @@ constructor(props) {
 
   render() {
     let { recipeName, ingredients, recipeDirections, forking } = this.props.stats
+    const recipeImage = this.props.stats.recipeImage || 'https://lh3.googleusercontent.com/TgEXw13nhbMEVLiMedgYdTdG--B45cR-TlT3nQY-zlovuCs95Uq0JK3vRuVe-KA7MDCeR_tqT2ZO9_WFFWwTvW4=s730-e365'
 
     const isDisabled = this.props.isDisabled
     const fieldType = isDisabled ? 'ReadOnly' : 'TextField'
@@ -188,52 +195,55 @@ constructor(props) {
       ]
     return (
       <div style={styles.formContainer}>
-      <div style={styles.headerContainer}>
-       <h2 style={styles.headerH2}>Recipe:</h2>
-      </div>
-      <div style={styles.aligner}>
-      <div style={styles.recipeNameBox}> 
-      <TextField multiLine="true" disabled={isDisabled} name="recipeName" defaultValue={recipeName} onChange={this.handleChange} style={styles.recipeName}
-        floatingLabelText="Recipe Name"
-        floatingLabelStyle={styles.floatingLabelStyle}
-        floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-       />
-       </div>
-    <div style={styles.imageLocal}>
+        <div style={{backgroundImage: `url('${recipeImage}')`, backgroundSize: 'cover', width: '100%', height: '30vh'}}>
+        e
+        </div>
+        <div style={styles.headerContainer}>
+         <h2 style={styles.headerH2}>Recipe:</h2>
+        </div>
+        <div style={styles.aligner}>
+          <div style={styles.recipeNameBox}> 
+            <TextField multiLine={true} disabled={isDisabled} name="recipeName" defaultValue={recipeName} onChange={this.handleChange} style={styles.recipeName}
+              floatingLabelText="Recipe Name"
+              floatingLabelStyle={styles.floatingLabelStyle}
+              floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+             />
+           </div>
+          <div style={styles.imageLocal}>
 
-    <FlatButton
-      label="+ Choose an Image"
-      labelPosition="before"
-      style={styles.uploadButton}
-      containerElement="label"
-    >
-      <input type="file" style={styles.uploadInput} />
-    </FlatButton>
-    
-    </div>
-      </div>
+            <FlatButton
+              label="+ Choose an Image"
+              labelPosition="before"
+              style={styles.uploadButton}
+              containerElement="label"
+            >
+              <input type="file" style={styles.uploadInput} />
+            </FlatButton> 
+          
+          </div>
+        </div>
 
-      <div style={styles.ingredientsGrid}>
-      <div style={styles.headerContainer}>
-       <h2 style={styles.headerH2}>Ingredients:</h2>
-      </div>
-        <EditTable forking={forking}
-        onChange={this.onChange}
-        rows={rows}
-        headerColumns={headers}
-      />
-      </div>
-      <div style={{margin: '0 auto'}}>
-      <h2 style={styles.headerH2}>Directions:</h2>
-      <TextField multiLine="true" name="recipeDirections" defaultValue={recipeDirections} disabled={isDisabled} style={styles.directionsBox} onChange={this.handleChange}
-      floatingLabelText="Directions"
-      floatingLabelStyle={styles.floatingLabelStyle}
-      floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-    />
-      </div>
-      <div>
-      <RaisedButton type="submit" onClick={this.onRecipeSave} label="Save Recipe" className="addRecipeSaveButton" primary={true} />
-      </div>
+        <div style={styles.ingredientsGrid}>
+          <div style={styles.headerContainer}>
+           <h2 style={styles.headerH2}>Ingredients:</h2>
+          </div>
+            <EditTable forking={forking}
+            onChange={this.onChange}
+            rows={rows}
+            headerColumns={headers}
+          />
+          </div>
+          <div style={{margin: '0 auto'}}>
+            <h2 style={styles.headerH2}>Directions:</h2>
+            <TextField multiLine={true} name="recipeDirections" defaultValue={recipeDirections} disabled={isDisabled} style={styles.directionsBox} onChange={this.handleChange}
+            floatingLabelText="Directions"
+            floatingLabelStyle={styles.floatingLabelStyle}
+            floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+            />
+          </div>
+        <div>
+          <RaisedButton type="submit" onClick={this.onRecipeSave} label="Save Recipe" className="addRecipeSaveButton" primary={true} />
+        </div>
       </div>
     );
   }
