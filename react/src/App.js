@@ -100,6 +100,7 @@ class App extends Component {
           <Route exact path='/' component={Home} />
           <Route path='/login' component={Login} />
           <Route path='/user' component={MainPageUser} />
+          <Route path='/signup' component={SignUpPage} />
           {/* <br />
           <br />
           <br />
