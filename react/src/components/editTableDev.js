@@ -17,7 +17,7 @@ module.exports = React.createClass({
   getInitialState: function () {
     return {
       rows: this.props.rows,
-      hoverValue: false,
+      hoverValue: false, 
       currentRow: false
     }
   },

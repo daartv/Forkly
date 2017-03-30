@@ -11,8 +11,9 @@ import Dialog from 'material-ui/Dialog'
 
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-import {orange500, blue500} from 'material-ui/styles/colors';
-
+import {orange500, blue500} from 'material-ui/styles/colors'
+import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
 const styles = {
 
   containerStyle : {
@@ -177,7 +178,7 @@ constructor(props) {
     recipeName = recipeName || ''
     recipeDirections = recipeDirections || ''
 
-    let rows = this.props.ingredients.map((ingredient, ind) => {
+    let rows = ingredients.map((ingredient, ind) => {
       let col = {columns: [], index: ind}
       Object.keys(ingredient).forEach(key => {
         col.columns.push({value: ingredient[key], ref: key})
