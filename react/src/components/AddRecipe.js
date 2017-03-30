@@ -20,10 +20,11 @@ const styleProps = {
 }
 
 const testData = {
-    recipeName: '',
+      recipeName: '',
       recipeDirections: '',
       ingredients: [{quantity: '', units: '', ingredient: ''}],
       creator: '',
+      image: '',
       originalRecipe: ''
     };
 
@@ -36,8 +37,8 @@ class AddRecipe extends Component {
       // recipeDirections: '',
       // ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}, {quantity: 1, units: 'spoonful', ingredient: 'sugar'}],
       // creator: '',
-      // originalRecipe: '',
-      forking: this.props.mainRecipe ? true : false,
+      originalRecipe: this.props.mainRecipe || undefined,
+      forking: this.props.mainRecipe === undefined ? false : true,
       edit: true
     }
     // this.addRow = this.addRow.bind(this)
@@ -79,16 +80,20 @@ class AddRecipe extends Component {
   handleRecipeSave() {
     const { router } = this.context
     const { originalRecipe } = this.props
-    const sendOriginalRecipe = originalRecipe ? originalRecipe : this.state
-    this.setState( {originalRecipe: sendOriginalRecipe} ) 
+    const sendOriginalRecipe = originalRecipe ? originalRecipe : this.state.currentRecipe
+    const { currentRecipe, forking } = this.state
 
-    axios.post('/api/addRecipe' , this.state)
-    .then(function(recipeId){
-      router.history.push('/recipe/' + recipeId)
-    })
-    .catch(function(error){
+    const reqRoute = forking ? '/api/addForkedRecipe' : '/api/addRecipe'
+    const storeRecipe = {currentRecipe, sendOriginalRecipe}
+
+      axios.post(reqRoute , storeRecipe)
+      .then(function(recipeId){
+        console.log('return value', recipeId);
+        router.history.push('/recipe/' + recipeId)
+      })
+      .catch(function(error){
       console.log(error)
-    });
+      }); 
 }
 //jQUERY METHOD FOR REFERENCE
   //     function()
@@ -124,7 +129,7 @@ class AddRecipe extends Component {
       ingredient: updatedIngredient.ingredient
     }
 
-    if([ingredientInd] === undefined){
+    if(this.state.currentRecipe.ingredients[ingredientInd] === undefined){
       this.setState( (state) => {
         state.currentRecipe.ingredients = state.currentRecipe.ingredients.concat([newIngredients]);
         return state;
@@ -149,8 +154,10 @@ class AddRecipe extends Component {
 
    handleInputChange (field, value) {
     console.log(field, value)
-    this.setState({
-      field: value
+    let updatedRecipeInfo = this.state.currentRecipe;
+    updatedRecipeInfo[field] = value;
+    this.setState({currentRecipe: updatedRecipeInfo}, function(){
+        console.log(this.state.currentRecipe)
     })
   }
 

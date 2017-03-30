@@ -41,7 +41,7 @@ app.post('/searchRecipes', handler.searchRecipes)
 app.post('/api/addRecipe', handler.addRecipe)
 
 // for new Feature
-app.post('api/addForkedRecipe', handler.addForkedRecipe)
+app.post('/api/addForkedRecipe', handler.addForkedRecipe)
 
 // for Nav Component - from getUsername function
 app.get('/username', handler.getUsername)
