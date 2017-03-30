@@ -4,9 +4,6 @@ import IngredientsTable from './IngredientsTable'
 import $ from 'jquery'
 import axios from 'Axios'
 
-
-
-
 const styleProps = {
   fixedHeader: true,
   fixedFooter: true,
@@ -20,12 +17,12 @@ const styleProps = {
 }
 
 const testData = {
-    recipeName: '',
-      recipeDirections: '',
-      ingredients: [{quantity: '', units: '', ingredient: ''}],
-      creator: '',
-      originalRecipe: ''
-    };
+  recipeName: '',
+  recipeDirections: '',
+  ingredients: [{quantity: '', units: '', ingredient: ''}],
+  creator: '',
+  originalRecipe: ''
+}
 
 class AddRecipe extends Component {
   constructor (props) {
@@ -37,7 +34,7 @@ class AddRecipe extends Component {
       // ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}, {quantity: 1, units: 'spoonful', ingredient: 'sugar'}],
       // creator: '',
       // originalRecipe: '',
-      forking: this.props.mainRecipe ? true : false,
+      forking: !!this.props.mainRecipe,
       edit: true
     }
     // this.addRow = this.addRow.bind(this)
@@ -47,7 +44,6 @@ class AddRecipe extends Component {
     this.handleRecipeSave = this.handleRecipeSave.bind(this)
 
     // this.handleSubmit = this.handleSubmit.bind(this)
-
   }
 
   componentDidMount () {
@@ -76,21 +72,21 @@ class AddRecipe extends Component {
     }
   }
 
-  handleRecipeSave() {
+  handleRecipeSave () {
     const { router } = this.context
     const { originalRecipe } = this.props
-    const sendOriginalRecipe = originalRecipe ? originalRecipe : this.state
-    this.setState( {originalRecipe: sendOriginalRecipe} ) 
+    const sendOriginalRecipe = originalRecipe || this.state
+    this.setState({originalRecipe: sendOriginalRecipe})
 
-    axios.post('/api/addRecipe' , this.state)
-    .then(function(recipeId){
+    axios.post('/api/addRecipe', this.state)
+    .then(function (recipeId) {
       router.history.push('/recipe/' + recipeId)
     })
-    .catch(function(error){
+    .catch(function (error) {
       console.log(error)
-    });
-}
-//jQUERY METHOD FOR REFERENCE
+    })
+  }
+// jQUERY METHOD FOR REFERENCE
   //     function()
   //   $.ajax({
   //     url: '/api/addRecipe',
@@ -104,8 +100,7 @@ class AddRecipe extends Component {
   //   event.preventDefault()
   // }
 
-
-//OG ADD ROW FOR REFERENCE 
+// OG ADD ROW FOR REFERENCE
   // addRow () {
   //   let myIngredients = this.state.ingredients
   //   myIngredients[myIngredients.length - 1].showButton = false
@@ -119,12 +114,13 @@ class AddRecipe extends Component {
     // const value = target.value
 
     let newIngredients = {
-      quantity: updatedIngredient.quantity, 
-      units: updatedIngredient.units, 
+      quantity: updatedIngredient.quantity,
+      units: updatedIngredient.units,
       ingredient: updatedIngredient.ingredient
     }
 
-    if([ingredientInd] === undefined){
+
+    if(this.state.currentRecipe.ingredients[ingredientInd] === undefined){
       this.setState( (state) => {
         state.currentRecipe.ingredients = state.currentRecipe.ingredients.concat([newIngredients]);
         return state;
@@ -137,7 +133,6 @@ class AddRecipe extends Component {
         console.log(this.state.currentRecipe);
       })    
     }
-
   }
 
     // let ing = this.state.ingredients
@@ -147,7 +142,7 @@ class AddRecipe extends Component {
     //   ingredients: ing
     // }
 
-   handleInputChange (field, value) {
+  handleInputChange (field, value) {
     console.log(field, value)
     this.setState({
       field: value
@@ -155,12 +150,13 @@ class AddRecipe extends Component {
   }
 
   render () {
-    const  { forking, name } = this.state
+    const { forking, name } = this.state
     const recipeHeader = forking ? 'Fork the Recipe' : 'Add Your Recipe'
 
     return (
 
       <div className='createRecipe'>
+
           <h1>{recipeHeader}</h1>
         <form>
 
@@ -180,10 +176,11 @@ AddRecipe.contextTypes = {
 
 export default AddRecipe
 
-/*              
+/*
 <div className='createRecipe'>
           <h1>{recipeHeader}</h1>
         <br />
         <img className='recipeImage' src='assets/images/sushi.jpg' alt='sushi' />
         <br />
         <form onSubmit={this.handleSubmit}>*/
+
