@@ -4,9 +4,6 @@ import IngredientsTable from './IngredientsTable'
 import $ from 'jquery'
 import axios from 'Axios'
 
-
-
-
 const styleProps = {
   fixedHeader: true,
   fixedFooter: true,
@@ -48,7 +45,6 @@ class AddRecipe extends Component {
     this.handleRecipeSave = this.handleRecipeSave.bind(this)
 
     // this.handleSubmit = this.handleSubmit.bind(this)
-
   }
 
   componentDidMount () {
@@ -77,9 +73,10 @@ class AddRecipe extends Component {
     }
   }
 
-  handleRecipeSave() {
+  handleRecipeSave () {
     const { router } = this.context
     const { originalRecipe } = this.props
+
     const sendOriginalRecipe = originalRecipe ? originalRecipe : this.state.currentRecipe
     const { currentRecipe, forking } = this.state
 
@@ -95,7 +92,8 @@ class AddRecipe extends Component {
       console.log(error)
       }); 
 }
-//jQUERY METHOD FOR REFERENCE
+  
+// jQUERY METHOD FOR REFERENCE
   //     function()
   //   $.ajax({
   //     url: '/api/addRecipe',
@@ -109,8 +107,7 @@ class AddRecipe extends Component {
   //   event.preventDefault()
   // }
 
-
-//OG ADD ROW FOR REFERENCE 
+// OG ADD ROW FOR REFERENCE
   // addRow () {
   //   let myIngredients = this.state.ingredients
   //   myIngredients[myIngredients.length - 1].showButton = false
@@ -124,8 +121,8 @@ class AddRecipe extends Component {
     // const value = target.value
 
     let newIngredients = {
-      quantity: updatedIngredient.quantity, 
-      units: updatedIngredient.units, 
+      quantity: updatedIngredient.quantity,
+      units: updatedIngredient.units,
       ingredient: updatedIngredient.ingredient
     }
 
@@ -142,7 +139,6 @@ class AddRecipe extends Component {
         console.log(this.state.currentRecipe);
       })    
     }
-
   }
 
     // let ing = this.state.ingredients
@@ -152,7 +148,7 @@ class AddRecipe extends Component {
     //   ingredients: ing
     // }
 
-   handleInputChange (field, value) {
+  handleInputChange (field, value) {
     console.log(field, value)
     let updatedRecipeInfo = this.state.currentRecipe;
     updatedRecipeInfo[field] = value;
@@ -162,12 +158,13 @@ class AddRecipe extends Component {
   }
 
   render () {
-    const  { forking, name } = this.state
+    const { forking, name } = this.state
     const recipeHeader = forking ? 'Fork the Recipe' : 'Add Your Recipe'
 
     return (
 
       <div className='createRecipe'>
+
           <h1>{recipeHeader}</h1>
         <form>
 
@@ -187,10 +184,11 @@ AddRecipe.contextTypes = {
 
 export default AddRecipe
 
-/*              
+/*
 <div className='createRecipe'>
           <h1>{recipeHeader}</h1>
         <br />
         <img className='recipeImage' src='assets/images/sushi.jpg' alt='sushi' />
         <br />
         <form onSubmit={this.handleSubmit}>*/
+
