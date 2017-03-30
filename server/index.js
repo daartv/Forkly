@@ -1,4 +1,11 @@
 // If Heroku is NOT running, run on local computer and pull local info from setup.js
+/*
+process.env.CLIENT_ID = '279588619132464';
+process.env.CLIENT_SECRET = '32e346f0296b752354db3328bd6280d4';
+process.env.MONGODB_URI = 'mongodb://localhost/forkly-dev';
+process.env.SITE_URL = 'http://localhost:3000/';
+*/
+
 if (!process.env.CLIENT_ID) {
   // Note: index.js runs before setup.js (see server-dev script in package.json)
   const setup = require('./setup')
@@ -34,7 +41,7 @@ app.post('/searchRecipes', handler.searchRecipes)
 app.post('/api/addRecipe', handler.addRecipe)
 
 // for new Feature
-app.post('api/addForkedRecipe', handler.addForkedRecipe);
+app.post('api/addForkedRecipe', handler.addForkedRecipe)
 
 // for Nav Component - from getUsername function
 app.get('/username', handler.getUsername)

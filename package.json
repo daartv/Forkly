@@ -38,6 +38,7 @@
     "express-handlebars": "^3.0.0",
     "history": "4.2.0",
     "jquery": "^3.1.1",
+    "material-ui-chip-input": "^0.13.1",
     "mongodb": "^2.2.11",
     "mongoose": "^4.8.6",
     "nodemon": "^1.11.0",
