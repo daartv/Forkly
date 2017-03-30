@@ -1,8 +1,10 @@
 const styles = {
   title: {
-    textAlign: 'center',
-    marginTop: '5%',
-    fontSize: '75px'
+    'textAlign': 'center',
+    'fontSize': '75px',
+    'margin': 'auto',
+    'height': '100%',
+    'lineHeight': '80px'
   },
   errorStyle: {
     color: 'orange500',

@@ -20,28 +20,32 @@ class SearchRecipes extends Component {
       dish: '',
       allowedIngredient: '',
       excludedIngredient: '',
-      allowedDiet: '',
-      allowedAllergy: ''
+      diets: null
     }
   }
 
   componentDidMount () {}
 
-  handleSubmit (event) {}
+  handleSubmit () {
+    console.log(this.state)
+  }
 
   // { target } is deconstructed from event.target
   handleInputChange ({ target }, key) {
     const { value } = target
     this.setState({ [key]: value })
-    console.log(this.state)
   }
 
   handleChange (chips, key) {
     this.setState({ [key]: chips })
   }
 
+  getDiets (diets) {
+    this.setState({ diets })
+  }
+
   render () {
-    const { dish, allowedIngredient, excludedIngredient } = this.state
+    const { dish } = this.state
     const layout = [
       {i: 'a', x: 3, y: 0, w: 6, h: 3, static: true},
       {i: 'b', x: 3, y: 3, w: 6, h: 3, static: true},
@@ -50,7 +54,6 @@ class SearchRecipes extends Component {
       {i: 'e', x: 3, y: 12, w: 6, h: 3, static: true},
       {i: 'f', x: 3, y: 15, w: 6, h: 3, static: true},
       {i: 'g', x: 3, y: 18, w: 6, h: 3, static: true}
-
     ]
     return (
       <ReactGridLayout className='layout' layout={layout} cols={12} rowHeight={31} width={window.innerWidth}>
@@ -86,10 +89,10 @@ class SearchRecipes extends Component {
           />
         </div>
         <div key={'f'}>
-          <DietOptionsDropdown />
+          <DietOptionsDropdown getDiets={this.getDiets.bind(this)} />
         </div>
         <div key={'g'}>
-          <FlatButton label='submit' secondary fullWidth />
+          <FlatButton label='submit' secondary fullWidth onClick={this.handleSubmit.bind(this)} />
         </div>
       </ReactGridLayout>
     )
@@ -115,3 +118,11 @@ class SearchRecipes extends Component {
 // }
 
 export default SearchRecipes
+
+// function setStatePromise (that, newState) {
+//   return new Promise((resolve) => {
+//     that.setState(newState, () => {
+//       resolve()
+//     })
+//   })
+// }
