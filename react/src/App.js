@@ -14,6 +14,7 @@ import ViewRecipes from './components/ViewRecipes'
 import SearchRecipes from './components/searchRecipes/SearchRecipes'
 import MainPageUser from './components/mainPageUser/MainPageUser'
 import MainPageNonUser from './components/mainPageNonUser/MainPageNonUser'
+import SignUpPage from './components/signUpPage/SignUpPage'
 
 import {
   BrowserRouter as Router,
@@ -96,9 +97,8 @@ class App extends Component {
               </nav>
             </section>
           </div> */}
-          <Link to='Login'>Log in to your account</Link>
           <Route exact path='/' component={Home} />
-          <Route path='/login' component={Login} />
+          <Route exact path='/login' component={Login} />
           <Route path='/user' component={MainPageUser} />
           <Route path='/signup' component={SignUpPage} />
           {/* <br />
