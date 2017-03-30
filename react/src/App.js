@@ -66,57 +66,49 @@ class App extends Component {
   }
   render () {
     return (
-      <SearchRecipes />
+      <Router>
+        <div>
+          <div className='group'>
+            <section className='floatLeft'>
+              <img className='logo' src='assets/images/forkly.png' alt='FORKLY' />
+              <h3 className='title username'><Login username={this.state.username} /></h3>
+            </section>
+            <section className='floatRight'>
+              <nav>
+                <div className='icon logout'>
+                  <img className='navButton' src='assets/images/logout.png' alt='Logout' />
+                  <span><Link to='/' onClick={this.logout}><br />Logout</Link></span>
+                </div>
+                <div className='icon addRecipe'>
+                  <img className='navButton' src='assets/images/addRecipe.png' alt='Add Recipe' />
+                  <span><Link to='/addrecipe'>Create Recipe</Link></span>
+                </div>
+                <div className='icon myForks'>
+                  <img className='navButton' src='assets/images/fork.png' alt='My Recipes' />
+                  <span><Link to='/myrecipes'>My Recipes</Link></span>
+                </div>
+                <div className='icon home'>
+                  <img className='navButton' src='assets/images/home.png' alt='Home' />
+                  <span><Link to='/'><br />Home</Link></span>
+                </div>
+              </nav>
+            </section>
+            <Route exact path='/' component={Home} />
+          </div>
+          <br />
+          <br />
+          <br />
+          <footer>
+            <br />
+            <small>&copy; <a href='https://github.com/TeamForkly/Forkly'>TeamForkly</a></small>
+          </footer>
+        </div>
+      </Router>
     )
   }
 }
 
 export default App
-
-// //   render () {
-// //     return (
-// //       <Router>
-// //         <div>
-// //           <div className='group'>
-// //             <section className='floatLeft'>
-// //               <img className='logo' src='assets/images/forkly.png' alt='FORKLY' />
-// //               <h3 className='title username'><Login username={this.state.username} /></h3>
-// //             </section>
-// //             <section className='floatRight'>
-// //               <nav>
-// //                 <div className='icon logout'>
-// //                   <img className='navButton' src='assets/images/logout.png' alt='Logout' />
-// //                   <span><Link to='/' onClick={this.logout}><br />Logout</Link></span>
-// //                 </div>
-// //                 <div className='icon addRecipe'>
-// //                   <img className='navButton' src='assets/images/addRecipe.png' alt='Add Recipe' />
-// //                   <span><Link to='/addrecipe'>Create Recipe</Link></span>
-// //                 </div>
-// //                 <div className='icon myForks'>
-// //                   <img className='navButton' src='assets/images/fork.png' alt='My Recipes' />
-// //                   <span><Link to='/myrecipes'>My Recipes</Link></span>
-// //                 </div>
-// //                 <div className='icon home'>
-// //                   <img className='navButton' src='assets/images/home.png' alt='Home' />
-// //                   <span><Link to='/'><br />Home</Link></span>
-// //                 </div>
-// //               </nav>
-// //             </section>
-// //             <Route exact path='/' component={Home} />
-// //           </div>
-// //           <br />
-// //           <br />
-// //           <br />
-// //           <footer>
-// //             <br />
-// //             <small>&copy; <a href='https://github.com/TeamForkly/Forkly'>TeamForkly</a></small>
-// //           </footer>
-// //         </div>
-// //       </Router>
-
-// //     )
-// //   }
-// // }
 
 //           // <Route path='/signup' component={SignUpPage} />
 //           // <Route path='/main' component={MainPageNonUser} />
