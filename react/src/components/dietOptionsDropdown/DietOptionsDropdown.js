@@ -16,21 +16,6 @@ const diets = [
 ]
 
 class DietOptionsDropdown extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      dietKeys: []
-    }
-  }
-
-  handleChange (event, index, dietKeys) {
-    const { getDiets } = this.props
-    this.setState({dietKeys})
-    this.setState((prevState) => {
-      getDiets(prevState.dietKeys)
-    })
-  }
-
   selectionRenderer (dietKeys) {
     if (dietKeys.length === 0) {
       return ''
@@ -41,24 +26,33 @@ class DietOptionsDropdown extends Component {
   }
 
   menuItems (diets) {
+    const { state } = this.props
     return diets.map((diet) => (
       <MenuItem
         key={diet.key}
         insetChildren
-        checked={this.state.dietKeys.includes(diet.key)}
+        checked={state.dietKeys.includes(diet.key)}
         value={diet.key}
         primaryText={diet.name}
       />
     ))
   }
+  /**
+  * Index argument is used by SelectField behind the scenes
+  */
+  handleChange (event, index, dietKeys) {
+    const { setStateThroughProps } = this.props
+    setStateThroughProps(event, dietKeys)
+  }
 
   render () {
+    const { state } = this.props
     return (
       <SelectField
         multiple
         fullWidth
         hintText='dietary options'
-        value={this.state.dietKeys}
+        value={state.dietKeys}
         onChange={this.handleChange.bind(this)}
         selectionRenderer={this.selectionRenderer}
       >

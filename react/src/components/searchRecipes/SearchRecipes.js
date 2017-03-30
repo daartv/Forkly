@@ -20,17 +20,23 @@ class SearchRecipes extends Component {
       dish: '',
       allowedIngredient: '',
       excludedIngredient: '',
-      diets: null
+      dietKeys: []
     }
+    this.setStateThroughProps = this.setStateThroughProps.bind(this)
   }
 
   componentDidMount () {}
 
   handleSubmit () {
     console.log(this.state)
+  /**
+  * will grab items from state, send to server for api call
+  */
   }
 
-  // { target } is deconstructed from event.target
+  /**
+  * { target } is deconstructed from event.target
+  */
   handleInputChange ({ target }, key) {
     const { value } = target
     this.setState({ [key]: value })
@@ -40,8 +46,9 @@ class SearchRecipes extends Component {
     this.setState({ [key]: chips })
   }
 
-  getDiets (diets) {
-    this.setState({ diets })
+  setStateThroughProps (event, dietKeys) {
+    event.preventDefault()
+    this.setState({ dietKeys })
   }
 
   render () {
@@ -89,7 +96,7 @@ class SearchRecipes extends Component {
           />
         </div>
         <div key={'f'}>
-          <DietOptionsDropdown getDiets={this.getDiets.bind(this)} />
+          <DietOptionsDropdown state={this.state} setStateThroughProps={this.setStateThroughProps} />
         </div>
         <div key={'g'}>
           <FlatButton label='submit' secondary fullWidth onClick={this.handleSubmit.bind(this)} />
@@ -118,11 +125,3 @@ class SearchRecipes extends Component {
 // }
 
 export default SearchRecipes
-
-// function setStatePromise (that, newState) {
-//   return new Promise((resolve) => {
-//     that.setState(newState, () => {
-//       resolve()
-//     })
-//   })
-// }
