@@ -68,7 +68,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <div className='group'>
+          {/* <div className='group'>
             <section className='floatLeft'>
               <img className='logo' src='assets/images/forkly.png' alt='FORKLY' />
               <h3 className='title username'><Login username={this.state.username} /></h3>
@@ -93,15 +93,15 @@ class App extends Component {
                 </div>
               </nav>
             </section>
-            <Route exact path='/' component={Home} />
-          </div>
-          <br />
+          </div> */}
+          <Route exact path='/' component={SearchRecipes} />
+          {/* <br />
           <br />
           <br />
           <footer>
             <br />
             <small>&copy; <a href='https://github.com/TeamForkly/Forkly'>TeamForkly</a></small>
-          </footer>
+          </footer> */}
         </div>
       </Router>
     )
