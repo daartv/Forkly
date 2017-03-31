@@ -74,9 +74,3 @@ exports.yummlySearchRecipes = (req, res) => {
   .catch(error => console.log(error))
 }
 
-// const getRecipeURL = () => {}
-
-// exports.spoonacularGetRecipe = (req, res) => {
-//   const { recipeID } = req
-//   axios.get(request)
-// }
