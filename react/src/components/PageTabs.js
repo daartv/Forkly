@@ -33,15 +33,21 @@ class PageTabs extends Component {
       value={this.state.value}
       onChange={this.handleChange}
       >
-        <Tab label="Tab A" value="a">
+        <Tab label="User's Recipes" value="a">
           <div>
-            <h2 style={styles.headline}></h2>
+            <h2 style={styles.headline}>User's Recipes</h2>
             <RecipeGrid stats={stats} />
           </div>
         </Tab>
-        <Tab label="Tab B" value="b">
+        <Tab label="User's Forks" value="b">
           <div>
-            <h2 style={styles.headline}></h2>
+            <h2 style={styles.headline}>User's Forks</h2>
+             <RecipeGrid stats={stats} />
+          </div>
+        </Tab>
+        <Tab label="Recent Activity" value="c">
+          <div>
+            <h2 style={styles.headline}>Recent Activity</h2>
              <RecipeGrid stats={stats} />
           </div>
         </Tab>

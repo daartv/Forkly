@@ -3,6 +3,7 @@ import $ from 'jquery'
 import RecipeGrid from './RecipeGrid'
 import PageTabs from './PageTabs'
 import axios from 'axios'
+import Paper from 'material-ui/Paper'
 const tilesData = [
   {
     img: 'images/grid-list/00-52-29-429_640.jpg',
@@ -85,17 +86,56 @@ const tilesData = [
     author: 'BkrmadtyaKarki',
   },
 ]
+    const styles = {
+      dashboard: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: '0 20px',
+        alignItems: 'center'
+      },
+
+      leftDashboard: {
+        display: 'flex',
+        flexDirection: 'column',
+        width: '40%',
+        padding: '0 20px'
+      },
+
+      rightDashboard: {
+        display: 'flex',
+        flexDirection: 'column',
+        width: '60%',
+        padding: '0 20px'
+      },
+      statsBar: {
+        height: 40,
+        width: '100%',
+        margin: 20,
+        textAlign: 'center',
+        display: 'block'
+      },
+      profilePic: {
+        height: 100,
+        width: 100,
+        margin: 20,
+        textAlign: 'center',
+        display: 'inline-block',
+      }
+    }
 
 class ViewRecipes extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      userID: '',
+      userID: 'Test',
       userName: '',
       recipes: '',
       originalRecipes: ''
     }
+
   }
+
 /*===================================
 LOGIC TO WRITE
 ===================================*/
@@ -125,36 +165,22 @@ Mapping the grid:
 */
   // before initial render, use ajax call to retrieve all recipes belonging to user
 
+  // componentDidMount() {
+  //   const context = this
 
-  componentDidMount() {
-    const context = this
+  //   axios.get('/getUserRecipes')
+  //   .then((userInfo) => {
+  //     let { id, name, recipes, originalRecipes } = userInfo
+  //     context.setState({
+  //       userID: id,
+  //       userName: name,
+  //       recipes: recipes,
+  //       originalRecipes: originalRecipes
+  //     })
+  //   })
+  // }
+   
 
-    axios.get('/getUserRecipes')
-    .then((userInfo) => {
-      let { id, name, recipes, originalRecipes } = userInfo
-      context.setState({
-        userID: id,
-        userName: name,
-        recipes: recipes,
-        originalRecipes: originalRecipes
-      })
-    })
-    //   let { recipes, originalRecipes } = userInfo
-    //   axios.get('/getRecipeInfo', { 
-    //     params: {
-    //       recipes: recipes,
-    //       originalRecipes: originalRecipes
-    //     }
-    //   })
-    //   .then((recipeInfo) => {
-    //     let { recipes, originalRecipes } = recipeInfo
-    //     context.setState({
-    //       recipes: recipes,
-    //       originalRecipes: originalRecipes
-    //     })
-    //   })
-    // }
-  }
 
   handleClick (recipeId) {
     // redirect to /recipes/recipeId
@@ -163,10 +189,21 @@ Mapping the grid:
   }
 
   render () {
+    const { userID, userName, recipes, originalRecipes } = this.state
     return (
-
       <div>
-        <PageTabs stats={tilesData} />
+        <div style={styles.dashboard}>
+          <div style={styles.leftDashboard}>
+              <h2>{userID}</h2>
+              <Paper style={styles.profilePic} zDepth={1} circle={true} />
+          </div>
+          <div style={styles.rightDashboard}>
+            <Paper style={styles.statsBar} zDepth={1} />
+          </div>
+        </div>
+          <div>
+            <PageTabs stats={tilesData} />
+          </div>
       </div>
     )
   }
