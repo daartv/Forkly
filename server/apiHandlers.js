@@ -1,12 +1,13 @@
 const querystring = require('querystring')
-const { yummlyAPICreds } = require('./setup')
+const { YUMMLY_APP_ID, YUMMLY_APP_KEY, SPOONACULAR_KEY } = require('./setup')
 const axios = require('axios')
 
 /**
- * Yummy API Search Recipe Helpers
+ * Yummly API Search Recipe Helpers
  */
-const { appID, appKEY } = yummlyAPICreds
 const yummlyURL = 'http://api.yummly.com/v1/api/'
+const spoonacularURL = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/extract'
+
 const diets = {
   0: 'nutrition^nutrition-low-carb',
   1: 'nutrition^nutrition-low-sugar',
@@ -17,8 +18,8 @@ const diets = {
 }
 
 const searchParams = {
-  _app_id: appID,
-  _app_key: appKEY,
+  _app_id: YUMMLY_APP_ID,
+  _app_key: YUMMLY_APP_KEY,
   q: null,
   'allowedIngredient[]': null,
   'excludedIngredient[]': null,
@@ -32,7 +33,7 @@ const composeRequest = (params) => {
    * If params = recipeID, we compose a Get Recipe request
    */
   if (typeof params === 'string') {
-    const queryString = yummlyURL + `recipe/${params}?_app_id=${appID}&_app_key=${appKEY}`
+    const queryString = yummlyURL + `recipe/${params}?_app_id=${YUMMLY_APP_ID}&_app_key=${YUMMLY_APP_KEY}`
     return queryString
   }
   /**
@@ -62,15 +63,43 @@ const composeRequest = (params) => {
 
 exports.yummlySearchRecipes = (req, res) => {
   const params = req.body
-  const request = composeRequest(params)
-  axios.get(request)
-  .then(results => {
-    const recipe = results.data.matches[0]
+  axios.get(composeRequest(params))
+  .then(({ data }) => {
+    const recipe = data.matches[0]
     const { id, ingredients, recipeName } = recipe
-    const data = { id, ingredients, recipeName }
-    res.status(200).send(data)
+    const response = { id, ingredients, recipeName }
+    res.status(200).send(response)
   })
 /* * implement proper error handling * */
   .catch(error => console.log(error))
 }
 
+exports.spoonacularGetRecipe = (req, res) => {
+  const { recipeID } = req.body
+  axios.get(composeRequest(recipeID))
+  .then(results => {
+    const recipeURL = results.data.source.sourceRecipeUrl
+    const recipeIMG = results.data.images[0].hostedLargeUrl
+    axios.get(spoonacularURL, {
+      params: {
+        url: recipeURL,
+        forceExtraction: 'false'
+      },
+      headers: {
+        'x-mashape-key': SPOONACULAR_KEY
+      }
+    })
+    .then(({ data }) => {
+      const { readyInMinutes, instructions } = data
+      const recipeMethods = instructions.split('\n').slice(2, -2).map((line) => {
+        return line.slice(4, -5)
+      })
+      const response = { readyInMinutes, recipeMethods, recipeIMG }
+      res.status(200).send(response)
+    })
+    /* * implement proper error handling * */
+    .catch(error => console.log(error))
+  })
+  /* * implement proper error handling * */
+  .catch(error => console.log(error))
+}

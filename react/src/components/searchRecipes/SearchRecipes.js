@@ -30,7 +30,17 @@ import styles from './searchRecipes-css'
 /**
  * Utilities
  */
+import renderHTML from 'react-render-html'
 import axios from 'axios'
+
+const style = {
+  fontSize: '15px',
+  lineHeight: '30px',
+  display: 'flex',
+  color: 'pink',
+  display: 'list-item',
+  listStyleType: 'decimal'
+}
 
 class SearchRecipes extends Component {
   constructor (props) {
@@ -39,19 +49,23 @@ class SearchRecipes extends Component {
       dish: '',
       allowedIngredient: '',
       excludedIngredient: '',
-      dietKeys: []
+      dietKeys: [],
+      readyInMinutes: null,
+      recipeIMG: null,
+      recipeMethods: null
     }
     this.setStateThroughProps = this.setStateThroughProps.bind(this)
   }
 
   handleSubmit () {
-    const filters = this.state
-    axios.post('/api/recipes/search', filters)
+    const filters = {
+      recipeID: 'Earthquake-Cake-1386793'
+    }
+    axios.post('/api/recipes/methods', filters)
     .then(res => {
-      console.log(res)
-      const { id, ingredients, recipeName } = res.data
-
-      /* * do the things with the response * */
+      const { readyInMinutes, recipeMethods, recipeIMG } = res.data
+      console.log(recipeMethods)
+      this.setState({ readyInMinutes, recipeMethods, recipeIMG })
     })
     /* * implement proper error handling * */
     .catch(error => {
@@ -79,16 +93,18 @@ class SearchRecipes extends Component {
   }
 
   render () {
-    const { dish } = this.state
+    const { dish, recipeIMG } = this.state
     const layout = [
       {i: 'a', x: 3, y: 0, w: 6, h: 3, static: true},
-      {i: 'b', x: 3, y: 3, w: 6, h: 3, static: true},
+      {i: 'b', x: 3, y: 3, w: 3, h: 3, static: true},
       {i: 'c', x: 3, y: 6, w: 6, h: 3, static: true},
       {i: 'd', x: 3, y: 9, w: 6, h: 3, static: true},
       {i: 'e', x: 3, y: 12, w: 6, h: 3, static: true},
       {i: 'f', x: 3, y: 15, w: 6, h: 3, static: true},
-      {i: 'g', x: 3, y: 18, w: 6, h: 3, static: true}
+      {i: 'g', x: 3, y: 18, w: 6, h: 3, static: true},
+      {i: 'h', x: 3, y: 21, w: 6, h: 3, static: true}
     ]
+
     return (
       <ReactGridLayout className='layout' layout={layout} cols={12} rowHeight={31} width={window.innerWidth}>
         <div key={'a'}>
@@ -127,6 +143,9 @@ class SearchRecipes extends Component {
         </div>
         <div key={'g'}>
           <FlatButton label='submit' secondary fullWidth onClick={this.handleSubmit.bind(this)} />
+        </div>
+        <div key={'h'} style={style}>
+          <img src={recipeIMG} />
         </div>
       </ReactGridLayout>
     )
