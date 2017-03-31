@@ -3,11 +3,10 @@ const { YUMMLY_APP_ID, YUMMLY_APP_KEY, SPOONACULAR_KEY } = require('./setup')
 const axios = require('axios')
 
 /**
- * Yummly API Search Recipe Helpers
+ * API Search Helpers
  */
 const yummlyURL = 'http://api.yummly.com/v1/api/'
 const spoonacularURL = 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/extract'
-
 const diets = {
   0: 'nutrition^nutrition-low-carb',
   1: 'nutrition^nutrition-low-sugar',
@@ -16,18 +15,11 @@ const diets = {
   4: '390^Vegan',
   5: '385^Lacto-ovo+vegetarian'
 }
-
 const searchParams = {
   _app_id: YUMMLY_APP_ID,
   _app_key: YUMMLY_APP_KEY,
-  q: null,
-  'allowedIngredient[]': null,
-  'excludedIngredient[]': null,
-  'allowedAttribute[]': [],
-  'allowedAllergy[]': [],
-  'allowedDiet[]': []
+  q: null
 }
-
 const composeRequest = (params) => {
   /**
    * If params = recipeID, we compose a Get Recipe request
@@ -45,9 +37,9 @@ const composeRequest = (params) => {
   //  * Converting search filters to required format, to set on object and stringify
   //  */
   searchParams.q = dishName
-  searchParams['allowedIngredient[]'] = allowedIngredient
-  searchParams['excludedIngredient[]'] = excludedIngredient
-  dietKeys.forEach(key => {
+  allowedIngredient && searchParams['allowedIngredient[]']
+  excludedIngredient && searchParams['excludedIngredient[]']
+  dietKeys && dietKeys.forEach(key => {
     const diet = diets[key];
     (key === 0 || key === 1) && searchParams['allowedAttribute[]'].push(diet);
     (key === 2 || key === 3) && searchParams['allowedAllergy[]'].push(diet);
@@ -62,24 +54,34 @@ const composeRequest = (params) => {
 }
 
 exports.yummlySearchRecipes = (req, res) => {
-  const params = req.body
+  const params = req.query
+  // /**
+  //  * GET request to Yummly, to search all recipes (note: does not return recipe methods)
+  //  */
   axios.get(composeRequest(params))
   .then(({ data }) => {
-    const recipe = data.matches[0]
-    const { id, ingredients, recipeName } = recipe
-    const response = { id, ingredients, recipeName }
+    const recipes = data.matches
+    const response = recipes.map(({ id, ingredients, recipeName }) => {
+      return { id, ingredients, recipeName }
+    })
     res.status(200).send(response)
   })
-/* * implement proper error handling * */
+/* * implement Erik error handling * */
   .catch(error => console.log(error))
 }
 
 exports.spoonacularGetRecipe = (req, res) => {
   const { recipeID } = req.body
+  // /**
+  //  * GET request to Yummly, to get recipe's source URL and large image (using recipe ID)
+  //  */
   axios.get(composeRequest(recipeID))
   .then(results => {
     const recipeURL = results.data.source.sourceRecipeUrl
     const recipeIMG = results.data.images[0].hostedLargeUrl
+    // /**
+    //  * GET request to Spoonacular, to get recipe's methods from source URL
+    //  */
     axios.get(spoonacularURL, {
       params: {
         url: recipeURL,
@@ -90,16 +92,19 @@ exports.spoonacularGetRecipe = (req, res) => {
       }
     })
     .then(({ data }) => {
-      const { readyInMinutes, instructions } = data
+      // /**
+      //  * send methods and image to client
+      //  */
+      const { instructions } = data
       const recipeMethods = instructions.split('\n').slice(2, -2).map((line) => {
         return line.slice(4, -5)
       })
-      const response = { readyInMinutes, recipeMethods, recipeIMG }
+      const response = { recipeMethods, recipeIMG }
       res.status(200).send(response)
     })
-    /* * implement proper error handling * */
+    /* * implement Erik error handling * */
     .catch(error => console.log(error))
   })
-  /* * implement proper error handling * */
+  /* * implement Erik error handling * */
   .catch(error => console.log(error))
 }
