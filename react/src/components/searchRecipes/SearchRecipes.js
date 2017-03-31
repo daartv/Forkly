@@ -47,8 +47,8 @@ class SearchRecipes extends Component {
     super(props)
     this.state = {
       dish: '',
-      allowedIngredient: '',
-      excludedIngredient: '',
+      allowedIngredient: null,
+      excludedIngredient: null,
       dietKeys: [],
       readyInMinutes: null,
       recipeIMG: null,
@@ -58,14 +58,16 @@ class SearchRecipes extends Component {
   }
 
   handleSubmit () {
-    const filters = {
-      recipeID: 'Earthquake-Cake-1386793'
-    }
-    axios.post('/api/recipes/methods', filters)
+    const { dish, allowedIngredient, excludedIngredient, dietKeys } = this.state
+    axios.get('/api/recipes/search', {
+      params: { dish, allowedIngredient, excludedIngredient, dietKeys }
+    })
     .then(res => {
-      const { readyInMinutes, recipeMethods, recipeIMG } = res.data
-      console.log(recipeMethods)
-      this.setState({ readyInMinutes, recipeMethods, recipeIMG })
+      console.log(res)
+      const recipes = res.data
+      /**
+       * res.data will be an array of indiv recipe objects { id, ingredients, recipeName }
+       */
     })
     /* * implement proper error handling * */
     .catch(error => {
@@ -93,7 +95,7 @@ class SearchRecipes extends Component {
   }
 
   render () {
-    const { dish, recipeIMG } = this.state
+    const { dish } = this.state
     const layout = [
       {i: 'a', x: 3, y: 0, w: 6, h: 3, static: true},
       {i: 'b', x: 3, y: 3, w: 3, h: 3, static: true},
@@ -144,9 +146,7 @@ class SearchRecipes extends Component {
         <div key={'g'}>
           <FlatButton label='submit' secondary fullWidth onClick={this.handleSubmit.bind(this)} />
         </div>
-        <div key={'h'} style={style}>
-          <img src={recipeIMG} />
-        </div>
+        <div key={'h'} />
       </ReactGridLayout>
     )
   }

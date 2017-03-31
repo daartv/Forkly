@@ -85,10 +85,10 @@ app.get('/username', handler.getUsername)
  * Request for API search
  */
 /* * Search Recipes - Mycah * */
-app.post('/api/recipes/search', yummlySearchRecipes)
+app.get('/api/recipes/search*', yummlySearchRecipes)
 
 /* * Get Recipe Methods - Mycah * */
-app.post('/api/recipes/methods', spoonacularGetRecipe)
+app.get('/api/recipes/methods*', spoonacularGetRecipe)
 
 /**
  * Request for database search
