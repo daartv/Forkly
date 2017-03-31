@@ -44,27 +44,26 @@ class SearchRecipes extends Component {
     this.setStateThroughProps = this.setStateThroughProps.bind(this)
   }
 
-  componentDidMount () {}
-
   handleSubmit () {
-    const { dish, allowedIngredient, excludedIngredient, dietKeys } = this.state
-    const filters = {
-      dish,
-      allowedIngredient,
-      excludedIngredient,
-      dietKeys
-    }
-    axios.get('/api/recipes', filters)
+    const filters = this.state
+    axios.post('/api/recipes/search', filters)
     .then(res => {
-    /* * do the things with the response * */
+      console.log(res)
+      const { id, ingredients, recipeName } = res.data
+
+      /* * do the things with the response * */
     })
     /* * implement proper error handling * */
-    .catch(error => console.log(error))
+    .catch(error => {
+      if (error.response) {
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      }
+    })
   }
 
-  /**
-  * { target } is deconstructed from event.target
-  */
+  /* * { target } is deconstructed from event.target * */
   handleInputChange ({ target }, key) {
     const { value } = target
     this.setState({ [key]: value })

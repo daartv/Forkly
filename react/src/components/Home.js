@@ -1,7 +1,12 @@
 import React from 'react'
 import $ from 'jquery'
-
+import SearchRecipes from './searchRecipes/SearchRecipes'
 import RecipeSearchResults from './RecipeSearchResults'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
 class Home extends React.Component {
   constructor (props) {
@@ -44,22 +49,8 @@ class Home extends React.Component {
   render () {
     return (
       <div>
-        <div className='search'>
-          <img className='searchImage' src='assets/images/steak.jpg' alt='steak' />
-          <span className='searchText'>
-            <h3>Yummly</h3>
-            <input type='text'
-              onKeyUp={(event) => {
-                this.setSearchTerm(event.target.value)
-              }}
-            />
-            <button onClick={(event) => {
-              this.searchRecipes(this.state.searchTerm)
-            }}
-            >Search Recipes</button>
-          </span>
-        </div>
-
+      <Link to='Login'>Log in to your account</Link>
+      <SearchRecipes />
         <div className='results'>
           <ul>
             {this.state.recipes.map((recipe, index) => <RecipeSearchResults recipe={recipe} key={index} />)}
