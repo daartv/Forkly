@@ -1,9 +1,10 @@
-var express = require('express')
-var request = require('request')
-var mongoose = require('mongoose')
+const express = require('express')
+const request = require('request')
+const fsPath =  require('fs-path')
+const mongoose = require('mongoose')
 mongoose.Promise = require('bluebird')
 
-var db = require('../db/index.js')
+const db = require('../db/index.js')
 
 // for Home Component - from searchRecipes function
 /** ORIGINAL **
@@ -50,7 +51,7 @@ exports.getUsername = function (req, res) {
     res.json(null)
   }
 }
-
+// O: {originalRecipes, recipes}
 // for viewRecipes Component - get all recipes for user
 exports.getUserRecipes = function (req, res) {
   if (req.user) {
@@ -64,45 +65,57 @@ exports.getUserRecipes = function (req, res) {
   }
 }
 
-/** ORIGINAL **/
 exports.addRecipe = function (req, res) {
   if (req.user) {
-    req.body._creator = req.user._id
+    const currRecipe = req.body.currentRecipe
+    const origRecipe = req.body.sendOriginalRecipe
 
-    // create recipe in database
-    let recipeId
-    db.Recipe.create(req.body).then((recipe) => {
-      // push recipe into user's recipes array
-      recipeId = recipe.id
-      db.User.findByIdAndUpdate(req.user._id, {$push: {recipes: recipe.id}})
-      .then(() => {
-        res.json(recipeId)
-      })
+    let currentRecipe = new db.Recipe({
+      name: currRecipe.recipeName,
+      ingredients: currRecipe.ingredients,
+      directions: currRecipe.recipeDirections,
+      _creator: req.user._id
     })
+
+    let originalRecipe = new db.Recipe({
+      name: origRecipe.recipeName,
+      ingredients: origRecipe.ingredients,
+      directions: origRecipe.recipeDirections,
+      _creator: req.user._id,
+      // image: origRecipe.image
+    })
+
+    convertToImageFile(currRecipe.image, currentRecipe._id)
+   
+    originalRecipe.image = currentRecipe.image = `./recipes/images/${currentRecipe._id}.png`
+
+    currentRecipe.save()
+    .then(newCurrRecipe => {
+      return originalRecipe.save()
+    })
+    .then(newOrigRecipe => {
+      return db.User.findByIdAndUpdate(req.user._id, {$push: {recipes: currentRecipe._id, originalRecipes: originalRecipe._id}})
+        .then((user) => {
+          res.status(200).send(currentRecipe._id)
+        })
+      })
+    .catch(err => res.status(500).send('error creating recipe'))
+
   } else {
-    res.end()
+    res.status(500).send('user not logged');
   }
 }
-/** ORIGINAL **/
-/*
-  I: req.body.original, req.body.recipe
-  O: recipeId of the recipe (ask steve whats the expected output)
-*/
+
+
 exports.addForkedRecipe = function (req, res) {
   if (req.user) {
-    // uncomment if the front-end can send back the object with the creator value
-    // req.body.original._creator = req.body.original._creator || req.user._id;
-    // req.body.recipe._creator = req.body.recipe._creator || req.user._id;
 
     db.Recipe.create(req.body.original)
       .then(origRecipe => {
-        console.log('exports.addRecipe original recipe created origRecipe:', origRecipe)
         return db.Recipe.create(req.body.recipe)
           .then(updatedRecipe => {
-            console.log('exports.addRecipe successfully created updatedRecipe:', updatedRecipe)
             return db.User.findByIdAndUpdate(req.user._id, {$push: {recipes: updatedRecipe._id, originalRecipes: origRecipe._id}})
               .then((user) => {
-                // res.json(recipeId);
                 res.send(200)
               })
           })
@@ -118,7 +131,15 @@ exports.addForkedRecipe = function (req, res) {
 
 exports.getRecipeById = function (req, res) {
   db.Recipe.findById(req.body.id)
-  .then((recipe) => {
+  .then((recipe) => {    
     res.json(recipe)
   })
+}
+
+const convertToImageFile = (imgString, filename) => {
+  const base64Data = imgString.replace(/^data:image\/jpeg;base64,/, '')
+  
+  fsPath.writeFile(`./server/recipes/images/${filename}.jpeg`, base64Data, 'base64', function(err) {
+    err ? console.log('convertToImageFile err', err) : console.log('convertToImageFile success')
+  });
 }

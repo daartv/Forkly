@@ -97,6 +97,9 @@ app.post('/searchRecipes', handler.searchRecipes)
 app.get('/getAllRecipes', handler.getUserRecipes)
 app.post('/getRecipeById', handler.getRecipeById)
 
+// Unhandled routes
+app.get('/*', (req, res) => res.redirect('/'))
+
 /**
  * Roll out
  */
