@@ -133,7 +133,7 @@ class ViewRecipes extends Component {
       recipes: '',
       originalRecipes: ''
     }
-
+    this.handleClick = this.handleClick.bind(this);
   }
 
 /*===================================
@@ -202,7 +202,7 @@ Mapping the grid:
           </div>
         </div>
           <div>
-            <PageTabs stats={tilesData} />
+            <PageTabs stats={tilesData} handleClick={this.handleClick} />
           </div>
       </div>
     )

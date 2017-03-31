@@ -27,7 +27,7 @@ class PageTabs extends Component {
   };
 
   render() {
-    const stats = this.props.stats
+    const { stats, handleClick } = this.props
     return (
       <Tabs
       value={this.state.value}
@@ -48,7 +48,7 @@ class PageTabs extends Component {
         <Tab label="Recent Activity" value="c">
           <div>
             <h2 style={styles.headline}>Recent Activity</h2>
-             <RecipeGrid stats={stats} />
+             <RecipeGrid handleClick={handleClick} stats={stats} />
           </div>
         </Tab>
       </Tabs>
