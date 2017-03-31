@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table'
 import ErrorDialog from './ReqFieldErrorDialog'
-// import EditTable from './editTableDev'
+import EditTable from './editTableDev'
 
 import TextField from 'material-ui/TextField'
 import Toggle from 'material-ui/Toggle'
@@ -167,8 +167,8 @@ class AddIngredientsTable extends Component {
   };
 
   render () {
-    let { recipeName, ingredients, recipeDirections, forking } = this.props.stats
-    const recipeImage = this.props.stats.recipeImage || 'https://lh3.googleusercontent.com/TgEXw13nhbMEVLiMedgYdTdG--B45cR-TlT3nQY-zlovuCs95Uq0JK3vRuVe-KA7MDCeR_tqT2ZO9_WFFWwTvW4=s730-e365'
+    let { recipeName, ingredients, imagePath, recipeDirections, forking } = this.props.stats
+    const recipeImage = imagePath || 'https://lh3.googleusercontent.com/TgEXw13nhbMEVLiMedgYdTdG--B45cR-TlT3nQY-zlovuCs95Uq0JK3vRuVe-KA7MDCeR_tqT2ZO9_WFFWwTvW4=s730-e365'
 
     const isDisabled = this.props.isDisabled
     const fieldType = isDisabled ? 'ReadOnly' : 'TextField'

@@ -88,32 +88,14 @@ class AddRecipe extends Component {
         console.log('return value', recipeId)
         router.history.push('/recipe/' + recipeId)
       })
-      .catch(function (error) {
-        console.log(error)
-      })
-  }
+      .catch(function(error){
+      console.log(error)
+      }); 
+}
+  
 
-// jQUERY METHOD FOR REFERENCE
-  //     function()
-  //   $.ajax({
-  //     url: '/api/addRecipe',
-  //     data: JSON.stringify(this.state),
-  //     method: 'POST',
-  //     contentType: 'application/JSON',
-  //     success: (recipeId) => {
-  //       router.history.push('/recipe/' + recipeId)
-  //     }
-  //   })
-  //   event.preventDefault()
-  // }
+      
 
-// OG ADD ROW FOR REFERENCE
-  // addRow () {
-  //   let myIngredients = this.state.ingredients
-  //   myIngredients[myIngredients.length - 1].showButton = false
-  //   myIngredients.push({quantity: 0, units: '', ingredient: ''})
-  //   this.setState({ingredients: myIngredients})
-  // }
 
   handleIngredientsChange (ingredientInd, updatedIngredient) {
     // const target = event.target
@@ -140,12 +122,6 @@ class AddRecipe extends Component {
     }
   }
 
-    // let ing = this.state.ingredients
-    // ing[index][name] = value
-
-    // this.setState({
-    //   ingredients: ing
-    // }
 
   handleInputChange (field, value) {
     console.log(field, value)
@@ -182,10 +158,3 @@ AddRecipe.contextTypes = {
 
 export default AddRecipe
 
-/*
-<div className='createRecipe'>
-          <h1>{recipeHeader}</h1>
-        <br />
-        <img className='recipeImage' src='assets/images/sushi.jpg' alt='sushi' />
-        <br />
-        <form onSubmit={this.handleSubmit}> */
