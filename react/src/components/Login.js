@@ -1,6 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
+import SignUpPage from '../components/signUpPage/SignUpPage'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
 class Login extends React.Component {
   constructor (props) {
@@ -58,11 +64,16 @@ class Login extends React.Component {
   render () {
     if (this.props.username === null) {
       return (
-        <a className='loginFacebook' href='/auth/facebook'>Login with Facebook</a>
+        <div>
+          <a className='loginFacebook' href='/auth/facebook'>Login with Facebook</a>
+          <Link to='signup'>Sign up for an account</Link>
+        </div>
       )
     } else {
       return (
-        <div>Welcome, {this.props.username}</div>
+        <div>Welcome, {this.props.username}
+        <Link to='/user'> Go to your page</Link>
+        </div>
       )
     }
     // return (
