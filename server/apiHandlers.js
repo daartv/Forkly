@@ -15,7 +15,6 @@ exports.yummlySearchRecipes = (req, res) => {
   // .then(results => {
   // res.status(200)
   // send result
-  }
 /* * implement proper error handling * */
 .catch(error => console.log(error))
 }

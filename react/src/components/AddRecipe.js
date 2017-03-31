@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import AddRecipeIngredients from './AddRecipeIngredients'
 import IngredientsTable from './IngredientsTable'
 import $ from 'jquery'
-import axios from 'Axios'
+import axios from 'axios'
 
 const styleProps = {
   fixedHeader: true,
@@ -93,27 +93,6 @@ class AddRecipe extends Component {
       }); 
 }
   
-// jQUERY METHOD FOR REFERENCE
-  //     function()
-  //   $.ajax({
-  //     url: '/api/addRecipe',
-  //     data: JSON.stringify(this.state),
-  //     method: 'POST',
-  //     contentType: 'application/JSON',
-  //     success: (recipeId) => {
-  //       router.history.push('/recipe/' + recipeId)
-  //     }
-  //   })
-  //   event.preventDefault()
-  // }
-
-// OG ADD ROW FOR REFERENCE
-  // addRow () {
-  //   let myIngredients = this.state.ingredients
-  //   myIngredients[myIngredients.length - 1].showButton = false
-  //   myIngredients.push({quantity: 0, units: '', ingredient: ''})
-  //   this.setState({ingredients: myIngredients})
-  // }
 
   handleIngredientsChange (ingredientInd, updatedIngredient) {
     // const target = event.target
@@ -141,12 +120,6 @@ class AddRecipe extends Component {
     }
   }
 
-    // let ing = this.state.ingredients
-    // ing[index][name] = value
-
-    // this.setState({
-    //   ingredients: ing
-    // }
 
   handleInputChange (field, value) {
     console.log(field, value)
