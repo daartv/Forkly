@@ -1,12 +1,8 @@
-# Project Name
-==================
-
-> lamborghini mercy
+# Forkly
 
 ## Description
 
-> So many things
-
+> lamborghini mercy
 
 ## Installing Dependencies
 
