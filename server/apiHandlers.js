@@ -3,7 +3,7 @@ const { yummlyAPICreds } = require('./setup')
 const axios = require('axios')
 
 /**
- * Yummy API Search Recipe Helpers
+ * Yummly API Search Recipe Helpers
  */
 const { appID, appKEY } = yummlyAPICreds
 const yummlyURL = 'http://api.yummly.com/v1/api/'
@@ -32,6 +32,7 @@ const composeRequest = (params) => {
    * If params = recipeID, we compose a Get Recipe request
    */
   if (typeof params === 'string') {
+    console.log(params)
     const queryString = yummlyURL + `recipe/${params}?_app_id=${appID}&_app_key=${appKEY}`
     return queryString
   }
@@ -74,9 +75,19 @@ exports.yummlySearchRecipes = (req, res) => {
   .catch(error => console.log(error))
 }
 
-// const getRecipeURL = () => {}
+exports.spoonacularGetRecipe = (req, res) => {
+  const { recipeID } = req.body
+  const request = composeRequest(recipeID)
+  axios.get(request)
+  .then(results => {
+    const recipeURL = results.data.source.sourceRecipeUrl
+    const recipeIMG = results.data.images[0].hostedLargeUrl
 
-// exports.spoonacularGetRecipe = (req, res) => {
-//   const { recipeID } = req
-//   axios.get(request)
-// }
+    // spoonacular api call here
+  })
+  /* * implement proper error handling * */
+  .catch(error => console.log(error))
+  // axios.get
+}
+
+// const getRecipeURL = () => {}

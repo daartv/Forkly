@@ -22,7 +22,7 @@ const handler = require('./requestHandler')
 const facebook = require('./facebook')
 const passport = require('passport')
 const path = require('path')
-const { yummlySearchRecipes } = require('./apiHandlers')
+const { yummlySearchRecipes, spoonacularGetRecipe } = require('./apiHandlers')
 
 const port = process.env.PORT || 3000
 
@@ -75,7 +75,7 @@ app.post('/searchRecipes', handler.searchRecipes)
 /* * AddRecipe Component - from handleSubmit function * */
 app.post('/api/addRecipe', handler.addRecipe)
 
-/* * new Feature * */
+/* * New Feature * */
 app.post('api/addForkedRecipe', handler.addForkedRecipe)
 
 /* * Nav Component - from getUsername function * */
@@ -86,6 +86,9 @@ app.get('/username', handler.getUsername)
  */
 /* * Search Recipes - Mycah * */
 app.post('/api/recipes/search', yummlySearchRecipes)
+
+/* * Get Recipe Methods - Mycah * */
+app.post('/api/recipes/methods', spoonacularGetRecipe)
 
 /**
  * Request for database search

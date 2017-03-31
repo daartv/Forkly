@@ -45,11 +45,13 @@ class SearchRecipes extends Component {
   }
 
   handleSubmit () {
-    const filters = this.state
-    axios.post('/api/recipes/search', filters)
+    const filters = {
+      recipeID: 'Earthquake-Cake-1386793'
+    }
+    axios.post('/api/recipes/methods', filters)
     .then(res => {
       console.log(res)
-      const { id, ingredients, recipeName } = res.data
+      // const { id, ingredients, recipeName } = res.data
 
       /* * do the things with the response * */
     })
