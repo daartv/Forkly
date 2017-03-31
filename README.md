@@ -41,7 +41,7 @@ where recipe IDs may be obtained from the Search Recipes call. The recipe ID is 
   - Eugene!
   - Dario!
   - Mycah!
-  *- Shoutout to the Team Forkly OG's!*
+  - *- Shoutout to the Team Forkly OG's!*
 
 
 ## Roadmap
