@@ -44,7 +44,7 @@ const tilesData = [
     title: 'Water plant',
     author: 'BkrmadtyaKarki',
   },
-    {
+  {
     img: 'images/grid-list/00-52-29-429_640.jpg',
     title: 'Breakfast',
     author: 'jill111',
@@ -52,36 +52,36 @@ const tilesData = [
   {
     img: 'images/grid-list/burger-827309_640.jpg',
     title: 'Tasty burger',
-    author: 'pashminu',
+    author: 'dsakhfdjhasf',
   },
   {
     img: 'images/grid-list/camera-813814_640.jpg',
-    title: 'Camera',
-    author: 'Danson67',
+    title: 'Cadsfdsafdasmera',
+    author: 'Dadsklfjhdshfnson67',
   },
   {
     img: 'images/grid-list/morning-819362_640.jpg',
-    title: 'Morning',
+    title: 'Mfdsg34fewforning',
     author: 'fancycrave1',
   },
   {
     img: 'images/grid-list/hats-829509_640.jpg',
-    title: 'Hats',
+    title: 'Hatewfeswasas',
     author: 'Hans',
   },
   {
     img: 'images/grid-list/honey-823614_640.jpg',
-    title: 'Honey',
+    title: 'Hondsfdsafaey',
     author: 'fancycravel',
   },
   {
     img: 'images/grid-list/vegetables-790022_640.jpg',
-    title: 'Vegetables',
+    title: 'Vegeewr3 tables',
     author: 'jill111',
   },
   {
     img: 'images/grid-list/water-plant-821293_640.jpg',
-    title: 'Water plant',
+    title: 'Water pdsafdsalant',
     author: 'BkrmadtyaKarki',
   },
 ]
@@ -166,7 +166,7 @@ Mapping the grid:
     return (
 
       <div>
-        <PageTabs stats={this.state} />
+        <PageTabs stats={tilesData} />
       </div>
     )
   }

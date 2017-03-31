@@ -9,11 +9,12 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
+    padding: '5%'
   },
   gridList: {
     width: '90%',
     height: '90%',
-    overflowY: 'auto',
+    overflowY: 'auto'
   },
 };
 
@@ -25,19 +26,20 @@ class RecipeGrid extends Component {
   }
 
   render() {
-    const tilesData = this.props.stats
-    
+    let tilesData = this.props.stats
+
       return (
         <div style={styles.root}>
         <GridList
           cellHeight={180}
           style={styles.gridList}
           cols={4}
+          rows={4}
         >
           <Subheader>{}</Subheader>
-          {tilesData.map((tile) => (
+          {tilesData.map((tile, ind) => (
             <GridTile
-              key={tile.img}
+              key={ind}
               title={tile.title}
               subtitle={<span>by <b>{tile.author}</b></span>}
               actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
