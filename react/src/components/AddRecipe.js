@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import AddRecipeIngredients from './AddRecipeIngredients'
 import IngredientsTable from './IngredientsTable'
 import $ from 'jquery'
-import axios from 'Axios'
+import axios from 'axios'
 
 const styleProps = {
   fixedHeader: true,
@@ -17,13 +17,13 @@ const styleProps = {
 }
 
 const testData = {
-      recipeName: '',
-      recipeDirections: '',
-      ingredients: [{quantity: '', units: '', ingredient: ''}],
-      creator: '',
-      image: '',
-      originalRecipe: ''
-    };
+  recipeName: '',
+  recipeDirections: '',
+  ingredients: [{quantity: '', units: '', ingredient: ''}],
+  creator: '',
+  image: '',
+  originalRecipe: ''
+}
 
 class AddRecipe extends Component {
   constructor (props) {
@@ -35,7 +35,7 @@ class AddRecipe extends Component {
       // ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}, {quantity: 1, units: 'spoonful', ingredient: 'sugar'}],
       // creator: '',
       originalRecipe: this.props.mainRecipe || undefined,
-      forking: this.props.mainRecipe === undefined ? false : true,
+      forking: this.props.mainRecipe !== undefined,
       edit: true
     }
     // this.addRow = this.addRow.bind(this)
@@ -77,22 +77,22 @@ class AddRecipe extends Component {
     const { router } = this.context
     const { originalRecipe } = this.props
 
-    const sendOriginalRecipe = originalRecipe ? originalRecipe : this.state.currentRecipe
+    const sendOriginalRecipe = originalRecipe || this.state.currentRecipe
     const { currentRecipe, forking } = this.state
 
     const reqRoute = forking ? '/api/addForkedRecipe' : '/api/addRecipe'
     const storeRecipe = {currentRecipe, sendOriginalRecipe}
 
-      axios.post(reqRoute , storeRecipe)
-      .then(function(recipeId){
-        console.log('return value', recipeId);
+    axios.post(reqRoute, storeRecipe)
+      .then(function (recipeId) {
+        console.log('return value', recipeId)
         router.history.push('/recipe/' + recipeId)
       })
-      .catch(function(error){
-      console.log(error)
-      }); 
-}
-  
+      .catch(function (error) {
+        console.log(error)
+      })
+  }
+
 // jQUERY METHOD FOR REFERENCE
   //     function()
   //   $.ajax({
@@ -126,18 +126,17 @@ class AddRecipe extends Component {
       ingredient: updatedIngredient.ingredient
     }
 
-    if(this.state.currentRecipe.ingredients[ingredientInd] === undefined){
-      this.setState( (state) => {
-        state.currentRecipe.ingredients = state.currentRecipe.ingredients.concat([newIngredients]);
-        return state;
-     })
-    } 
-    else {
-      let forkCopy = this.state.currentRecipe;
-      forkCopy.ingredients[ingredientInd] = newIngredients;
-      this.setState({currentRecipe: forkCopy}, function(){
-        console.log(this.state.currentRecipe);
-      })    
+    if (this.state.currentRecipe.ingredients[ingredientInd] === undefined) {
+      this.setState((state) => {
+        state.currentRecipe.ingredients = state.currentRecipe.ingredients.concat([newIngredients])
+        return state
+      })
+    } else {
+      let forkCopy = this.state.currentRecipe
+      forkCopy.ingredients[ingredientInd] = newIngredients
+      this.setState({currentRecipe: forkCopy}, function () {
+        console.log(this.state.currentRecipe)
+      })
     }
   }
 
@@ -150,10 +149,10 @@ class AddRecipe extends Component {
 
   handleInputChange (field, value) {
     console.log(field, value)
-    let updatedRecipeInfo = this.state.currentRecipe;
-    updatedRecipeInfo[field] = value;
-    this.setState({currentRecipe: updatedRecipeInfo}, function(){
-        console.log(this.state.currentRecipe)
+    let updatedRecipeInfo = this.state.currentRecipe
+    updatedRecipeInfo[field] = value
+    this.setState({currentRecipe: updatedRecipeInfo}, function () {
+      console.log(this.state.currentRecipe)
     })
   }
 
@@ -165,13 +164,12 @@ class AddRecipe extends Component {
 
       <div className='createRecipe'>
 
-          <h1>{recipeHeader}</h1>
+        <h1>{recipeHeader}</h1>
         <form>
 
-            <IngredientsTable handleRecipeSave={this.handleRecipeSave} stats={this.state.currentRecipe} isDisabled={!this.state.edit} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
-         
-          <div>
-          </div>
+          <IngredientsTable handleRecipeSave={this.handleRecipeSave} stats={this.state.currentRecipe} isDisabled={!this.state.edit} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
+
+          <div />
         </form>
       </div>
     )
@@ -190,5 +188,4 @@ export default AddRecipe
         <br />
         <img className='recipeImage' src='assets/images/sushi.jpg' alt='sushi' />
         <br />
-        <form onSubmit={this.handleSubmit}>*/
-
+        <form onSubmit={this.handleSubmit}> */
