@@ -45,6 +45,7 @@ class AddRecipe extends Component {
     this.handleRecipeSave = this.handleRecipeSave.bind(this)
 
     // this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleImageChange = this.handleImageChange.bind(this);
   }
 
   componentDidMount () {
@@ -91,12 +92,8 @@ class AddRecipe extends Component {
       .catch(function(error){
       console.log(error)
       }); 
-}
+  }
   
-
-      
-
-
   handleIngredientsChange (ingredientInd, updatedIngredient) {
     // const target = event.target
     // const name = target.name
@@ -122,7 +119,6 @@ class AddRecipe extends Component {
     }
   }
 
-
   handleInputChange (field, value) {
     console.log(field, value)
     let updatedRecipeInfo = this.state.currentRecipe
@@ -130,6 +126,12 @@ class AddRecipe extends Component {
     this.setState({currentRecipe: updatedRecipeInfo}, function () {
       console.log(this.state.currentRecipe)
     })
+  }
+
+  handleImageChange(imgString) {
+    let currentRecipe = this.state.currentRecipe
+    currentRecipe.image = imgString
+    this.setState({currentRecipe: currentRecipe})
   }
 
   render () {
@@ -143,9 +145,16 @@ class AddRecipe extends Component {
         <h1>{recipeHeader}</h1>
         <form>
 
-          <IngredientsTable handleRecipeSave={this.handleRecipeSave} stats={this.state.currentRecipe} isDisabled={!this.state.edit} handleChange={this.handleIngredientsChange} handleInputChange={this.handleInputChange} styleProps={styleProps} />
+          <IngredientsTable 
+            handleRecipeSave={this.handleRecipeSave} 
+            handleChange={this.handleIngredientsChange} 
+            handleInputChange={this.handleInputChange} 
+            handleImageChange={this.handleImageChange} 
+            stats={this.state.currentRecipe} 
+            isDisabled={!this.state.edit} 
+            styleProps={styleProps} 
+          />
 
-          <div />
         </form>
       </div>
     )

@@ -142,6 +142,7 @@ class AddIngredientsTable extends Component {
     this.onChange = this.onChange.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.onRecipeSave = this.onRecipeSave.bind(this)
+    this.handleImageChange = this.handleImageChange.bind(this)
   }
   onChange (row) {
     const ingredientInd = row.id
@@ -164,7 +165,20 @@ class AddIngredientsTable extends Component {
     let value = event.target.value
     let field = event.target.name
     this.props.handleInputChange(field, value)
-  };
+  }
+
+  handleImageChange(event) {
+    event.preventDefault()
+
+    let reader = new FileReader()
+    let file = event.target.files[0];
+
+    reader.onloadend = () => {
+      this.props.handleImageChange(reader.result)
+    }
+
+    reader.readAsDataURL(file)
+  }
 
   render () {
     let { recipeName, ingredients, imagePath, recipeDirections, forking } = this.props.stats
@@ -215,7 +229,7 @@ class AddIngredientsTable extends Component {
               style={styles.uploadButton}
               containerElement='label'
             >
-              <input type='file' style={styles.uploadInput} />
+              <input type='file' style={styles.uploadInput} onChange={this.handleImageChange} />
             </FlatButton>
 
           </div>
