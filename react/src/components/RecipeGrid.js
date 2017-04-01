@@ -13,9 +13,9 @@ const styles = {
   },
   gridList: {
     width: '90%',
-    height: '90%',
+    height: '100%',
     overflowY: 'auto'
-  },
+  }
 };
 
 
@@ -37,7 +37,7 @@ class RecipeGrid extends Component {
       return (
         <div style={styles.root}>
         <GridList
-          cellHeight={180}
+          cellHeight={240}
           style={styles.gridList}
           cols={4}
           rows={4}

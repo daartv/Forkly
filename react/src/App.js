@@ -97,7 +97,7 @@ class App extends Component {
               </nav>
             </section>
           </div> */}
-          <Route exact path='/' component={ViewRecipes} />
+          <Route exact path='/' component={Home} />
           <Route exact path='/login' component={Login} />
           <Route path='/user' component={MainPageUser} />
           <Route path='/signup' component={SignUpPage} />

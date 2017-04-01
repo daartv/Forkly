@@ -17,7 +17,7 @@ const tilesData = [
     id: 555
   },
   {
-    img: 'images/grid-list/burger-827309_640.jpg',
+    img: 'https://www.chowstatic.com/assets/recipe_photos/30175_easy_pumpkin_pie.jpg',
     title: 'Tasty burger',
     author: 'pashminu',
     id: 556
@@ -168,10 +168,10 @@ class ViewRecipes extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      userID: 'Test',
+      userID: '',
       userName: '',
-      recipes: '',
-      originalRecipes: ''
+      recipes: tilesData,
+      originalRecipes: tilesData
     }
     this.handleClick = this.handleClick.bind(this);
   }
@@ -203,7 +203,24 @@ Mapping the grid:
     - ref to original recipe location in the array
 
 */
-  // before initial render, use ajax call to retrieve all recipes belonging to user
+  // before initial render, use ajax call to retrieve all recipes belonging to usercomponentDidUpdate(prevProps, prevState) {
+  // only update chart if the data has changed
+  // updateRecipeCategories() {
+  //   const { recipes } = this.state
+  //     let recipeCategories = {
+  //       usersRecipes: [],
+  //       forkedRecipes: []
+  //     }
+  //     recipeCategories[orderedRecipes] = recipes.reverse()
+  //     recipes.forEach((recipe) => {
+  //       if (recipe.creator === userID){
+  //         recipeCategories.usersRecipes.push(recipe)
+  //       } else {
+  //         recipeCategories.forkedRecipes.push(recipe)
+  //       }
+  //     })
+  //     this.setState({recipeStats: recipeStats})
+  // }
 
   // componentDidMount() {
   //   const context = this
@@ -217,10 +234,32 @@ Mapping the grid:
   //       recipes: recipes,
   //       originalRecipes: originalRecipes
   //     })
+  //   }).then(() => {
+  //   context.updateRecipeCategories();
   //   })
   // }
-   
 
+
+  // componentDidUpdate(prevProps, prevState){
+  //   if (prevState.recipes.length !== this.state.recipes.length) {
+  //   const { recipes } = this.state
+  //     let recipeCategories = {
+  //       usersRecipes: [],
+  //       forkedRecipes: []
+  //     }
+  //     recipeCategories[orderedRecipes] = recipes.reverse()
+  //     recipes.forEach((recipe) => {
+  //       if (recipe.creator === userID){
+  //         recipeCategories.usersRecipes.push(recipe)
+  //       } else {
+  //         recipeCategories.forkedRecipes.push(recipe)
+  //       }
+  //     })
+  //     this.setState({recipeStats: recipeStats})
+  //   } 
+  // }
+  
+  
 
   handleClick (recipeId) {
     // redirect to /recipes/recipeId
@@ -230,6 +269,21 @@ Mapping the grid:
 
   render () {
     const { userID, userName, recipes, originalRecipes } = this.state
+
+      let recipeStats = {
+        usersRecipes: [],
+        forkedRecipes: []
+      }
+      recipeStats.orderedRecipes = recipes.reverse()
+      recipes.forEach((recipe) => {
+        recipeStats.usersRecipes.push(recipe);
+        // if (recipe.creator === userID){
+        //   recipeStats.usersRecipes.push(recipe)
+        // } else {
+          recipeStats.forkedRecipes.push(recipe)
+        // }
+      })
+
     return (
       <div>
         <div style={styles.dashboard}>
@@ -242,20 +296,20 @@ Mapping the grid:
             <Paper style={styles.statsBar} zDepth={1} >
              
                 <Paper style={styles.statDetail} zdepth={0}>
-                 <h4>Recipes</h4>
-                <p>fkjhdsfhfdksjfha</p>
+                 <h4>User's Recipes</h4>
+                <p>{recipeStats.usersRecipes.length}</p>
                 </Paper>
               
               
                 <Paper style={styles.statDetail} zdepth={0}>
-                 <h4>Recipes</h4>
-                <p>5</p>
+                 <h4>Forks</h4>
+                <p>{recipeStats.forkedRecipes.length}</p>
                 </Paper>
              
               
                 <Paper style={styles.statDetail} zdepth={0}>
-                 <h4>Recipes</h4>
-                <p>fkjhdsfhfdksjfha</p>
+                 <h4>Been Forked</h4>
+                <p>`{5}`</p>
                 </Paper>
               
             </Paper>
@@ -263,7 +317,7 @@ Mapping the grid:
           </div>
         </div>
           <div>
-            <PageTabs stats={tilesData} handleClick={this.handleClick} />
+            <PageTabs stats={tilesData} recipeStats={recipeStats} handleClick={this.handleClick} />
           </div>
       </div>
     )
@@ -276,45 +330,3 @@ ViewRecipes.contextTypes = {
 }
 
 export default ViewRecipes
-
-/*
-//     if (this.state) {
-//       this.state.recipes.forEach((recipe, index) => {
-//         recipesArray.push(
-//           <li className='recipeSingle'
-//             key={index}
-//             value={recipe}
-//             onClick={() => this.handleClick(recipe._id)}>
-//             {recipe.name}
-//           </li>)
-//       })
-
-//       template =
-//         <div className='myRecipes'>
-//           <img className='myRecipeImage' src='assets/images/salmon.jpg' />
-//           <h1 className='myRecipesTitle'>My Recipes</h1>
-//           <ul className='recipesArray'>
-//             {recipesArray}
-//           </ul>
-//           <br />
-//           <br />
-//         </div>
-//     } else {
-//       template =
-//         <div >
-//           <img className='myRecipeImage' src='assets/images/salmon.jpg' />
-//           <h1 className='myRecipesTitle'>My Recipes</h1>
-//           <div className='loadingText'>
-//             <h3>Loading...</h3>
-//             <br />
-//             <h3>Please login or create your first recipe!</h3>
-//             <br />
-//             <br />
-//           </div>
-//         </div>
-//     }
-//     return (
-//       template
-//     )
-//   }
-// }*/
