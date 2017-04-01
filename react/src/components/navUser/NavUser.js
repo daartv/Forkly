@@ -13,8 +13,9 @@ const NavUser = (props) => {
       <div>
         <Router>
            <div>
-            <Link to='/user/recipes'><MenuItem onClick={props.handleClose}>Your recipes</MenuItem></Link>
-            <Link to='/user/search'><MenuItem onClick={props.handleClose}>Search recipes</MenuItem></Link>
+{/*            <Link to='/home/profile'><MenuItem onClick={props.handleClose}>Search recipes</MenuItem></Link>
+            <Link to='/home/recipes'><MenuItem onClick={props.handleClose}>Your recipes</MenuItem></Link>
+            <Link to='/home/search'><MenuItem onClick={props.handleClose}>Search recipes</MenuItem></Link>*/}
            </div>
          </Router>
       </div>
