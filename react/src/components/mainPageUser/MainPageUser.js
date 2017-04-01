@@ -6,10 +6,12 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
  /**
  * Components
  */
-import NavUser from '../navUser/NavUser'
 import ViewOwnRecipes from '../viewOwnRecipes/ViewOwnRecipes'
 import SearchRecipes from '../searchRecipes/SearchRecipes'
 import ViewRecipes from '../ViewRecipes'
+import NavUser from '../navUser/NavUser'
+import AddRecipe from '../AddRecipe'
+
 
  /**
  * Styles
@@ -28,7 +30,8 @@ class MainPageUser extends Component {
     super(props)
     this.state = {
       open: false,
-      value: 1
+      value: 1,
+      recipeToView: ''
     }
   }
 
@@ -46,6 +49,10 @@ class MainPageUser extends Component {
     this.context.router.history.push('/login')
   }
 
+  setStateThroughProps(recipeToView) {
+    this.setState({ recipeToView })
+  }
+
   render () {
     return (
       <Router>
@@ -61,16 +68,15 @@ class MainPageUser extends Component {
               </ToolbarGroup>
             </Toolbar>
             <Drawer open={this.state.open}>
-              <Link to='/home/profile'><MenuItem onClick={this.handleClose.bind(this)}>Your profile</MenuItem></Link>
-              <Link to='/home/recipes'><MenuItem onClick={this.handleClose.bind(this)}>Your recipes</MenuItem></Link>
-              <Link to='/home/search'><MenuItem onClick={this.handleClose.bind(this)}>Search recipes</MenuItem></Link>
+              <MenuItem onClick={this.handleClose.bind(this)}><Link to='/home/profile'>Your profile</Link></MenuItem>
+              <MenuItem onClick={this.handleClose.bind(this)}><Link to='/home/search'>Search recipes</Link></MenuItem>
+              <MenuItem onClick={this.handleClose.bind(this)}><Link to='/home/add'>Add a recipe</Link></MenuItem>
               <MenuItem onClick={event => this.handleLogOut(event)}>Log Out</MenuItem>
             </Drawer>
           </div>
-          <Route exact path='/home/recipes' component={ViewOwnRecipes} />
+          <Route exact path='/home/add' component={AddRecipe} />
           <Route exact path='/home/search' component={SearchRecipes} />
-          <Route exact path='/home/profile' component={ViewRecipes} />
-
+          <Route exact path='/home/profile' component={ViewRecipes} /> 
         </div>
       </Router>
     )
