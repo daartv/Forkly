@@ -13,16 +13,22 @@ const styles = {
   },
   gridList: {
     width: '90%',
-    height: '90%',
+    height: '100%',
     overflowY: 'auto'
-  },
+  }
 };
 
 
 class RecipeGrid extends Component {
   constructor(props){
     super(props);
+    this.getRecipeInfo = this.getRecipeInfo.bind(this);
+  }
 
+  getRecipeInfo(recipeItem){
+    let recipeId = recipeItem.id
+    console.log(recipeId)
+    this.props.handleClick(recipeId)
   }
 
   render() {
@@ -31,7 +37,7 @@ class RecipeGrid extends Component {
       return (
         <div style={styles.root}>
         <GridList
-          cellHeight={180}
+          cellHeight={240}
           style={styles.gridList}
           cols={4}
           rows={4}
@@ -39,6 +45,7 @@ class RecipeGrid extends Component {
           <Subheader>{}</Subheader>
           {tilesData.map((tile, ind) => (
             <GridTile
+              onClick={this.getRecipeInfo.bind(this, tile)}
               key={ind}
               title={tile.title}
               subtitle={<span>by <b>{tile.author}</b></span>}
