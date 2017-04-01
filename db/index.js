@@ -26,6 +26,7 @@ var recipeSchema = mongoose.Schema({
   ingredients: Array,
   directions: String,
   _creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  image: String,
   forks: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Recipe'

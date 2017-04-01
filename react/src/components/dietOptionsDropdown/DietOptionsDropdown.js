@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
-
+/**
+ * Utilities
+ */
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 /**
  * Material UI Components
  */
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
-
 /**
  * Styles
  */
@@ -16,15 +18,15 @@ import * as mui from 'material-ui'
 
 const diets = [
   {key: 0, name: 'low carb'},
-  {key: 1, name: 'high fat'},
+  {key: 1, name: 'low sugar'},
   {key: 2, name: 'gluten-free'},
   {key: 3, name: 'dairy-free'},
   {key: 4, name: 'vegan'},
   {key: 5, name: 'vegetarian'}
 ]
 
-class DietOptionsDropdown extends Component {
-  selectionRenderer (dietKeys) {
+const DietOptionsDropdown = ({ state, setStateThroughProps }) => {
+  const selectionRenderer = (dietKeys) => {
     if (dietKeys.length === 0) {
       return ''
     }
@@ -33,8 +35,7 @@ class DietOptionsDropdown extends Component {
     }).join(',  ')
   }
 
-  menuItems (diets) {
-    const { state } = this.props
+  const menuItems = (diets) => {
     return diets.map((diet) => (
       <MenuItem
         key={diet.key}
@@ -48,26 +49,21 @@ class DietOptionsDropdown extends Component {
   /**
   * Index argument is used by SelectField behind the scenes
   */
-  handleChange (event, index, dietKeys) {
-    const { setStateThroughProps } = this.props
+  const handleChange = (event, index, dietKeys) => {
     setStateThroughProps(event, dietKeys)
   }
-
-  render () {
-    const { state } = this.props
-    return (
-      <SelectField
-        multiple
-        fullWidth
-        hintText='dietary options'
-        value={state.dietKeys}
-        onChange={this.handleChange.bind(this)}
-        selectionRenderer={this.selectionRenderer}
-      >
-        {this.menuItems(diets)}
-      </SelectField>
-    )
-  }
+  return (
+    <SelectField
+      multiple
+      fullWidth
+      hintText='dietary options'
+      value={state.dietKeys}
+      onChange={handleChange}
+      selectionRenderer={selectionRenderer}
+    >
+      {menuItems(diets)}
+    </SelectField>
+  )
 }
 
 export default DietOptionsDropdown

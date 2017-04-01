@@ -77,19 +77,19 @@ class MainPageUser extends Component {
 
 MainPageUser.contextTypes = {
   router: PropTypes.object
+  
+/* const MainPageUser = () => {
+  return (
+    <Router>
+      <div>
+        <h1>Main Page User</h1>
+        <NavUser />
+        <Route exact path='/user/recipes' component={ViewOwnRecipes} />
+        <Route exact path='/user/search' component={SearchRecipes} />
+      </div>
+    </Router>
+  )
 }
-
+*/
 export default MainPageUser
-
-
-/*
-
-
-<IconButton tooltip="Font Icon">
-      <FontIcon className="muidocs-icon-action-home" />
-    </IconButton>
-title='Forkly'
-                iconClassNameRight="muidocs-icon-navigation-expand-more" 
-                onLeftIconButtonTouchTap={this.handleToggle.bind(this)}
-                style={{backgroundColor: '#FF8C00', position: 'fixed'}}*/
 

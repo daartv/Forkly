@@ -22,7 +22,7 @@ const handler = require('./requestHandler')
 const facebook = require('./facebook')
 const passport = require('passport')
 const path = require('path')
-const { yummlySearchRecipes } = require('./apiHandlers')
+const { yummlySearchRecipes, spoonacularGetRecipe } = require('./apiHandlers')
 
 const port = process.env.PORT || 3000
 
@@ -75,7 +75,7 @@ app.post('/searchRecipes', handler.searchRecipes)
 /* * AddRecipe Component - from handleSubmit function * */
 app.post('/api/addRecipe', handler.addRecipe)
 
-/* * new Feature * */
+/* * New Feature * */
 app.post('api/addForkedRecipe', handler.addForkedRecipe)
 
 /* * Nav Component - from getUsername function * */
@@ -85,7 +85,10 @@ app.get('/username', handler.getUsername)
  * Request for API search
  */
 /* * Search Recipes - Mycah * */
-app.get('/api/recipes', yummlySearchRecipes)
+app.get('/api/recipes/search*', yummlySearchRecipes)
+
+/* * Get Recipe Methods - Mycah * */
+app.get('/api/recipes/methods*', spoonacularGetRecipe)
 
 /**
  * Request for database search
@@ -96,6 +99,9 @@ app.post('/searchRecipes', handler.searchRecipes)
 /* * Find all recipes for given user id * */
 app.get('/getAllRecipes', handler.getUserRecipes)
 app.post('/getRecipeById', handler.getRecipeById)
+
+// Unhandled routes
+app.get('/*', (req, res) => res.redirect('/'))
 
 /**
  * Roll out

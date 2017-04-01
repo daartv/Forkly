@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table'
 import ErrorDialog from './ReqFieldErrorDialog'
-// import EditTable from './editTableDev'
+import EditTable from './editTableDev'
 
 import TextField from 'material-ui/TextField'
 import Toggle from 'material-ui/Toggle'
@@ -142,6 +142,7 @@ class AddIngredientsTable extends Component {
     this.onChange = this.onChange.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.onRecipeSave = this.onRecipeSave.bind(this)
+    this.handleImageChange = this.handleImageChange.bind(this)
   }
   onChange (row) {
     const ingredientInd = row.id
@@ -164,11 +165,24 @@ class AddIngredientsTable extends Component {
     let value = event.target.value
     let field = event.target.name
     this.props.handleInputChange(field, value)
-  };
+  }
+
+  handleImageChange(event) {
+    event.preventDefault()
+
+    let reader = new FileReader()
+    let file = event.target.files[0];
+
+    reader.onloadend = () => {
+      this.props.handleImageChange(reader.result)
+    }
+
+    reader.readAsDataURL(file)
+  }
 
   render () {
-    let { recipeName, ingredients, recipeDirections, forking } = this.props.stats
-    const recipeImage = this.props.stats.recipeImage || 'https://lh3.googleusercontent.com/TgEXw13nhbMEVLiMedgYdTdG--B45cR-TlT3nQY-zlovuCs95Uq0JK3vRuVe-KA7MDCeR_tqT2ZO9_WFFWwTvW4=s730-e365'
+    let { recipeName, ingredients, imagePath, recipeDirections, forking } = this.props.stats
+    const recipeImage = imagePath || 'https://lh3.googleusercontent.com/TgEXw13nhbMEVLiMedgYdTdG--B45cR-TlT3nQY-zlovuCs95Uq0JK3vRuVe-KA7MDCeR_tqT2ZO9_WFFWwTvW4=s730-e365'
 
     const isDisabled = this.props.isDisabled
     const fieldType = isDisabled ? 'ReadOnly' : 'TextField'
@@ -215,7 +229,7 @@ class AddIngredientsTable extends Component {
               style={styles.uploadButton}
               containerElement='label'
             >
-              <input type='file' style={styles.uploadInput} />
+              <input type='file' style={styles.uploadInput} onChange={this.handleImageChange} />
             </FlatButton>
 
           </div>
