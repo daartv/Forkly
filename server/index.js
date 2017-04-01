@@ -1,12 +1,14 @@
 /**
  * If Heroku is NOT running, run on local computer and pull local info from setup.js
  */
-/**
- * process.env.CLIENT_ID = '279588619132464';
- * process.env.CLIENT_SECRET = '32e346f0296b752354db3328bd6280d4';
- * process.env.MONGODB_URI = 'mongodb://localhost/forkly-dev';
- * process.env.SITE_URL = 'http://localhost:3000/';
- */
+
+ /**
+  * If setup.js file is deleted, create it again in the server folder and paste this in ->
+    process.env.CLIENT_ID = '279588619132464'
+    process.env.CLIENT_SECRET = '32e346f0296b752354db3328bd6280d4'
+    process.env.MONGODB_URI = 'mongodb://localhost/forkly-dev'
+    process.env.SITE_URL = 'http://localhost:3000/'
+  */
 
 if (!process.env.CLIENT_ID) {
   /**

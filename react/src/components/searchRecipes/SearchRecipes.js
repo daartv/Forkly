@@ -49,6 +49,7 @@ class SearchRecipes extends Component {
     .then(res => {
       console.log(res)
       const recipes = res.data
+
       /**
        * res.data will be an array of indiv recipe objects { id, ingredients, recipeName }
        */
