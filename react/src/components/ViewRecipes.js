@@ -126,17 +126,6 @@ const tilesData = [
         tableLayout: 'fixed'
       },
 
-      // statsBar: {
-      //   width: '100%',
-      //   margin: 20,
-      //   textAlign: 'center',
-      //   display: 'flex',
-      //   flexWrap: 'nowrap',
-      //   flexDirection: 'row',
-      //   justifyContent: 'space-between',
-      //   padding: '2% 5%',
-      //   alignItems: 'center'
-      // },
       profilePic: {
         height: 100,
         width: 100,
@@ -144,20 +133,10 @@ const tilesData = [
         textAlign: 'center',
         display: 'inline-block',
       },
-      // statDetail: {
-      //   textAlign: 'center',
-      //   margin: '2%',
-      //   display: 'block',
-      //   flex: '1',
-      //   // justifyContent: 'space-around',
-      //   padding: '2% 5%',
-      //   alignItems: 'center'
-      // }
 
        statDetail: {
         textAlign: 'center',
         display: 'table-cell',
-
         // justifyContent: 'space-around',
         padding: '2% 5%',
         wordWrap: 'break-word'
@@ -222,22 +201,22 @@ Mapping the grid:
   //     this.setState({recipeStats: recipeStats})
   // }
 
-  // componentDidMount() {
-  //   const context = this
+  componentDidMount() {
+    const context = this
 
-  //   axios.get('/getUserRecipes')
-  //   .then((userInfo) => {
-  //     let { id, name, recipes, originalRecipes } = userInfo
-  //     context.setState({
-  //       userID: id,
-  //       userName: name,
-  //       recipes: recipes,
-  //       originalRecipes: originalRecipes
-  //     })
-  //   }).then(() => {
-  //   context.updateRecipeCategories();
-  //   })
-  // }
+    axios.get('/getUserRecipes')
+    .then((userInfo) => {
+      let { id, name, recipes, originalRecipes } = userInfo
+      context.setState({
+        userID: id,
+        userName: name,
+        recipes: recipes,
+        originalRecipes: originalRecipes
+      })
+    }).then(() => {
+    context.updateRecipeCategories();
+    })
+  }
 
 
   // componentDidUpdate(prevProps, prevState){
