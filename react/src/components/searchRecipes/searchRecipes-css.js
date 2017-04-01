@@ -1,4 +1,4 @@
-const styles = {
+const style = {
   title: {
     'textAlign': 'center',
     'fontSize': '75px',
@@ -15,4 +15,4 @@ const styles = {
   }
 }
 
-export default styles
+export default style

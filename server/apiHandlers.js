@@ -20,6 +20,7 @@ const searchParams = {
   _app_key: YUMMLY_APP_KEY,
   q: null
 }
+
 const composeRequest = (params) => {
   /**
    * If params = recipeID, we compose a Get Recipe request
