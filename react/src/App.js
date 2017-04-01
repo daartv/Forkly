@@ -15,6 +15,8 @@ import SearchRecipes from './components/searchRecipes/SearchRecipes'
 import MainPageUser from './components/mainPageUser/MainPageUser'
 import MainPageNonUser from './components/mainPageNonUser/MainPageNonUser'
 import SignUpPage from './components/signUpPage/SignUpPage'
+import AppBar from 'material-ui/AppBar'
+import ViewOwnRecipes from './components/viewOwnRecipes/ViewOwnRecipes'
 
 import {
   BrowserRouter as Router,
@@ -27,7 +29,8 @@ class App extends Component {
     super(props)
     this.state = {
       username: null,
-      currentRecipe: []
+      currentRecipe: [],
+
     }
     this.logout = this.logout.bind(this)
   }
@@ -101,6 +104,7 @@ class App extends Component {
           <Route exact path='/login' component={Login} />
           <Route path='/user' component={MainPageUser} />
           <Route path='/signup' component={SignUpPage} />
+          <Route path='/sparkles' component={Home} />
           {/* <br />
           <br />
           <br />
