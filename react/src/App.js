@@ -14,6 +14,7 @@ import MainPageUser from './components/mainPageUser/MainPageUser'
 import MainPageNonUser from './components/mainPageNonUser/MainPageNonUser'
 import SignUpPage from './components/signUpPage/SignUpPage'
 import LoginPage from './components/loginPage/LoginPage'
+import PageTabs from './components/PageTabs'
 
 import Home from './components/Home'
 import AddRecipe from './components/AddRecipe'
@@ -26,8 +27,6 @@ import SearchRecipes from './components/searchRecipes/SearchRecipes'
  */
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-// import '../node_modules/react-grid-layout/css/styles.css'
-// import '../node_modules/react-resizable/css/styles.css'
 
 class App extends Component {
   constructor (props) {
@@ -42,58 +41,6 @@ class App extends Component {
   componentDidMount () {
     // this.getUsername()
   }
-
-  getUsername () {
-    var context = this
-    $.ajax({
-      url: '/username',
-      type: 'GET',
-      contentType: 'application/json',
-      success: function (data) {
-        context.setState({username: data})
-      },
-      error: function (err) {
-        throw err
-      }
-    })
-  }
-
-  logout () {
-    var Appcontext = this
-
-    $.ajax({
-      url: '/logout',
-      type: 'GET',
-      contentType: 'application/json',
-      success: function (data) {
-        Appcontext.getUsername()
-      },
-      error: function (err) {
-        throw err
-      }
-    })
-  }
-
-  /**
-   * getUsername and logout using axios xoxo Mycah
-   */
-
-/*  getUsername () {
-      axios.get('/username')
-      .then(res => {
-        const username = res.data
-        this.setState({ username })
-      })
-      .catch(error => console.log(error))
-    }
-    logout () {
-      axios.get('/logout')
-      .then(res => {
-        console.log('Success! Response is ', res)
-        this.getUsername()
-      })
-      .catch(error => console.log(error))
-    } */
 
   session () {
     return false
@@ -116,7 +63,7 @@ class App extends Component {
           <Route exact path='/' render={this.checkSession.bind(this)} />
           <Route path='/home/' render={this.checkSession.bind(this)} />
           <Route path='/welcome' component={Main} />
-          <Route path='/home' component={MainPageUser} />
+          <Route path='/home' component={PageTabs} />
           <Route path='/forkly' component={MainPageNonUser} />
           <Route path='/signup' component={SignUpPage} />
           <Route path='/login' component={LoginPage} />
