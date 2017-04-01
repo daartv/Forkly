@@ -14,7 +14,6 @@ import MainPageUser from './components/mainPageUser/MainPageUser'
 import MainPageNonUser from './components/mainPageNonUser/MainPageNonUser'
 import SignUpPage from './components/signUpPage/SignUpPage'
 import LoginPage from './components/loginPage/LoginPage'
-import PageTabs from './components/PageTabs'
 
 import Home from './components/Home'
 import AddRecipe from './components/AddRecipe'
@@ -35,7 +34,6 @@ class App extends Component {
       username: null,
       currentRecipe: []
     }
-    this.logout = this.logout.bind(this)
   }
 
   componentDidMount () {
@@ -52,6 +50,7 @@ class App extends Component {
     if (this.session()) {
       return <Redirect to='/home' />
     } else {
+      console.log('no session')
       return <Redirect to='/welcome' />
     }
   }
@@ -63,7 +62,7 @@ class App extends Component {
           <Route exact path='/' render={this.checkSession.bind(this)} />
           <Route path='/home/' render={this.checkSession.bind(this)} />
           <Route path='/welcome' component={Main} />
-          <Route path='/home' component={PageTabs} />
+          <Route path='/home' component={MainPageUser} />
           <Route path='/forkly' component={MainPageNonUser} />
           <Route path='/signup' component={SignUpPage} />
           <Route path='/login' component={Login} />

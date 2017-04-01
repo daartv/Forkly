@@ -22,10 +22,10 @@ class Main extends Component {
 
   render () {
     const layout = [
-      {i: 'a', x: 0, y: 0, w: 12, h: 0.5, static: false},
-      {i: 'b', x: 0, y: 1, w: 4, h: 19.5, static: false},
-      {i: 'c', x: 5, y: 1, w: 8, h: 19.5, static: false},
-      {i: 'd', x: 0, y: 20.5, w: 12, h: 0.5, static: false}
+      {i: 'a', x: 0, y: 0, w: 12, h: 0.5, static: true},
+      {i: 'b', x: 0, y: 1, w: 4, h: 19.5, static: true},
+      {i: 'c', x: 5, y: 1, w: 8, h: 19.5, static: true},
+      {i: 'd', x: 0, y: 20.5, w: 12, h: 0.5, static: true}
     ]
     return (
       <div style={background}>
