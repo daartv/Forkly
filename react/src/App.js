@@ -26,8 +26,6 @@ import SearchRecipes from './components/searchRecipes/SearchRecipes'
  */
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-// import '../node_modules/react-grid-layout/css/styles.css'
-// import '../node_modules/react-resizable/css/styles.css'
 
 class App extends Component {
   constructor (props) {
@@ -36,64 +34,11 @@ class App extends Component {
       username: null,
       currentRecipe: []
     }
-    this.logout = this.logout.bind(this)
   }
 
   componentDidMount () {
     // this.getUsername()
   }
-
-  getUsername () {
-    var context = this
-    $.ajax({
-      url: '/username',
-      type: 'GET',
-      contentType: 'application/json',
-      success: function (data) {
-        context.setState({username: data})
-      },
-      error: function (err) {
-        throw err
-      }
-    })
-  }
-
-  logout () {
-    var Appcontext = this
-
-    $.ajax({
-      url: '/logout',
-      type: 'GET',
-      contentType: 'application/json',
-      success: function (data) {
-        Appcontext.getUsername()
-      },
-      error: function (err) {
-        throw err
-      }
-    })
-  }
-
-  /**
-   * getUsername and logout using axios xoxo Mycah
-   */
-
-/*  getUsername () {
-      axios.get('/username')
-      .then(res => {
-        const username = res.data
-        this.setState({ username })
-      })
-      .catch(error => console.log(error))
-    }
-    logout () {
-      axios.get('/logout')
-      .then(res => {
-        console.log('Success! Response is ', res)
-        this.getUsername()
-      })
-      .catch(error => console.log(error))
-    } */
 
   session () {
     return true
@@ -105,6 +50,7 @@ class App extends Component {
     if (this.session()) {
       return <Redirect to='/home' />
     } else {
+      console.log('no session')
       return <Redirect to='/welcome' />
     }
   }

@@ -1,15 +1,15 @@
-var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI);
+var mongoose = require('mongoose')
+mongoose.connect(process.env.MONGODB_URI)
 
-var db = mongoose.connection;
+var db = mongoose.connection
 
-db.on('error', function() {
-  console.log('mongoose connection error');
-});
+db.on('error', function () {
+  console.log('mongoose connection error')
+})
 
-db.once('open', function() {
-  console.log('mongoose connected successfully');
-});
+db.once('open', function () {
+  console.log('mongoose connected successfully')
+})
 
 /** ORIGINAL **
 var recipeSchema = mongoose.Schema({
@@ -31,21 +31,21 @@ var recipeSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Recipe'
   }]
-});
+})
 
-var Recipe = mongoose.model('Recipe', recipeSchema);
+var Recipe = mongoose.model('Recipe', recipeSchema)
 
-module.exports.Recipe = Recipe;
+module.exports.Recipe = Recipe
 
-var selectAllRecipes = function(callback) {
-  Recipe.find({}, function(err, items) {
-    if(err) {
-      callback(err, null);
-    } else { 
-      callback(null, items);
+var selectAllRecipes = function (callback) {
+  Recipe.find({}, function (err, items) {
+    if (err) {
+      callback(err, null)
+    } else {
+      callback(null, items)
     }
-  });
-};
+  })
+}
 
 /** ORIGINAL **
 // User schema
@@ -82,10 +82,10 @@ var userSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Recipe'
   }]
-});
+})
 
-var User = mongoose.model('User', userSchema);
+var User = mongoose.model('User', userSchema)
 
-module.exports.User = User;
+module.exports.User = User
 
-module.exports.selectAllRecipes = selectAllRecipes;
+module.exports.selectAllRecipes = selectAllRecipes

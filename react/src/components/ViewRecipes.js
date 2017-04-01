@@ -8,7 +8,6 @@ import Badge from 'material-ui/Badge'
 import IconButton from 'material-ui/IconButton'
 import NotificationsIcon from 'material-ui/svg-icons/social/Notifications'
 
-
 const tilesData = [
   {
     img: 'https://files.slack.com/files-tmb/T3YD9REQK-F4ST7FEV8-ec5103a4b2/cake_example_img_360.jpg',
@@ -38,126 +37,126 @@ const tilesData = [
   {
     img: 'images/grid-list/hats-829509_640.jpg',
     title: 'Hats',
-    author: 'Hans',
+    author: 'Hans'
   },
   {
     img: 'images/grid-list/honey-823614_640.jpg',
     title: 'Honey',
-    author: 'fancycravel',
+    author: 'fancycravel'
   },
   {
     img: 'images/grid-list/vegetables-790022_640.jpg',
     title: 'Vegetables',
-    author: 'jill111',
+    author: 'jill111'
   },
   {
     img: 'images/grid-list/water-plant-821293_640.jpg',
     title: 'Water plant',
-    author: 'BkrmadtyaKarki',
+    author: 'BkrmadtyaKarki'
   },
   {
     img: 'images/grid-list/00-52-29-429_640.jpg',
     title: 'Breakfast',
-    author: 'jill111',
+    author: 'jill111'
   },
   {
     img: 'images/grid-list/burger-827309_640.jpg',
     title: 'Tasty burger',
-    author: 'dsakhfdjhasf',
+    author: 'dsakhfdjhasf'
   },
   {
     img: 'images/grid-list/camera-813814_640.jpg',
     title: 'Cadsfdsafdasmera',
-    author: 'Dadsklfjhdshfnson67',
+    author: 'Dadsklfjhdshfnson67'
   },
   {
     img: 'images/grid-list/morning-819362_640.jpg',
     title: 'Mfdsg34fewforning',
-    author: 'fancycrave1',
+    author: 'fancycrave1'
   },
   {
     img: 'images/grid-list/hats-829509_640.jpg',
     title: 'Hatewfeswasas',
-    author: 'Hans',
+    author: 'Hans'
   },
   {
     img: 'images/grid-list/honey-823614_640.jpg',
     title: 'Hondsfdsafaey',
-    author: 'fancycravel',
+    author: 'fancycravel'
   },
   {
     img: 'images/grid-list/vegetables-790022_640.jpg',
     title: 'Vegeewr3 tables',
-    author: 'jill111',
+    author: 'jill111'
   },
   {
     img: 'images/grid-list/water-plant-821293_640.jpg',
     title: 'Water pdsafdsalant',
-    author: 'BkrmadtyaKarki',
-  },
+    author: 'BkrmadtyaKarki'
+  }
 ]
-    const styles = {
-      dashboard: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        padding: '0 10%',
-        alignItems: 'center'
-      },
+const styles = {
+  dashboard: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: '0 10%',
+    alignItems: 'center'
+  },
 
-      leftDashboard: {
-        flexDirection: 'column',
-        width: '30%',
-        padding: '0 20px'
-      },
+  leftDashboard: {
+    flexDirection: 'column',
+    width: '30%',
+    padding: '0 20px'
+  },
 
-      rightDashboard: {
-        flexDirection: 'column',
-        width: '60%',
-        padding: '0 20px',
-        wrap: 'nowrap'
-      },
-      statsBar: {
-        width: '100%',
-        margin: 20,
-        display: 'table',
-        padding: '2% 5%',
-        borderSpacing: '10px',
-        tableLayout: 'fixed'
-      },
+  rightDashboard: {
+    flexDirection: 'column',
+    width: '60%',
+    padding: '0 20px',
+    wrap: 'nowrap'
+  },
+  statsBar: {
+    width: '100%',
+    margin: 20,
+    display: 'table',
+    padding: '2% 5%',
+    borderSpacing: '10px',
+    tableLayout: 'fixed'
+  },
 
-      profilePic: {
-        height: 100,
-        width: 100,
-        margin: 20,
-        textAlign: 'center',
-        display: 'inline-block',
-      },
+  profilePic: {
+    height: 100,
+    width: 100,
+    margin: 20,
+    textAlign: 'center',
+    display: 'inline-block'
+  },
 
-       statDetail: {
-        textAlign: 'center',
-        display: 'table-cell',
+  statDetail: {
+    textAlign: 'center',
+    display: 'table-cell',
         // justifyContent: 'space-around',
-        padding: '2% 5%',
-        wordWrap: 'break-word'
-      }
-    }
+    padding: '2% 5%',
+    wordWrap: 'break-word'
+  }
+}
 
 class ViewRecipes extends Component {
   constructor (props) {
-    super(props);
+    super(props)
     this.state = {
       userID: '',
       userName: '',
       recipes: tilesData,
       originalRecipes: tilesData
     }
-    this.handleClick = this.handleClick.bind(this);
+    this.handleClick = this.handleClick.bind(this)
   }
 
-/*===================================
+/* ===================================
 LOGIC TO WRITE
-===================================*/
+=================================== */
 /*
 
 Getting Recipe Info:
@@ -172,7 +171,7 @@ User's Recipes:
 User's Forks:
   - can use same function to determine the forks
 
-User's Latest: 
+User's Latest:
   - reverse the recipes array - make sure to keep same relation to the original recipes
     - best option is to simply keep same map function then run a reverse() so we can still have reference to the original recipe info.
 
@@ -216,7 +215,6 @@ Mapping the grid:
   //   })
   // }
 
-
   // componentDidUpdate(prevProps, prevState){
   //   if (prevState.recipes.length !== this.state.recipes.length) {
   //   const { recipes } = this.state
@@ -233,10 +231,8 @@ Mapping the grid:
   //       }
   //     })
   //     this.setState({recipeStats: recipeStats})
-  //   } 
+  //   }
   // }
-  
-  
 
   handleClick (recipeId) {
     // redirect to /recipes/recipeId
@@ -247,59 +243,55 @@ Mapping the grid:
   render () {
     const { userID, userName, recipes, originalRecipes } = this.state
 
-      let recipeStats = {
-        usersRecipes: [],
-        forkedRecipes: []
-      }
-      recipeStats.orderedRecipes = recipes.reverse()
-      recipes.forEach((recipe) => {
-        recipeStats.usersRecipes.push(recipe);
+    let recipeStats = {
+      usersRecipes: [],
+      forkedRecipes: []
+    }
+    recipeStats.orderedRecipes = recipes.reverse()
+    recipes.forEach((recipe) => {
+      recipeStats.usersRecipes.push(recipe)
         // if (recipe.creator === userID){
         //   recipeStats.usersRecipes.push(recipe)
         // } else {
-          recipeStats.forkedRecipes.push(recipe)
+      recipeStats.forkedRecipes.push(recipe)
         // }
-      })
-
+    })
     return (
       <div>
         <div style={styles.dashboard}>
           <div style={styles.leftDashboard}>
-              <h2>{userID}</h2>
-              <Paper style={styles.profilePic} zDepth={1} circle={true} />
+            <h2>{userID}</h2>
+            <Paper style={styles.profilePic} zDepth={1} circle />
           </div>
           <div style={styles.rightDashboard}>
             <div style={styles.rightDashboardRow}>
-            <Paper style={styles.statsBar} zDepth={1} >
-             
+              <Paper style={styles.statsBar} zDepth={1} >
+
                 <Paper style={styles.statDetail} zdepth={0}>
-                 <h4>User's Recipes</h4>
-                <p>{recipeStats.usersRecipes.length}</p>
+                  <h4>User's Recipes</h4>
+                  <p>{recipeStats.usersRecipes.length}</p>
                 </Paper>
-              
-              
+
                 <Paper style={styles.statDetail} zdepth={0}>
-                 <h4>Forks</h4>
-                <p>{recipeStats.forkedRecipes.length}</p>
+                  <h4>Forks</h4>
+                  <p>{recipeStats.forkedRecipes.length}</p>
                 </Paper>
-             
-              
+
                 <Paper style={styles.statDetail} zdepth={0}>
-                 <h4>Been Forked</h4>
-                <p>`{5}`</p>
+                  <h4>Been Forked</h4>
+                  <p>`{5}`</p>
                 </Paper>
-              
-            </Paper>
+
+              </Paper>
             </div>
           </div>
         </div>
-          <div>
-            <PageTabs stats={tilesData} recipeStats={recipeStats} handleClick={this.handleClick} />
-          </div>
+        <div>
+          <PageTabs stats={tilesData} recipeStats={recipeStats} handleClick={this.handleClick} />
+        </div>
       </div>
     )
   }
-
 }
 
 ViewRecipes.contextTypes = {
