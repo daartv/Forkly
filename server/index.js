@@ -101,6 +101,7 @@ app.post('/searchRecipes', handler.searchRecipes)
 /* * Find all recipes for given user id * */
 app.get('/getAllRecipes', handler.getUserRecipes)
 app.post('/getRecipeById', handler.getRecipeById)
+app.get('/api/recipes/:id', handler.getRecipeById)
 
 // Unhandled routes
 app.get('/*', (req, res) => res.redirect('/'))

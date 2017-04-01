@@ -66,6 +66,9 @@ exports.getUserRecipes = function (req, res) {
 }
 
 exports.addRecipe = function (req, res) {
+  // remove this line after testing
+  // req.user = {_id: '58dc02b1950849860eb4b167', _creator: '58dc02b1950849860eb4b167' }
+  
   if (req.user) {
     const currRecipe = req.body.currentRecipe
     const origRecipe = req.body.sendOriginalRecipe
@@ -129,17 +132,25 @@ exports.addForkedRecipe = function (req, res) {
   }
 }
 
+// new
 exports.getRecipeById = function (req, res) {
-  db.Recipe.findById(req.body.id)
-  .then((recipe) => {    
-    res.json(recipe)
-  })
+  const id = req.body.id || req.params.id
+  db.Recipe.findById(id)
+    .populate('forks')
+    .populate('_creator')
+    .then(recipe => {  
+      console.log('exports.getRecipeById recipe:', recipe)  
+      res.json(recipe)
+    })
+    .catch(err => console.log('exports.getRecipeById error: ', err))
 }
+
+
 
 const convertToImageFile = (imgString, filename) => {
   const base64Data = imgString.replace(/^data:image\/jpeg;base64,/, '')
   
   fsPath.writeFile(`./server/recipes/images/${filename}.jpeg`, base64Data, 'base64', function(err) {
     err ? console.log('convertToImageFile err', err) : console.log('convertToImageFile success')
-  });
+  })
 }
