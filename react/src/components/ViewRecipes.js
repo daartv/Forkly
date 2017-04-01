@@ -4,26 +4,36 @@ import RecipeGrid from './RecipeGrid'
 import PageTabs from './PageTabs'
 import axios from 'axios'
 import Paper from 'material-ui/Paper'
+import Badge from 'material-ui/Badge'
+import IconButton from 'material-ui/IconButton'
+import NotificationsIcon from 'material-ui/svg-icons/social/Notifications'
+
+
 const tilesData = [
   {
-    img: 'images/grid-list/00-52-29-429_640.jpg',
+    img: 'https://files.slack.com/files-tmb/T3YD9REQK-F4ST7FEV8-ec5103a4b2/cake_example_img_360.jpg',
     title: 'Breakfast',
     author: 'jill111',
+    id: 555
   },
   {
     img: 'images/grid-list/burger-827309_640.jpg',
     title: 'Tasty burger',
     author: 'pashminu',
+    id: 556
+
   },
   {
     img: 'images/grid-list/camera-813814_640.jpg',
     title: 'Camera',
     author: 'Danson67',
+    id: 557
   },
   {
     img: 'images/grid-list/morning-819362_640.jpg',
     title: 'Morning',
     author: 'fancycrave1',
+    id: 558
   },
   {
     img: 'images/grid-list/hats-829509_640.jpg',
@@ -91,36 +101,66 @@ const tilesData = [
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
-        padding: '0 20px',
+        padding: '0 10%',
         alignItems: 'center'
       },
 
       leftDashboard: {
-        display: 'flex',
         flexDirection: 'column',
-        width: '40%',
+        width: '30%',
         padding: '0 20px'
       },
 
       rightDashboard: {
-        display: 'flex',
         flexDirection: 'column',
         width: '60%',
-        padding: '0 20px'
+        padding: '0 20px',
+        wrap: 'nowrap'
       },
       statsBar: {
-        height: 40,
         width: '100%',
         margin: 20,
-        textAlign: 'center',
-        display: 'block'
+        display: 'table',
+        padding: '2% 5%',
+        borderSpacing: '10px',
+        tableLayout: 'fixed'
       },
+
+      // statsBar: {
+      //   width: '100%',
+      //   margin: 20,
+      //   textAlign: 'center',
+      //   display: 'flex',
+      //   flexWrap: 'nowrap',
+      //   flexDirection: 'row',
+      //   justifyContent: 'space-between',
+      //   padding: '2% 5%',
+      //   alignItems: 'center'
+      // },
       profilePic: {
         height: 100,
         width: 100,
         margin: 20,
         textAlign: 'center',
         display: 'inline-block',
+      },
+      // statDetail: {
+      //   textAlign: 'center',
+      //   margin: '2%',
+      //   display: 'block',
+      //   flex: '1',
+      //   // justifyContent: 'space-around',
+      //   padding: '2% 5%',
+      //   alignItems: 'center'
+      // }
+
+       statDetail: {
+        textAlign: 'center',
+        display: 'table-cell',
+
+        // justifyContent: 'space-around',
+        padding: '2% 5%',
+        wordWrap: 'break-word'
       }
     }
 
@@ -198,7 +238,28 @@ Mapping the grid:
               <Paper style={styles.profilePic} zDepth={1} circle={true} />
           </div>
           <div style={styles.rightDashboard}>
-            <Paper style={styles.statsBar} zDepth={1} />
+            <div style={styles.rightDashboardRow}>
+            <Paper style={styles.statsBar} zDepth={1} >
+             
+                <Paper style={styles.statDetail} zdepth={0}>
+                 <h4>Recipes</h4>
+                <p>fkjhdsfhfdksjfha</p>
+                </Paper>
+              
+              
+                <Paper style={styles.statDetail} zdepth={0}>
+                 <h4>Recipes</h4>
+                <p>5</p>
+                </Paper>
+             
+              
+                <Paper style={styles.statDetail} zdepth={0}>
+                 <h4>Recipes</h4>
+                <p>fkjhdsfhfdksjfha</p>
+                </Paper>
+              
+            </Paper>
+            </div>
           </div>
         </div>
           <div>
