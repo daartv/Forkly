@@ -43,7 +43,7 @@ class App extends Component {
   }
 
   session () {
-    return false
+    return true
     /* * change to true or false to 'mimic' a session * */
     /* * should return true if session is active else return false * */
   }
@@ -66,7 +66,7 @@ class App extends Component {
           <Route path='/home' component={PageTabs} />
           <Route path='/forkly' component={MainPageNonUser} />
           <Route path='/signup' component={SignUpPage} />
-          <Route path='/login' component={LoginPage} />
+          <Route path='/login' component={Login} />
         </div>
       </Router>
     )
