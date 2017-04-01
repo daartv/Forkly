@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import NavUser from '../navUser/NavUser'
 import ViewOwnRecipes from '../viewOwnRecipes/ViewOwnRecipes'
 import SearchRecipes from '../searchRecipes/SearchRecipes'
+import ViewRecipes from '../ViewRecipes'
 
  /**
  * Styles
@@ -42,7 +43,7 @@ class MainPageUser extends Component {
   handleLogOut (event) {
     event.preventDefault()
     this.handleClose()
-    this.context.router.history.push('/')
+    this.context.router.history.push('/login')
   }
 
   render () {
@@ -60,13 +61,16 @@ class MainPageUser extends Component {
               </ToolbarGroup>
             </Toolbar>
             <Drawer open={this.state.open}>
-              <Link to='/user/recipes'><MenuItem onClick={this.handleClose.bind(this)}>Your recipes</MenuItem></Link>
-              <Link to='/user/search'><MenuItem onClick={this.handleClose.bind(this)}>Search recipes</MenuItem></Link>
+              <Link to='/home/profile'><MenuItem onClick={this.handleClose.bind(this)}>Your profile</MenuItem></Link>
+              <Link to='/home/recipes'><MenuItem onClick={this.handleClose.bind(this)}>Your recipes</MenuItem></Link>
+              <Link to='/home/search'><MenuItem onClick={this.handleClose.bind(this)}>Search recipes</MenuItem></Link>
               <MenuItem onClick={event => this.handleLogOut(event)}>Log Out</MenuItem>
             </Drawer>
           </div>
-          <Route exact path='/user/recipes' component={ViewOwnRecipes} />
-          <Route exact path='/user/search' component={SearchRecipes} />
+          <Route exact path='/home/recipes' component={ViewOwnRecipes} />
+          <Route exact path='/home/search' component={SearchRecipes} />
+          <Route exact path='/home/profile' component={ViewRecipes} />
+
         </div>
       </Router>
     )
