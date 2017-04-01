@@ -201,22 +201,20 @@ Mapping the grid:
   //     this.setState({recipeStats: recipeStats})
   // }
 
-  componentDidMount() {
-    const context = this
+  // componentDidMount() {
+  //   const context = this
 
-    axios.get('/getUserRecipes')
-    .then((userInfo) => {
-      let { id, name, recipes, originalRecipes } = userInfo
-      context.setState({
-        userID: id,
-        userName: name,
-        recipes: recipes,
-        originalRecipes: originalRecipes
-      })
-    }).then(() => {
-    context.updateRecipeCategories();
-    })
-  }
+  //   axios.get('/getUserRecipes')
+  //   .then((userInfo) => {
+  //     let { id, name, recipes, originalRecipes } = userInfo
+  //     context.setState({
+  //       userID: id,
+  //       userName: name,
+  //       recipes: recipes,
+  //       originalRecipes: originalRecipes
+  //     })
+  //   })
+  // }
 
 
   // componentDidUpdate(prevProps, prevState){
