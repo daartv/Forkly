@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
 /**
+ * Utilities
+ */
+import renderHTML from 'react-render-html'
+import axios from 'axios'
+/**
  * Components
  */
 import DietOptionsDropdown from '../dietOptionsDropdown/DietOptionsDropdown'
 import AddRecipeIngredients from '../AddRecipeIngredients'
-
 /**
- * Material UI Components
+ * Material UI / React Grid Components
  */
+import ReactGridLayout from 'react-grid-layout'
 import SelectField from 'material-ui/SelectField'
 import FlatButton from 'material-ui/FlatButton'
 import ChipInput from 'material-ui-chip-input'
@@ -15,32 +20,11 @@ import TextField from 'material-ui/TextField'
 import MenuItem from 'material-ui/MenuItem'
 import Divider from 'material-ui/Divider'
 import Paper from 'material-ui/Paper'
-
 /**
- * Grid Layout
- */
-import ReactGridLayout from 'react-grid-layout'
-
-/**
- * Styles
+ * styles
  */
 import {orange500, blue500} from 'material-ui/styles/colors'
-import styles from './searchRecipes-css'
-
-/**
- * Utilities
- */
-import renderHTML from 'react-render-html'
-import axios from 'axios'
-
-const style = {
-  fontSize: '15px',
-  lineHeight: '30px',
-  display: 'flex',
-  color: 'pink',
-  display: 'list-item',
-  listStyleType: 'decimal'
-}
+import style from './searchRecipes-css'
 
 class SearchRecipes extends Component {
   constructor (props) {
@@ -110,7 +94,7 @@ class SearchRecipes extends Component {
     return (
       <ReactGridLayout className='layout' layout={layout} cols={12} rowHeight={31} width={window.innerWidth}>
         <div key={'a'}>
-          <div style={styles.title}>
+          <div style={style.title}>
             search options
           </div>
         </div>
