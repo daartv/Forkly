@@ -1,17 +1,20 @@
 const style = {
   mainContainer: {
-    width: '1250px',
-    margin: '5% auto',
-    clear: 'both'
+    width: '100%',
+    margin: '0 auto'
+  },
+  topContainer: {
+    width: '80%',
+    padding: '0 10%',
+    display: 'table',
+    tableLayout: 'fixed'
   },
   shortDetailContainer: {
-    display: 'inline-block',
-    width: '500px',
-    margin: '10px',
-    verticalAlign: 'top'
+    paddingTop: '20px'
   },
   shortDetailList: {
-    margin: '15px'
+    marginTop: '15px',
+    padding: '10px'
   },
   imageContainer: {
     display: 'inline-block',
@@ -30,9 +33,18 @@ const style = {
     marginTop: '20px',
     verticalAlign: 'top',
     margin: '5px'
-  }
-
-
+  },
+  dualRecipesLayout: {
+    width: '100%', 
+    margin: '10px',
+    display: 'inline-block',
+    verticalAlign: 'top'
+  },
+  mainRecipeLayout: {
+    width: '100%',
+     display: 'flex',
+      margin: '10px'
+    }
 
 }
 
