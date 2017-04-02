@@ -14,12 +14,6 @@ import MainPageUser from './components/mainPageUser/MainPageUser'
 import MainPageNonUser from './components/mainPageNonUser/MainPageNonUser'
 import SignUpPage from './components/signUpPage/SignUpPage'
 import LoginPage from './components/loginPage/LoginPage'
-
-import Home from './components/Home'
-import AddRecipe from './components/AddRecipe'
-import Login from './components/Login'
-import ViewFork from './components/ViewFork'
-import SearchRecipes from './components/searchRecipes/SearchRecipes'
 /**
  * Styles
  */
@@ -64,7 +58,7 @@ class App extends Component {
           <Route path='/home' component={MainPageUser} />
           <Route path='/forkly' component={MainPageNonUser} />
           <Route path='/signup' component={SignUpPage} />
-          <Route path='/login' component={Login} />
+          <Route path='/login' component={LoginPage} />
         </div>
       </Router>
     )

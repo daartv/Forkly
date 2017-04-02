@@ -78,6 +78,7 @@ exports.spoonacularGetRecipe = (req, res) => {
   //  */
   axios.get(composeRequest(recipeID))
   .then(results => {
+    const recipeName = results.data.name
     const recipeURL = results.data.source.sourceRecipeUrl
     const recipeIMG = results.data.images[0].hostedLargeUrl
     // /**
@@ -100,7 +101,7 @@ exports.spoonacularGetRecipe = (req, res) => {
       const recipeMethods = instructions.split('\n').slice(2, -2).map((line) => {
         return line.slice(4, -5)
       })
-      const response = { recipeMethods, recipeIMG }
+      const response = { recipeName, recipeMethods, recipeIMG }
       res.status(200).send(response)
     })
     /* * implement Erik error handling * */

@@ -20,6 +20,7 @@ const style = {
     wrap: 'nowrap'
   },
   statsBar: {
+    zDepth: '1',
     width: '100%',
     margin: 20,
     display: 'table',
@@ -29,6 +30,7 @@ const style = {
   },
 
   profilePic: {
+    zDepth: '1',
     height: 100,
     width: 100,
     margin: 20,
@@ -37,6 +39,7 @@ const style = {
   },
 
   statDetail: {
+    zDepth: '0',
     textAlign: 'center',
     display: 'table-cell',
         // justifyContent: 'space-around',

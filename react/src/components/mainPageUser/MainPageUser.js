@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
  * Utilities
  */
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import axios from 'axios'
  /**
  * Components
  */
@@ -21,6 +22,10 @@ import IconButton from 'material-ui/IconButton'
 import MenuItem from 'material-ui/MenuItem'
 import FontIcon from 'material-ui/FontIcon'
 import Drawer from 'material-ui/Drawer'
+/**
+ * Mock Data
+ */
+import MockData from './MockData'
 
 const { toolbar } = style
 
@@ -29,7 +34,17 @@ class MainPageUser extends Component {
     super(props)
     this.state = {
       open: false,
-      value: 1
+      value: 1,
+      /* Profile Page User */
+      userID: '',
+      userName: '',
+      recipes: MockData,
+      originalRecipes: MockData,
+      /* Tab Bar User */
+      selectedView: 'User',
+      selectedRecipeName: '',
+      selectedRecipeMethods: [],
+      selectedRecipeIMG: null
     }
   }
 
@@ -44,20 +59,42 @@ class MainPageUser extends Component {
   handleLogOut (event) {
     event.preventDefault()
     this.handleClose()
-    this.context.router.history.push('/login')
+    this.context.router.history.push('/welcome')
   }
 
-  setStateThroughProps (event, stateToChange) {
+  setStateThroughProps (event, newStateValue) {
     event.preventDefault()
-    this.setState({ stateToChange })
+    this.setState({ newStateValue })
+  }
+
+  renderSelectedRecipe (recipeID) {
+    axios.get('/api/recipes/methods', {
+      params: { recipeID }
+    })
+    .then(res => {
+      const { selectedRecipeName, selectedRecipeMethods, selectedRecipeIMG } = res
+      this.setState({ selectedRecipeName, selectedRecipeMethods, selectedRecipeIMG }, () => {
+        this.context.router.history.push('/home/viewrecipe' + recipeID)
+      })
+    })
+    .catch(error => {
+      if (error.response) {
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      }
+    })
   }
 
   renderComponentWithProps (component) {
     if (component === 'ProfilePageUser') {
-      return <ProfilePageUser state={this.state} setStateThroughProps={this.setStateThroughProps} />
+      return <ProfilePageUser state={this.state} setStateThroughProps={this.setStateThroughProps} renderSelectedRecipe={this.renderSelectedRecipe} />
     }
     if (component === 'ViewOwnRecipes') {
       return <ViewOwnRecipes state={this.state} setStateThroughProps={this.setStateThroughProps} />
+    }
+    if (component === 'ViewSelectedRecipe') {
+      return <ViewSelectedRecipe state={this.state} setStateThroughProps={this.setStateThroughProps} />
     }
     if (component === 'SearchRecipes') {
       return <SearchRecipes state={this.state} setStateThroughProps={this.setStateThroughProps} />
@@ -87,6 +124,7 @@ class MainPageUser extends Component {
           </div>
           <Route exact path='/home' render={() => this.renderComponentWithProps('ProfilePageUser')} />
           <Route path='/home/recipes' render={() => this.renderComponentWithProps('ViewOwnRecipes')} />
+          <Route path='/home/viewrecipe' render={() => this.renderComponentWithProps('ViewSelectedRecipe')} />
           <Route path='/home/search' render={() => this.renderComponentWithProps('SearchRecipes')} />
         </div>
       </Router>
