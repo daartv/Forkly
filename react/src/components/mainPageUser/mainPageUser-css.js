@@ -1,6 +1,6 @@
 const style = {
   toolbar: {
-    backgroundColor: '#FF8C00',
+    backgroundColor: '#FFFFFF',
     position: 'fixed',
     top: 0,
     width: '100%',

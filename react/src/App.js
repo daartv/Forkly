@@ -19,7 +19,6 @@ import Home from './components/Home'
 import AddRecipe from './components/AddRecipe'
 import Login from './components/Login'
 import ViewFork from './components/ViewFork'
-import ViewRecipes from './components/ViewRecipes'
 import SearchRecipes from './components/searchRecipes/SearchRecipes'
 /**
  * Styles
@@ -114,7 +113,6 @@ export default App
 //           // <Route path='/main' component={MainPageNonUser} />
 
 //           // <Route path='/addrecipe' component={AddRecipe} />
-//           // <Route path='/myrecipes' component={ViewRecipes} />
 //           // <Route path='/recipe' component={ViewFork} />
 
 // // Fred, for good luck.

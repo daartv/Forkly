@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Tabs, Tab} from 'material-ui/Tabs'
-import RecipeGrid from './RecipeGrid'
+import DisplayRecipesContainer from '../displayRecipesContainer/DisplayRecipesContainer'
 const styles = {
   headline: {
     fontSize: 24,
@@ -10,7 +10,7 @@ const styles = {
   }
 }
 
-class PageTabs extends Component {
+class TabBarUser extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -26,9 +26,7 @@ class PageTabs extends Component {
   }
 
   render () {
-    const { stats, recipeStats, handleClick } = this.props
-    console.log(recipeStats)
-
+    const { recipeStats, handleClick } = this.props
     return (
       <Tabs
         value={this.state.value}
@@ -37,23 +35,23 @@ class PageTabs extends Component {
         <Tab label="User's Recipes" value='User'>
           <div>
             <h2 style={styles.headline} />
-            <RecipeGrid handleClick={handleClick} />
+            <DisplayRecipesContainer handleClick={handleClick} stats={recipeStats.usersRecipes} />
           </div>
         </Tab>
         <Tab label="User's Forks" value='Fork'>
           <div>
             <h2 style={styles.headline} />
-            <RecipeGrid handleClick={handleClick} />
+            <DisplayRecipesContainer handleClick={handleClick} stats={recipeStats.forkedRecipes} />
           </div>
         </Tab>
         <Tab label='Recent Activity' value='Recent'>
           <div>
             <h2 style={styles.headline} />
-            <RecipeGrid handleClick={handleClick} />
+            <DisplayRecipesContainer handleClick={handleClick} stats={recipeStats.orderedRecipes} />
           </div>
         </Tab>
       </Tabs>
     )
   }
 }
-export default PageTabs
+export default TabBarUser
