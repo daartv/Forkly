@@ -10,6 +10,7 @@ import axios from 'axios'
 import ProfilePageUser from '../profilePageUser/ProfilePageUser'
 import ViewOwnRecipes from '../viewOwnRecipes/ViewOwnRecipes'
 import SearchRecipes from '../searchRecipes/SearchRecipes'
+import ViewRecipe from '../viewRecipeDetails/ViewRecipeDetails'
 
  /**
  * Styles
@@ -44,8 +45,13 @@ class MainPageUser extends Component {
       selectedView: 'User',
       selectedRecipeName: '',
       selectedRecipeMethods: [],
-      selectedRecipeIMG: null
+      selectedRecipeIMG: null,
+      activeRecipe: undefined,
+      compareRecipe: undefined
     }
+    this.setStateThroughProps = this.setStateThroughProps.bind(this)
+    this.setTabView = this.setTabView.bind(this)
+    this.setRecipeState = this.setRecipeState.bind(this)
   }
 
   handleToggle () {
@@ -60,6 +66,13 @@ class MainPageUser extends Component {
     event.preventDefault()
     this.handleClose()
     this.context.router.history.push('/welcome')
+  }
+  setTabView (value) {
+    this.setState({selectedView: value})
+  }
+
+  setRecipeState (property, recipe){
+    this.setState({property: recipe})
   }
 
   setStateThroughProps (event, newStateValue) {
@@ -85,13 +98,34 @@ class MainPageUser extends Component {
       }
     })
   }
+ // componentWillMount() {
+ //  const context = this
+ //    axios.get('/getAllRecipes')
+ //    .then(userInfo => {
+ //      console.log(userInfo)
+ //      const { id, name, recipes, originalRecipes } = userInfo
+ //      context.setState({
+ //        userID: id,
+ //        userName: name,
+ //        recipes: recipes,
+ //        originalRecipes: originalRecipes
+ //      }, () => console.log(context.state))
+ //    })
+ //    .catch(error => {
+ //      if (error.response) {
+ //        console.log(error.response.data)
+ //        console.log(error.response.status)
+ //        console.log(error.response.headers)
+ //      }
+ //    })
+ //  }
 
   renderComponentWithProps (component) {
-    if (component === 'ProfilePageUser') {
-      return <ProfilePageUser state={this.state} setStateThroughProps={this.setStateThroughProps} renderSelectedRecipe={this.renderSelectedRecipe} />
+    if (component === 'ProfilePageUser' && !this.state.activeRecipe) {
+      return <ProfilePageUser setTabView={this.setTabView} state={this.state} setStateThroughProps={this.setStateThroughProps} setRecipeState={this.setRecipeState} renderSelectedRecipe={this.renderSelectedRecipe} />
     }
-    if (component === 'ViewOwnRecipes') {
-      return <ViewOwnRecipes state={this.state} setStateThroughProps={this.setStateThroughProps} />
+    if (component === 'ProfilePageUser' && this.state.activeRecipe !== undefined) {
+      return <ViewRecipe state={this.state} setStateThroughProps={this.setStateThroughProps} />
     }
     if (component === 'ViewSelectedRecipe') {
       return <ViewSelectedRecipe state={this.state} setStateThroughProps={this.setStateThroughProps} />

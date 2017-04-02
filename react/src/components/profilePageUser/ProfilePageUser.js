@@ -12,14 +12,16 @@ const { dashboard, leftDashboard, rightDashboard, statsBar, profilePic, statDeta
 
 /* * state, setStateThroughProps are passed in as Props * */
 /* * state = {userID, userName, recipes, originalRecipes} * */
-const ProfilePageUser = ({ state, setStateThroughProps, renderSelectedRecipe }) => {
-  const orderedRecipes = state.recipes.reduce((a, b) => [b, ...a], [])
+const ProfilePageUser = ({ state, setRecipeState, setTabView, setStateThroughProps, renderSelectedRecipe }) => {
+  const orderedRecipes = []
   const forkedRecipes = []
   const usersRecipes = []
 
   state.recipes.forEach(recipe => {
-    recipe.creator === state.userID && usersRecipes.push(recipe)
-    recipe.creator !== state.userID && usersRecipes.push(recipe)
+    orderedRecipes.unshift(recipe)
+    usersRecipes.push(recipe)
+    forkedRecipes.push(recipe)
+    // recipe.creator === state.userID ? usersRecipes.push(recipe) : forkedRecipes.push(recipe)
   })
 
   return (
@@ -52,7 +54,7 @@ const ProfilePageUser = ({ state, setStateThroughProps, renderSelectedRecipe }) 
         </div>
       </div>
       <div>
-        <TabBarUser state={state} setStateThroughProps={setStateThroughProps} recipeStats={{orderedRecipes, forkedRecipes, usersRecipes}} renderSelectedRecipe={renderSelectedRecipe} />
+        <TabBarUser setTabView={setTabView} state={state} setStateThroughProps={setStateThroughProps} setRecipeState={setRecipeState} recipeStats={{orderedRecipes, forkedRecipes, usersRecipes}} renderSelectedRecipe={renderSelectedRecipe} />
       </div>
     </div>
   )

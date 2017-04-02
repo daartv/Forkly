@@ -7,58 +7,70 @@ import ActionGrade from 'material-ui/svg-icons/action/grade'
 import Divider from 'material-ui/Divider'
 import Subheader from 'material-ui/Subheader'
 import IngredientsDirections from './IngredientsDirections'
+import DualRecipes from './DualRecipes'
+import ForkList from './ForksList.js'
+const styles = {
+
+}
+
+
 
 
 class ViewRecipeDetails extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     // TODO: Make the image dynamic.
-    this.state = {
-      recipe: '',
-      fork: ''
-    }
-
+    
   }
 
-  componentDidMount() {
-    const id = this.props.params.recipeId
-    // const id = '58dfe5133fd7fc02104c621a' //|| this.props.params.id // remove this line and uncomment the one on top when ready to use 
-    axios.get(`api/recipes/${id}`)
-    .then(result => {
-      this.setState({recipe: result.data}, () => console.log('this.state:', this.state))
-    })
-    .catch(err => console.log('ViewRecipeDetails.js - error: ', err))
+  // componentDidMount() {
+  //   console.log('component mounted yo')
+  //   // const id = this.props.params.recipeId
+  //   const id = '58e02f58e71032728ea46fcd' //|| this.props.params.id // remove this line and uncomment the one on top when ready to use 
+  //   axios.get(`api/recipes/${id}`)
+  //   .then(result => {
+  //     this.setState({
+  //       recipe: result.data,
+  //       activeRecipe: result.data, 
+  //       compareRecipe: result.data
+  //     }), () => console.log('hello world component will mount')})
+  //   .catch(err => console.log('ViewRecipeDetails.js - error: ', err))
+  // }
+
+  createRecipeCard(recipe, isComparison) {
+    return (<div style={{padding: '10px', display: 'table-cell'}}>
+      <DualRecipes compare={isComparison} stats={recipe} styles={style.dualRecipesLayout} />
+    </div>)
   }
+  
+  shouldComponentUpdate(){
+    return true;
+  }
+  
 
   render() {
-    const { name,  _creator, forks, directions, ingredients } = this.state.recipe
-    console.log(this.state.recipe)
+  const { activeRecipe, compareRecipe } = this.props.state
+  const isComparison = true
+  const hasMounted = !!activeRecipe.name
+  const { name,  _creator, forks, directions, ingredients } = activeRecipe
+
+  const recipeDetails = (
+    <IngredientsDirections recipeStats={activeRecipe} />
+  )
+
+  const contentLeft = isComparison ? this.createRecipeCard(compareRecipe, isComparison) : recipeDetails 
+
     return (
-
       <div style={style.mainContainer}>
-        <div style={style.shortDetailContainer} >
-          <Subheader inset={true}> { name } </Subheader>
-          <Divider />
-          <ul style={style.shortDetailList}>
-            <li>{`Recipe by: ${_creator ? _creator.name : ''}`}</li>
-            <li>{'Short information of recipe.'}</li>
-            <li>{`Forked ${forks ? forks.length : ''} times.`}</li>          
-          </ul>
+        <div style={style.topContainer}>
+          {contentLeft}
+          {this.createRecipeCard(activeRecipe, isComparison)}
         </div>
-
-        <div style={style.imageContainer}>
-          <img src={this.state.recipe.image} style={style.recipeImage} />
-        </div>
-
-        {
-          ingredients ? <IngredientsDirections ingredients={ingredients} /> : ''
-        }
         
-        {
-          /*ingredients ? <IngredientsDirections ingredients={ingredients} /> : ''*/
-        }
 
-        <div className='FORKS_TABLES'>
+        <div style={{width: '100%'}}>
+        <Divider />
+          <ForkList forks={forks}/>
         </div>
 
 

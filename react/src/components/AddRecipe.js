@@ -48,31 +48,31 @@ class AddRecipe extends Component {
     this.handleImageChange = this.handleImageChange.bind(this);
   }
 
-  componentDidMount () {
-    var forked = this.context.router.history.location.pathname
-    let forkedId = forked.slice(forked.lastIndexOf('/') + 1)
-    let boundThis = this
-    // if history has url at end
-    if (forkedId.length > 0) {
-      console.log('hi')
-      $.ajax({
-        url: '/getRecipeById',
-        type: 'POST',
-        data: JSON.stringify({id: forkedId}),
-        contentType: 'application/json',
-        success: function (data) {
-          boundThis.setState({
-            recipeName: data.recipeName,
-            recipeDirections: data.recipeDirections,
-            ingredients: data.ingredients
-          })
-        },
-        error: function (err) {
-          console.error('could not retrieve any recipes for user')
-        }
-      })
-    }
-  }
+  // componentDidMount () {
+  //   var forked = this.context.router.history.location.pathname
+  //   let forkedId = forked.slice(forked.lastIndexOf('/') + 1)
+  //   let boundThis = this
+  //   // if history has url at end
+  //   if (forkedId.length > 0) {
+  //     console.log('hi')
+  //     $.ajax({
+  //       url: '/getRecipeById',
+  //       type: 'POST',
+  //       data: JSON.stringify({id: forkedId}),
+  //       contentType: 'application/json',
+  //       success: function (data) {
+  //         boundThis.setState({
+  //           recipeName: data.recipeName,
+  //           recipeDirections: data.recipeDirections,
+  //           ingredients: data.ingredients
+  //         })
+  //       },
+  //       error: function (err) {
+  //         console.error('could not retrieve any recipes for user')
+  //       }
+  //     })
+  //   }
+  // }
 
   handleRecipeSave () {
     const { router } = this.context
@@ -83,13 +83,13 @@ class AddRecipe extends Component {
 
     const reqRoute = forking ? '/api/addForkedRecipe' : '/api/addRecipe'
     const storeRecipe = {currentRecipe, sendOriginalRecipe}
-
+     console.log(storeRecipe)
     axios.post(reqRoute, storeRecipe)
-      .then(function (recipeId) {
-        console.log('return value', recipeId)
+      .then(recipeId => {
+        console.log('return value Recipe Saved', recipeId)
         router.history.push('/recipe/' + recipeId)
       })
-      .catch(function(error){
+      .catch(error => {
       console.log(error)
       }); 
   }
