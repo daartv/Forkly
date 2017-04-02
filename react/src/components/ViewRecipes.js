@@ -286,7 +286,7 @@ Mapping the grid:
               
                 <Paper style={styles.statDetail} zdepth={0}>
                  <h4>Been Forked</h4>
-                <p>`{5}`</p>
+                <p>{5}</p>
                 </Paper>
               
             </Paper>

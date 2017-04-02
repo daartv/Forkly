@@ -72,7 +72,7 @@ class Login extends React.Component {
     } else {
       return (
         <div>Welcome, {this.props.username}
-        <Link to='/home/'> Go to your page</Link>
+        <Link to='/home/profile'> Go to your page</Link>
         </div>
       )
     }

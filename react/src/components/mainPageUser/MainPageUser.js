@@ -67,13 +67,16 @@ class MainPageUser extends Component {
                 <ToolbarTitle text='Forkly' />
               </ToolbarGroup>
             </Toolbar>
-            <Drawer open={this.state.open}>
+            <Drawer open={this.state.open} 
+              docked={false}
+              onRequestChange={(open) => this.setState({open})}>
               <MenuItem onClick={this.handleClose.bind(this)}><Link to='/home/profile'>Your profile</Link></MenuItem>
               <MenuItem onClick={this.handleClose.bind(this)}><Link to='/home/search'>Search recipes</Link></MenuItem>
               <MenuItem onClick={this.handleClose.bind(this)}><Link to='/home/add'>Add a recipe</Link></MenuItem>
               <MenuItem onClick={event => this.handleLogOut(event)}>Log Out</MenuItem>
             </Drawer>
           </div>
+          <Route exact path='/home/' component={ViewRecipes} />
           <Route exact path='/home/add' component={AddRecipe} />
           <Route exact path='/home/search' component={SearchRecipes} />
           <Route exact path='/home/profile' component={ViewRecipes} /> 
