@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import $ from 'jquery'
-import RecipeGrid from './RecipeGrid'
+import DisplayRecipesContainer from './displayRecipesContainer/DisplayRecipesContainer'
 import PageTabs from './PageTabs'
 import axios from 'axios'
 import Paper from 'material-ui/Paper'

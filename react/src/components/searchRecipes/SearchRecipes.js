@@ -82,14 +82,13 @@ class SearchRecipes extends Component {
   render () {
     const { dish } = this.state
     const layout = [
-      {i: 'a', x: 3, y: 0, w: 6, h: 3, static: true},
-      {i: 'b', x: 3, y: 3, w: 3, h: 3, static: true},
-      {i: 'c', x: 3, y: 6, w: 6, h: 3, static: true},
-      {i: 'd', x: 3, y: 9, w: 6, h: 3, static: true},
-      {i: 'e', x: 3, y: 12, w: 6, h: 3, static: true},
-      {i: 'f', x: 3, y: 15, w: 6, h: 3, static: true},
-      {i: 'g', x: 3, y: 18, w: 6, h: 3, static: true},
-      {i: 'h', x: 3, y: 21, w: 6, h: 3, static: true}
+      {i: 'a', x: 3, y: 2, w: 6, h: 3, static: true},
+      {i: 'b', x: 3, y: 5, w: 3, h: 3, static: true},
+      {i: 'c', x: 3, y: 8, w: 6, h: 3, static: true},
+      {i: 'd', x: 3, y: 11, w: 6, h: 3, static: true},
+      {i: 'e', x: 3, y: 14, w: 6, h: 3, static: true},
+      {i: 'f', x: 3, y: 17, w: 6, h: 3, static: true},
+      {i: 'g', x: 3, y: 20, w: 6, h: 3, static: true}
     ]
 
     return (
@@ -131,7 +130,6 @@ class SearchRecipes extends Component {
         <div key={'g'}>
           <FlatButton label='submit' secondary fullWidth onClick={this.handleSubmit.bind(this)} />
         </div>
-        <div key={'h'} />
       </ReactGridLayout>
     )
   }
