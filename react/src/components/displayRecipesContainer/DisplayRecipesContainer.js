@@ -24,6 +24,12 @@ class DisplayRecipesContainer extends Component {
     this.getRecipeInfo = this.getRecipeInfo.bind(this)
   }
 
+  handleClick (recipeId) {
+    // redirect to /recipes/recipeId
+    const { router } = this.context
+    router.history.push('/recipe/' + recipeId)
+  }
+
   getRecipeInfo (recipeItem) {
     let recipeId = recipeItem.id
     console.log(recipeId)

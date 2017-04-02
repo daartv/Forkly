@@ -21,15 +21,28 @@ import IconButton from 'material-ui/IconButton'
 import MenuItem from 'material-ui/MenuItem'
 import FontIcon from 'material-ui/FontIcon'
 import Drawer from 'material-ui/Drawer'
+/**
+ * Mock Data
+ */
+import MockData from './MockData'
 
 const { toolbar } = style
+const { tilesData } = MockData
 
 class MainPageUser extends Component {
   constructor (props) {
     super(props)
     this.state = {
       open: false,
-      value: 1
+      value: 1,
+      /**
+      * Profile Page User
+      */
+      userID: '',
+      userName: '',
+      recipes: tilesData,
+      originalRecipes: tilesData
+
     }
   }
 
