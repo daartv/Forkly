@@ -1,4 +1,4 @@
-const tilesData = [
+const MockData = [
   {
     img: 'https://files.slack.com/files-tmb/T3YD9REQK-F4ST7FEV8-ec5103a4b2/cake_example_img_360.jpg',
     title: 'Breakfast',
@@ -86,4 +86,4 @@ const tilesData = [
   }
 ]
 
-export default tilesData
+export default MockData
