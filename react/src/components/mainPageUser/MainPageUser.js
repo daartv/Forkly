@@ -14,7 +14,7 @@ import axios from 'axios'
  /**
  * Styles
  */
-import AddRecipe from '../AddRecipe'
+import AddRecipe from '../addRecipe/AddRecipe'
 import style from './mainPageUser-css'
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar'
 import ActionHome from 'material-ui/svg-icons/action/home'
