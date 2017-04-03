@@ -14,11 +14,9 @@ const styles = {
 }
 
 
-
-
 class ViewRecipeDetails extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     // TODO: Make the image dynamic.
     
   }
@@ -42,6 +40,10 @@ class ViewRecipeDetails extends Component {
       <DualRecipes compare={isComparison} stats={recipe} styles={style.dualRecipesLayout} />
     </div>)
   }
+
+  componentWillMount() {
+    console.log('ViewRecipeDetails this', this)
+  }
   
   shouldComponentUpdate(){
     return true;
@@ -50,7 +52,8 @@ class ViewRecipeDetails extends Component {
 
   render() {
   const { activeRecipe, compareRecipe } = this.props.state
-  const isComparison = true
+  // const isComparison = true //original
+  const isComparison = false
   const hasMounted = !!activeRecipe.name
   const { name,  _creator, forks, directions, ingredients } = activeRecipe
 

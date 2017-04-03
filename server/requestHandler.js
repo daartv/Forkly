@@ -54,8 +54,10 @@ exports.getUsername = function (req, res) {
 // O: {originalRecipes, recipes}
 // for viewRecipes Component - get all recipes for user
 exports.getUserRecipes = function (req, res) {
+  req.user = {_id: '58dc02b1950849860eb4b167', _creator: '58dc02b1950849860eb4b167' } //Temporary till login is back
   if (req.user) {
     db.User.findById(req.user._id)
+    .limit(16) //change the limit if needed
     .populate('recipes')
     .exec(function (err, user) {
       res.send(user.recipes)
