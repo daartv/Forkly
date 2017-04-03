@@ -1,4 +1,8 @@
 const style = {
+  container: {
+    marginTop: '5%',
+    display: 'block'
+  },
   dashboard: {
     display: 'flex',
     flexDirection: 'row',
@@ -15,9 +19,10 @@ const style = {
 
   rightDashboard: {
     flexDirection: 'column',
-    width: '60%',
+    width: '70%',
     padding: '0 20px',
-    wrap: 'nowrap'
+    wrap: 'nowrap',
+    float: 'right'
   },
   statsBar: {
     zDepth: '1',
@@ -26,7 +31,8 @@ const style = {
     display: 'table',
     padding: '2% 5%',
     borderSpacing: '10px',
-    tableLayout: 'fixed'
+    tableLayout: 'fixed',
+    
   },
 
   profilePic: {

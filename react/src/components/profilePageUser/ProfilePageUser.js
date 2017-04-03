@@ -8,7 +8,7 @@ import IconButton from 'material-ui/IconButton'
 import Paper from 'material-ui/Paper'
 import Badge from 'material-ui/Badge'
 
-const { dashboard, leftDashboard, rightDashboard, statsBar, profilePic, statDetail } = style
+const { dashboard, leftDashboard, rightDashboard, statsBar, profilePic, statDetail, container } = style
 
 /* * state, setStateThroughProps are passed in as Props * */
 /* * state = {userID, userName, recipes, originalRecipes} * */
@@ -25,7 +25,7 @@ const ProfilePageUser = ({ state, setRecipeState, setTabView, setStateThroughPro
   })
 
   return (
-    <div>
+    <div style={container}>
       <div style={dashboard}>
         <div style={leftDashboard}>
           <h2>{state.userID}</h2>
@@ -58,6 +58,7 @@ const ProfilePageUser = ({ state, setRecipeState, setTabView, setStateThroughPro
       </div>
     </div>
   )
+
 }
 
 export default ProfilePageUser

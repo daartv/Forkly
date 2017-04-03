@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import axios from 'axios'
-
 import style from './viewRecipeDetails-css'
 import {pinkA200, transparent} from 'material-ui/styles/colors'
 import ActionGrade from 'material-ui/svg-icons/action/grade'
@@ -9,18 +8,26 @@ import Subheader from 'material-ui/Subheader'
 import IngredientsDirections from './IngredientsDirections'
 import DualRecipes from './DualRecipes'
 import ForkList from './ForksList.js'
+
+import FlatButton from 'material-ui/FlatButton';
+import {Tabs, Tab} from 'material-ui/Tabs';
+
 const styles = {
-
-}
-
-
+  headline: {
+    fontSize: 24,
+    paddingTop: 16,
+    marginBottom: 12,
+    fontWeight: 400,
+  },
+};
 
 
 class ViewRecipeDetails extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     // TODO: Make the image dynamic.
-    
+    this.forkThisRecipe = this.forkThisRecipe.bind(this)
+    this.handleCompare = this.handleCompare.bind(this)
   }
 
   // componentDidMount() {
@@ -36,11 +43,27 @@ class ViewRecipeDetails extends Component {
   //     }), () => console.log('hello world component will mount')})
   //   .catch(err => console.log('ViewRecipeDetails.js - error: ', err))
   // }
+  forkThisRecipe(recipe){
+    this.props.setStateThroughProps(event, {isForking: true, activeRecipe: recipe})
+    this.context.router.history.push('/home/add')
+  }
+
+  handleCompare (event, selectedRecipe) {
+    // event.preventDefault()
+    // const recipeID = selectedRecipe.id
+    console.log('Comparison is HEREEEEEEEEEEEEE', selectedRecipe)
+    // console.log('event is', event)
+    this.props.setStateThroughProps(event, {compareRecipe: selectedRecipe, isComparison: true})
+  }
 
   createRecipeCard(recipe, isComparison) {
     return (<div style={{padding: '10px', display: 'table-cell'}}>
-      <DualRecipes compare={isComparison} stats={recipe} styles={style.dualRecipesLayout} />
+      <DualRecipes compare={isComparison} onFork={this.forkThisRecipe} stats={recipe} styles={style.dualRecipesLayout} />
     </div>)
+  }
+
+  componentWillMount() {
+    console.log('ViewRecipeDetails this', this)
   }
   
   shouldComponentUpdate(){
@@ -49,8 +72,8 @@ class ViewRecipeDetails extends Component {
   
 
   render() {
-  const { activeRecipe, compareRecipe } = this.props.state
-  const isComparison = true
+  const { activeRecipe, compareRecipe, isComparison } = this.props.state
+  // const isComparison = true //original
   const hasMounted = !!activeRecipe.name
   const { name,  _creator, forks, directions, ingredients } = activeRecipe
 
@@ -67,17 +90,27 @@ class ViewRecipeDetails extends Component {
           {this.createRecipeCard(activeRecipe, isComparison)}
         </div>
         
-
+        <div style={{width: '100%'}}>
+      
+    </div>
         <div style={{width: '100%'}}>
         <Divider />
-          <ForkList forks={forks}/>
+           <Tabs >
+        <Tab label="Recipe Forks" value="a">
+          <div style={{marginTop: '2%'}}>
+             <ForkList handleCompare={this.handleCompare} forks={forks}/>
+          </div>
+        </Tab>
+        </Tabs>
         </div>
-
-
       </div>
     )
   }
 }
+
+ViewRecipeDetails.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 export default ViewRecipeDetails
 

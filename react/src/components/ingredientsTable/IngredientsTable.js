@@ -68,14 +68,14 @@ class AddIngredientsTable extends Component {
   }
 
   render () {
-    let { recipeName, ingredients, imagePath, recipeDirections, forking } = this.props.stats
-    const recipeImage = imagePath || 'https://lh3.googleusercontent.com/TgEXw13nhbMEVLiMedgYdTdG--B45cR-TlT3nQY-zlovuCs95Uq0JK3vRuVe-KA7MDCeR_tqT2ZO9_WFFWwTvW4=s730-e365'
+    let { name, ingredients, img, directions, forking } = this.props.stats
+    const recipeImage = img || '../../../dist/assets/images/placeHolderIMG.jpg'
 
     const isDisabled = this.props.isDisabled
     const fieldType = isDisabled ? 'ReadOnly' : 'TextField'
 
-    recipeName = recipeName || ''
-    recipeDirections = recipeDirections || ''
+    name = name || ''
+    directions = directions || ''
 
     let rows = ingredients.map((ingredient, ind) => {
       let col = {columns: [], index: ind}
@@ -94,15 +94,14 @@ class AddIngredientsTable extends Component {
     return (
 
       <div style={formContainer}>
-        <div style={{backgroundImage: `url('${recipeImage}')`, backgroundSize: 'cover', width: '100%', height: '30vh'}}>
-        e
+        <div style={{backgroundImage: `url('${recipeImage}')`, backgroundSize: 'cover', width: '100%', height: '35vh'}}>
         </div>
         <div style={headerContainer}>
-          <h2 style={headerH2}>Recipe:</h2>
+        
         </div>
         <div style={aligner}>
           <div style={recipeNameBox}>
-            <TextField multiLine disabled={isDisabled} name='recipeName' defaultValue={recipeName} onChange={this.handleChange} style={recipeName}
+            <TextField multiLine disabled={isDisabled} name='recipeName' defaultValue={name} onChange={this.handleChange} style={recipeName}
               floatingLabelText='Recipe Name'
               floatingLabelStyle={floatingLabelStyle}
               floatingLabelFocusStyle={floatingLabelFocusStyle}
@@ -133,8 +132,8 @@ class AddIngredientsTable extends Component {
           />
         </div>
         <div style={{margin: '0 auto'}}>
-          <h2 style={headerH2}>Directions:</h2>
-          <TextField multiLine name='recipeDirections' defaultValue={recipeDirections} disabled={isDisabled} style={directionsBox} onChange={this.handleChange}
+          
+          <TextField multiLine name='recipeDirections' defaultValue={directions} disabled={isDisabled} style={directionsBox} onChange={this.handleChange}
             floatingLabelText='Directions'
             floatingLabelStyle={floatingLabelStyle}
             floatingLabelFocusStyle={floatingLabelFocusStyle}

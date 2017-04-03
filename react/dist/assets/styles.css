@@ -195,18 +195,18 @@ body {
   ========================================
 */
 
-.createRecipe {
+/*.createRecipe {
   position: absolute;
   padding: 20px;
-}
+}*/
 
-.recipeImage {
+/*.recipeImage {
   position: relative;
   max-width: 850px;
   z-index: -1;
-}
+}*/
 
-.recipeHeader {
+/*.recipeHeader {
   color: white;
   font-size: 24px;
   position: absolute;
@@ -216,7 +216,7 @@ body {
   text-decoration-style: bold;
   font-size: 90px;
   left: 135px;
-}
+}*/
 
 .recipeName {
   color: orange;

@@ -47,18 +47,17 @@ class MainPageUser extends Component {
       selectedRecipeMethods: [],
       selectedRecipeIMG: null,
       activeRecipe: undefined,
-      compareRecipe: undefined
+      compareRecipe: undefined,
+      isComparison: false
     }
-    this.setStateThroughProps = this.setStateThroughProps.bind(this)
-    this.setTabView = this.setTabView.bind(this)
-    this.setRecipeState = this.setRecipeState.bind(this)
   }
 
   handleToggle () {
     this.setState({open: !this.state.open})
   }
 
-  handleClose () {
+  handleClose (action) {
+    this.context.router.history.push(action)
     this.setState({open: false})
   }
 
@@ -67,101 +66,34 @@ class MainPageUser extends Component {
     this.handleClose()
     this.context.router.history.push('/welcome')
   }
-  setTabView (value) {
-    this.setState({selectedView: value})
-  }
 
-  setRecipeState (property, recipe){
-    this.setState({property: recipe})
-  }
-
-  setStateThroughProps (event, newStateValue) {
-    event.preventDefault()
-    this.setState({ newStateValue })
-  }
-
-  renderSelectedRecipe (recipeID) {
-    axios.get('/api/recipes/methods', {
-      params: { recipeID }
-    })
-    .then(res => {
-      const { selectedRecipeName, selectedRecipeMethods, selectedRecipeIMG } = res
-      this.setState({ selectedRecipeName, selectedRecipeMethods, selectedRecipeIMG }, () => {
-        this.context.router.history.push('/home/viewrecipe' + recipeID)
-      })
-    })
-    .catch(error => {
-      if (error.response) {
-        console.log(error.response.data)
-        console.log(error.response.status)
-        console.log(error.response.headers)
-      }
-    })
-  }
- // componentWillMount() {
- //  const context = this
- //    axios.get('/getAllRecipes')
- //    .then(userInfo => {
- //      console.log(userInfo)
- //      const { id, name, recipes, originalRecipes } = userInfo
- //      context.setState({
- //        userID: id,
- //        userName: name,
- //        recipes: recipes,
- //        originalRecipes: originalRecipes
- //      }, () => console.log(context.state))
- //    })
- //    .catch(error => {
- //      if (error.response) {
- //        console.log(error.response.data)
- //        console.log(error.response.status)
- //        console.log(error.response.headers)
- //      }
- //    })
- //  }
-
-  renderComponentWithProps (component) {
-    if (component === 'ProfilePageUser' && !this.state.activeRecipe) {
-      return <ProfilePageUser setTabView={this.setTabView} state={this.state} setStateThroughProps={this.setStateThroughProps} setRecipeState={this.setRecipeState} renderSelectedRecipe={this.renderSelectedRecipe} />
-    }
-    if (component === 'ProfilePageUser' && this.state.activeRecipe !== undefined) {
-      return <ViewRecipe state={this.state} setStateThroughProps={this.setStateThroughProps} />
-    }
-    if (component === 'ViewSelectedRecipe') {
-      return <ViewSelectedRecipe state={this.state} setStateThroughProps={this.setStateThroughProps} />
-    }
-    if (component === 'SearchRecipes') {
-      return <SearchRecipes state={this.state} setStateThroughProps={this.setStateThroughProps} />
-    }
-  }
 
   render () {
     return (
-      <Router>
+      <div>
         <div>
-          <div>
-            <Toolbar style={toolbar}>
-              <ToolbarGroup>
-                <IconButton tooltip='Show more' onClick={this.handleToggle.bind(this)}>
-                  <ActionHome />
-                </IconButton>
-                <ToolbarSeparator />
-                <ToolbarTitle text='Forkly' />
-              </ToolbarGroup>
-            </Toolbar>
-            <Drawer open={this.state.open}>
-              <Link to='/home'><MenuItem onClick={this.handleClose.bind(this)}>Your profile</MenuItem></Link>
-              <Link to='/home/recipes'><MenuItem onClick={this.handleClose.bind(this)}>Your recipes</MenuItem></Link>
-              <Link to='/home/search'><MenuItem onClick={this.handleClose.bind(this)}>Search recipes</MenuItem></Link>
-              <MenuItem onClick={event => this.handleLogOut(event)}>Log Out</MenuItem>
-            </Drawer>
-          </div>
-          <Route exact path='/home' render={() => this.renderComponentWithProps('ProfilePageUser')} />
-          <Route path='/home/recipes' render={() => this.renderComponentWithProps('ViewOwnRecipes')} />
-          <Route path='/home/viewrecipe' render={() => this.renderComponentWithProps('ViewSelectedRecipe')} />
-          <Route path='/home/search' render={() => this.renderComponentWithProps('SearchRecipes')} />
+          <Toolbar style={toolbar}>
+            <ToolbarGroup>
+              <IconButton tooltip='Show more' onClick={this.handleToggle.bind(this)}>
+                <ActionHome />
+              </IconButton>
+              <ToolbarSeparator />
+              <ToolbarTitle text='Forkly' />
+            </ToolbarGroup>
+          </Toolbar>
+          <Drawer 
+            open={this.state.open}
+            docked={false}
+            onRequestChange={(open) => this.setState({open})}>
+            <MenuItem onClick={() => this.handleClose('/home')}>Your profile</MenuItem>
+            <MenuItem onClick={() => this.handleClose('/home/add')}>Add recipe</MenuItem>
+            <MenuItem onClick={() => this.handleClose('/home/search')}>Search recipes</MenuItem>
+            <MenuItem onClick={event => this.handleLogOut(event)}>Log Out</MenuItem>
+          </Drawer>
         </div>
-      </Router>
+        <div>
+        </div>
+      </div>
     )
   }
 }
