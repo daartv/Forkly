@@ -24,13 +24,7 @@ import ActionGrade from 'material-ui/svg-icons/action/grade'
           <ul style={style.shortDetailList}>
             <li>{`Recipe by: ${recipeStats._creator ? recipeStats._creator.name : ''}`}</li>
             <li>{'Short information of recipe.'}</li>
-            <li>{`Forked ${recipeStats.forks ? recipeStats.forks.length : ''} times.`}</li>   
-            <li>{`Recipe by: ${recipeStats._creator ? recipeStats._creator.name : ''}`}</li>
-            <li>{'Short information of recipe.'}</li>
-            <li>{`Forked ${recipeStats.forks ? recipeStats.forks.length : ''} times.`}</li>
-            <li>{`Recipe by: ${recipeStats._creator ? recipeStats._creator.name : ''}`}</li>
-            <li>{'Short information of recipe.'}</li>
-            <li>{`Forked ${recipeStats.forks ? recipeStats.forks.length : ''} times.`}</li>                           
+            <li>{`Forked ${recipeStats.forks ? recipeStats.forks.length : ''} times.`}</li>                     
           </ul>
         </div>
         <Subheader inset={true}>Recipe Details</Subheader>

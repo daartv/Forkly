@@ -2,7 +2,8 @@ const MockData = [
   {
     img: 'https://www.chowstatic.com/assets/recipe_photos/30175_easy_pumpkin_pie.jpg',
     title: 'Breakfast',
-    author: 'jill111',
+    _creator: 'jill111',
+
     id: '58e046b9352723121e4df94e',
     name: 'Cake',
     ingredients: [ { "ingredient" : "Milk", "units" : "2", "quantity" : "cup" } ],

@@ -13,25 +13,17 @@ class DisplayRecipesContainer extends Component {
     this.state = {
 
     }
-
-    // this._renderSelectedRecipe = this._renderSelectedRecipe.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
 
   handleClick (event, selectedRecipe) {
-    // event.preventDefault()
-    // const recipeID = selectedRecipe.id
-    console.log('selectedRecipe is', selectedRecipe)
-    // console.log('event is', event)
     this.props.setStateThroughProps(event, {activeRecipe: selectedRecipe})
     this.context.router.history.push('/home/viewrecipe')
 
   }
   render() {
     const { state, setRecipeState, setStateThroughProps, recipes, renderSelectedRecipe } = this.props
-    // console.log(recipes)
-
-
+    
     return (
       <div style={container}>
         <GridList
@@ -45,8 +37,8 @@ class DisplayRecipesContainer extends Component {
             <GridTile
               onClick={(event) => this.handleClick(event, recipe)}
               key={idx}
-              title={recipe.title}
-              subtitle={<span>by <b>{recipe.author}</b></span>}
+              title={recipe.name}
+              subtitle={<span>by <b>{recipe._creator}</b></span>}
               actionIcon={<IconButton><StarBorder color='white' /></IconButton>}
             >
               <img src={recipe.img} />
@@ -57,9 +49,8 @@ class DisplayRecipesContainer extends Component {
     )
   }
 }
-
 DisplayRecipesContainer.contextTypes = {
   router: PropTypes.object.isRequired
-}
+};
 
 export default DisplayRecipesContainer

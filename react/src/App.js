@@ -52,7 +52,9 @@ class App extends Component {
       selectedRecipeMethods: [],
       selectedRecipeIMG: null,
       activeRecipe: undefined,
-      compareRecipe: undefined
+      compareRecipe: undefined,
+      isComparison: false,
+      isForking: false
       /* Changes  */
     }
 
@@ -121,6 +123,9 @@ class App extends Component {
     if (component === 'ViewSelectedRecipe') {
       return <ViewSelectedRecipe state={this.state} setStateThroughProps={this.setStateThroughProps} />
     }
+    if (component === 'AddRecipe') {
+      return <AddRecipe state={this.state} setStateThroughProps={this.setStateThroughProps} />
+    }
     if (component === 'SearchRecipes') {
       return <SearchRecipes state={this.state} setStateThroughProps={this.setStateThroughProps} />
     }
@@ -137,8 +142,8 @@ class App extends Component {
           <Route exact path='/home' render={() => this.renderComponentWithProps('ProfilePageUser')} />
           <Route path='/home/recipes' render={() => this.renderComponentWithProps('ViewOwnRecipes')} />
           <Route path='/home/viewrecipe' render={() => this.renderComponentWithProps('ViewSelectedRecipe')} />
+           <Route path='/home/add' render={() => this.renderComponentWithProps('AddRecipe')} />
           <Route exact path='/home/search' render={() => this.renderComponentWithProps('SearchRecipes')} />
-          <Route exact path='/home/add' component={AddRecipe} />
           <Route path='/forkly' component={MainPageNonUser} />
           <Route path='/signup' component={SignUpPage} />
           <Route path='/login' component={LoginPage} />
@@ -170,6 +175,7 @@ class App extends Component {
 export default App
 
 /* * * * * * *
+
 <div className='group'>
   <section className='floatLeft'>
     <img className='logo' src='assets/images/forkly.png' alt='FORKLY' />

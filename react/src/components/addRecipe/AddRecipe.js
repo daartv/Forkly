@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import IngredientsTable from '../ingredientsTable/IngredientsTable'
+import style from './addRecipe-css.js'
 import axios from 'axios'
 
 const styleProps = {
@@ -13,6 +14,7 @@ const styleProps = {
   deselectOnClickaway: true,
   showCheckboxes: false
 }
+const { recipeContainer } = style
 
 const testData = {
   recipeName: '',
@@ -27,61 +29,31 @@ class AddRecipe extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      currentRecipe: this.props.mainRecipe || testData,
-      // recipeName: 'Sugar Recipe',
-      // recipeDirections: '',
-      // ingredients: [{quantity: 1, units: 'spoonful', ingredient: 'sugar'}, {quantity: 1, units: 'spoonful', ingredient: 'sugar'}],
-      // creator: '',
-      originalRecipe: this.props.mainRecipe || undefined,
-      forking: this.props.mainRecipe !== undefined,
-      edit: true
+      currentRecipe: this.props.state.activeRecipe || testData,
+      originalRecipe: this.props.state.originalRecipe || '',
+      isForking: this.props.state.isForking,
+      edit: this.props.state.isForking
     }
-    // this.addRow = this.addRow.bind(this)
+
     this.handleIngredientsChange = this.handleIngredientsChange.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
-    // this.handleSubmit = this.handleSubmit.bind(this)
     this.handleRecipeSave = this.handleRecipeSave.bind(this)
-
-    // this.handleSubmit = this.handleSubmit.bind(this)
     this.handleImageChange = this.handleImageChange.bind(this)
   }
 
-  // componentDidMount () {
-  //   var forked = this.context.router.history.location.pathname
-  //   let forkedId = forked.slice(forked.lastIndexOf('/') + 1)
-  //   let boundThis = this
-  //   // if history has url at end
-  //   if (forkedId.length > 0) {
-  //     console.log('hi')
-  //     $.ajax({
-  //       url: '/getRecipeById',
-  //       type: 'POST',
-  //       data: JSON.stringify({id: forkedId}),
-  //       contentType: 'application/json',
-  //       success: function (data) {
-  //         boundThis.setState({
-  //           recipeName: data.recipeName,
-  //           recipeDirections: data.recipeDirections,
-  //           ingredients: data.ingredients
-  //         })
-  //       },
-  //       error: function (err) {
-  //         console.error('could not retrieve any recipes for user')
-  //       }
-  //     })
-  //   }
-  // }
+ 
 
   handleRecipeSave () {
     const { router } = this.context
-    const { originalRecipe } = this.props
+    const { originalRecipe, currentRecipe, isForking } = this.state
 
-    const sendOriginalRecipe = originalRecipe || this.state.currentRecipe
-    const { currentRecipe, forking } = this.state
+    const sendOriginalRecipe = isForking ? originalRecipe : currentRecipe
+    const reqRoute = isForking ? '/api/addForkedRecipe' : '/api/addRecipe'
 
-    const reqRoute = forking ? '/api/addForkedRecipe' : '/api/addRecipe'
     const storeRecipe = {currentRecipe, sendOriginalRecipe}
-    console.log(storeRecipe)
+    
+    this.props.setStateThroughProps(event, {isForking: false, activeRecipe: this.state.currentRecipe})
+
     axios.post(reqRoute, storeRecipe)
       .then(recipeId => {
         console.log('return value Recipe Saved', recipeId)
@@ -133,12 +105,12 @@ class AddRecipe extends Component {
   }
 
   render () {
-    const { forking, name } = this.state
-    const recipeHeader = forking ? 'Fork the Recipe' : 'Add Your Recipe'
+    const { isForking, name } = this.state
+    const recipeHeader = isForking ? 'Fork the Recipe' : 'Add Your Recipe'
 
     return (
 
-      <div className='createRecipe'>
+      <div style={recipeContainer}>
 
         <h1>{recipeHeader}</h1>
         <form>
@@ -149,7 +121,7 @@ class AddRecipe extends Component {
             handleInputChange={this.handleInputChange}
             handleImageChange={this.handleImageChange}
             stats={this.state.currentRecipe}
-            isDisabled={!this.state.edit}
+            isDisabled={this.state.edit}
             styleProps={styleProps}
           />
 
