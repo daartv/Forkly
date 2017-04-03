@@ -7,10 +7,11 @@ const style = {
     fontFamily: 'Roboto, sans-serif'
   },
   formContainer: {
-    margin: '0 auto',
+    margin: 'auto',
+    width: '60%',
     display: 'block',
     padding: '10px',
-    margin: '5% 0 10%',
+    margin: '5% auto',
     clear: 'both'
   },
   directionsBox: {

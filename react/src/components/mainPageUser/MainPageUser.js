@@ -41,7 +41,11 @@ class MainPageUser extends Component {
       selectedView: 'User',
       selectedRecipeName: '',
       selectedRecipeMethods: [],
-      selectedRecipeIMG: null
+
+      selectedRecipeIMG: null,
+      activeRecipe: undefined,
+      compareRecipe: undefined,
+      isComparison: false
     }
   }
   componentDidMount() {
@@ -60,6 +64,7 @@ class MainPageUser extends Component {
     this.handleClose()
     this.context.router.history.push('/welcome')
   }
+
 
   render () {
     return (

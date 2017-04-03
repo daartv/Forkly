@@ -6,12 +6,21 @@ import IngredientsDirections from './IngredientsDirections'
 class CardExampleWithAvatar extends Component {
   constructor(props){
     super(props);
+    this.state= {
+      recipe: this.props.stats
+    }
+    this.handleFork = this.handleFork.bind(this)
+  }
+  handleFork(){
+    console.log('HERRRREEEEEEEEE', this.state.recipe)
+    const forkedRecipe = this.state.recipe
+    this.props.onFork(forkedRecipe)
   }
 
   render(){
-    const { name,  _creator, forks, directions, ingredients } = this.props.stats
-    console.log(this.props.isComparison)
+    const { name,  _creator, forks, directions, ingredients, img } = this.props.stats
     const { compare } = this.props
+    const summary = directions ? directions.split().slice(directions.length / 3) : ''
     const recipeContent = compare ? <IngredientsDirections recipeStats={this.props.stats} /> : null
     return (
       <div>
@@ -19,19 +28,16 @@ class CardExampleWithAvatar extends Component {
       <Card style={this.props.styles}>
 
         <CardMedia
-          overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
+          overlay={<CardTitle title={name} subtitle={summary + '...'} />}
         >
-          <img src="https://files.slack.com/files-tmb/T3YD9REQK-F4ST7FEV8-ec5103a4b2/cake_example_img_360.jpg" width="240px" />
+          <img src={img} width="240px" />
         </CardMedia>
         <CardText>
         {console.log('DID THIS GET HERE', this.props.stats)}
-           Aliquam erat volutpat. Nulla facilisi.
-          Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-          Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+           
         </CardText>
         <CardActions>
-          <FlatButton label="Action1" />
-          <FlatButton label="Action2" />
+          <FlatButton onClick={this.handleFork} label="Fork This Recipe" />
         </CardActions>
       </Card>
       </div>
