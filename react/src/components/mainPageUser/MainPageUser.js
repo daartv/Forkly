@@ -4,17 +4,14 @@ import React, { Component, PropTypes } from 'react'
  */
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import axios from 'axios'
- /**
- * Components
- */
-// import ProfilePageUser from '../profilePageUser/ProfilePageUser'
-// import ViewOwnRecipes from '../viewOwnRecipes/ViewOwnRecipes'
-// import SearchRecipes from '../searchRecipes/SearchRecipes'
-// import ViewSelectedRecipe from '../viewRecipeDetails/ViewRecipeDetails'
+ 
+// Components
+import AddRecipe from '../addRecipe/AddRecipe'
+
  /**
  * Styles
  */
-import AddRecipe from '../addRecipe/AddRecipe'
+
 import style from './mainPageUser-css'
 import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar'
 import ActionHome from 'material-ui/svg-icons/action/home'
