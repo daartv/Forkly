@@ -25,6 +25,7 @@ class DisplayRecipesContainer extends Component {
     // console.log('event is', event)
     this.props.setStateThroughProps(event, {activeRecipe: selectedRecipe})
     this.context.router.history.push('/home/viewrecipe')
+
   }
   render() {
     const { state, setRecipeState, setStateThroughProps, recipes, renderSelectedRecipe } = this.props

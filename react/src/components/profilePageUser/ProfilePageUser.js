@@ -21,7 +21,7 @@ class ProfilePageUser extends Component {
   }
 
   componentWillMount () {
-
+    axios.get()
   }
 
 
