@@ -72,7 +72,7 @@ exports.yummlySearchRecipes = (req, res) => {
 }
 
 exports.spoonacularGetRecipe = (req, res) => {
-  const { recipeID } = req.body
+  const { recipeID } = req.query
   // /**
   //  * GET request to Yummly, to get recipe's source URL and large image (using recipe ID)
   //  */

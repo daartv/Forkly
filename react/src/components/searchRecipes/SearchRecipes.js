@@ -8,7 +8,6 @@ import axios from 'axios'
  * Components
  */
 import DietOptionsDropdown from '../dietOptionsDropdown/DietOptionsDropdown'
-import AddRecipeIngredients from '../AddRecipeIngredients'
 /**
  * Material UI / React Grid Components
  */
