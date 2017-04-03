@@ -175,7 +175,6 @@ class App extends Component {
 export default App
 
 /* * * * * * *
-          <Route exact path='/home/add' component={AddRecipe} />
 
 <div className='group'>
   <section className='floatLeft'>
