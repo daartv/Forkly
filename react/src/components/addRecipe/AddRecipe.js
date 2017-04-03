@@ -34,41 +34,14 @@ class AddRecipe extends Component {
       isForking: this.props.state.isForking,
       edit: this.props.state.isForking
     }
-    // this.addRow = this.addRow.bind(this)
+
     this.handleIngredientsChange = this.handleIngredientsChange.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
-    // this.handleSubmit = this.handleSubmit.bind(this)
     this.handleRecipeSave = this.handleRecipeSave.bind(this)
-
-    // this.handleSubmit = this.handleSubmit.bind(this)
     this.handleImageChange = this.handleImageChange.bind(this)
   }
 
-  // componentDidMount () {
-  //   var forked = this.context.router.history.location.pathname
-  //   let forkedId = forked.slice(forked.lastIndexOf('/') + 1)
-  //   let boundThis = this
-  //   // if history has url at end
-  //   if (forkedId.length > 0) {
-  //     console.log('hi')
-  //     $.ajax({
-  //       url: '/getRecipeById',
-  //       type: 'POST',
-  //       data: JSON.stringify({id: forkedId}),
-  //       contentType: 'application/json',
-  //       success: function (data) {
-  //         boundThis.setState({
-  //           recipeName: data.recipeName,
-  //           recipeDirections: data.recipeDirections,
-  //           ingredients: data.ingredients
-  //         })
-  //       },
-  //       error: function (err) {
-  //         console.error('could not retrieve any recipes for user')
-  //       }
-  //     })
-  //   }
-  // }
+ 
 
   handleRecipeSave () {
     const { router } = this.context
