@@ -7,15 +7,17 @@ import style from './displayRecipesContainer-css'
 
 const { container, gridList } = style
 
-const DisplayRecipesContainer = ({ state, setRecipeState, setStateThroughProps, recipes, renderSelectedRecipe }) => {
+const DisplayRecipesContainer = (props) => {
   console.log(recipes)
+
+  const {state, setStateThroughProps, recipes, renderSelectedRecipe} = props
 
   const handleClick = (event, selectedRecipe) => {
     // event.preventDefault()
     const recipeID = selectedRecipe.id
-    console.log('recipe is', selectedRecipe)
-    console.log('event is', event)
-    setRecipeState('activeRecipe', selectedRecipe)
+/*    console.log('recipe is', selectedRecipe)
+    console.log('event is', event)*/
+    renderSelectedRecipe(recipeID)
   }
 
   return (
