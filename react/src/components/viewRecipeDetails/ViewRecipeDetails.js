@@ -22,6 +22,7 @@ const styles = {
 };
 
 
+
 class ViewRecipeDetails extends Component {
   constructor(props) {
     super(props)
@@ -30,10 +31,11 @@ class ViewRecipeDetails extends Component {
     this.handleCompare = this.handleCompare.bind(this)
   }
 
-  // componentDidMount() {
+//   componentDidMount() {
   //   console.log('component mounted yo')
   //   // const id = this.props.params.recipeId
   //   const id = '58e02f58e71032728ea46fcd' //|| this.props.params.id // remove this line and uncomment the one on top when ready to use 
+
   //   axios.get(`api/recipes/${id}`)
   //   .then(result => {
   //     this.setState({
@@ -49,12 +51,18 @@ class ViewRecipeDetails extends Component {
   }
 
   handleCompare (event, selectedRecipe) {
-    // event.preventDefault()
-    // const recipeID = selectedRecipe.id
-    console.log('Comparison is HEREEEEEEEEEEEEE', selectedRecipe)
-    // console.log('event is', event)
     this.props.setStateThroughProps(event, {compareRecipe: selectedRecipe, isComparison: true})
   }
+//     axios.get(`api/recipes/${id}`)
+//     .then(result => {
+//       this.setState({
+//         recipe: result.data,
+//         activeRecipe: result.data, 
+//         compareRecipe: result.data
+//       }), () => console.log('hello world component will mount')})
+//     .catch(err => console.log('ViewRecipeDetails.js - error: ', err))
+
+//   }
 
   createRecipeCard(recipe, isComparison) {
     return (<div style={{padding: '10px', display: 'table-cell'}}>
@@ -73,7 +81,7 @@ class ViewRecipeDetails extends Component {
 
   render() {
   const { activeRecipe, compareRecipe, isComparison } = this.props.state
-  // const isComparison = true //original
+ 
   const hasMounted = !!activeRecipe.name
   const { name,  _creator, forks, directions, ingredients } = activeRecipe
 
@@ -92,16 +100,16 @@ class ViewRecipeDetails extends Component {
         
         <div style={{width: '100%'}}>
       
-    </div>
+        </div>
         <div style={{width: '100%'}}>
-        <Divider />
-           <Tabs >
-        <Tab label="Recipe Forks" value="a">
-          <div style={{marginTop: '2%'}}>
-             <ForkList handleCompare={this.handleCompare} forks={forks}/>
-          </div>
-        </Tab>
-        </Tabs>
+          <Divider />
+          <Tabs >
+            <Tab label="Recipe Forks" value="a">
+              <div style={{marginTop: '2%'}}>
+                <ForkList handleCompare={this.handleCompare} forks={forks}/>
+              </div>
+            </Tab>
+          </Tabs>
         </div>
       </div>
     )
