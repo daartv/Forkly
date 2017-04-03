@@ -16,20 +16,20 @@ const styleProps = {
 }
 const { recipeContainer } = style
 
-// const testData = {
-//   recipeName: '',
-//   recipeDirections: '',
-//   ingredients: [{quantity: '', units: '', ingredient: ''}],
-//   creator: '',
-//   image: '',
-//   originalRecipe: ''
-// }
+const testData = {
+  recipeName: '',
+  recipeDirections: '',
+  ingredients: [{quantity: '', units: '', ingredient: ''}],
+  creator: '',
+  image: '',
+  originalRecipe: ''
+}
 
 class AddRecipe extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      currentRecipe: this.props.state.activeRecipe || '',
+      currentRecipe: this.props.state.activeRecipe || testData,
       originalRecipe: this.props.state.originalRecipe || '',
       isForking: this.props.state.isForking,
       edit: this.props.state.isForking
@@ -148,7 +148,7 @@ class AddRecipe extends Component {
             handleInputChange={this.handleInputChange}
             handleImageChange={this.handleImageChange}
             stats={this.state.currentRecipe}
-            isDisabled={!this.state.edit}
+            isDisabled={this.state.edit}
             styleProps={styleProps}
           />
 
