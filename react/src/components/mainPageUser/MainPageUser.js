@@ -52,6 +52,7 @@ class MainPageUser extends Component {
   handleToggle () {
     this.setState({open: !this.state.open})
   }
+
   handleClose (action) {
     this.context.router.history.push(action)
     this.setState({open: false})
@@ -61,34 +62,31 @@ class MainPageUser extends Component {
     this.handleClose()
     this.context.router.history.push('/welcome')
   }
+
   render () {
     return (
-      <Router>
+      <div>
         <div>
-          <div>
-            <Toolbar style={toolbar}>
-              <ToolbarGroup>
-                <IconButton tooltip='Show more' onClick={this.handleToggle.bind(this)}>
-                  <ActionHome />
-                </IconButton>
-                <ToolbarSeparator />
-                <ToolbarTitle text='Forkly' />
-              </ToolbarGroup>
-            </Toolbar>
-            <Drawer 
-              open={this.state.open}
-              docked={false}
-              onRequestChange={(open) => this.setState({open})}>
-              <MenuItem onClick={() => this.handleClose('/home')}>Your profile</MenuItem>
-              <MenuItem onClick={() => this.handleClose('/home/add')}>Add recipe</MenuItem>
-              <MenuItem onClick={() => this.handleClose('/home/search')}>Search recipes</MenuItem>
-              <MenuItem onClick={event => this.handleLogOut(event)}>Log Out</MenuItem>
-            </Drawer>
-          </div>
-          <div>
-          </div>
+          <Toolbar style={toolbar}>
+            <ToolbarGroup>
+              <IconButton tooltip='Show more' onClick={this.handleToggle.bind(this)}>
+                <ActionHome />
+              </IconButton>
+              <ToolbarSeparator />
+              <ToolbarTitle text='Forkly' />
+            </ToolbarGroup>
+          </Toolbar>
+          <Drawer 
+            open={this.state.open}
+            docked={false}
+            onRequestChange={(open) => this.setState({open})}>
+            <MenuItem onClick={() => this.handleClose('/home')}>Your profile</MenuItem>
+            <MenuItem onClick={() => this.handleClose('/home/add')}>Add recipe</MenuItem>
+            <MenuItem onClick={() => this.handleClose('/home/search')}>Search recipes</MenuItem>
+            <MenuItem onClick={event => this.handleLogOut(event)}>Log Out</MenuItem>
+          </Drawer>
         </div>
-      </Router>
+      </div>
     )
   }
 }
@@ -98,11 +96,3 @@ MainPageUser.contextTypes = {
 }
 
 export default MainPageUser
-/*
-<div>
-<Route exact path='/home' render={() => this.renderComponentWithProps('ProfilePageUser')} />
-<Route path='/home/recipes' render={() => this.renderComponentWithProps('ViewOwnRecipes')} />
-<Route path='/home/viewrecipes' render={() => this.renderComponentWithProps('ViewSelectedRecipe')} />
-<Route path='/home/search' render={() => this.renderComponentWithProps('SearchRecipes')} />
-</div>
-*/

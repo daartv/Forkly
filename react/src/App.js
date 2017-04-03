@@ -6,6 +6,7 @@ import React, { Component } from 'react'
 import RRDOM from 'react-router-dom'
 import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom'
 import axios from 'axios'
+import $ from 'jquery'
 
 /**
  * Components
@@ -15,7 +16,7 @@ import MainPageUser from './components/mainPageUser/MainPageUser'
 import MainPageNonUser from './components/mainPageNonUser/MainPageNonUser'
 import SignUpPage from './components/signUpPage/SignUpPage'
 import LoginPage from './components/loginPage/LoginPage'
-import AddRecipe from './components/AddRecipe'
+import AddRecipe from './components/addRecipe/AddRecipe'
 // Changes
 import ProfilePageUser from './components/profilePageUser/ProfilePageUser'
 import ViewOwnRecipes from './components/viewOwnRecipes/ViewOwnRecipes'
@@ -49,11 +50,15 @@ class App extends Component {
       selectedView: 'User',
       selectedRecipeName: '',
       selectedRecipeMethods: [],
-      selectedRecipeIMG: null
+      selectedRecipeIMG: null,
+      activeRecipe: undefined,
+      compareRecipe: undefined
       /* Changes  */
     }
 
-    this.renderSelectedRecipe = this.renderSelectedRecipe.bind(this)
+    this.setStateThroughProps = this.setStateThroughProps.bind(this)
+    this.setTabView = this.setTabView.bind(this)
+    this.setRecipeState = this.setRecipeState.bind(this)
   }
 
   componentDidMount () {
@@ -75,9 +80,18 @@ class App extends Component {
     }
   }
 
+  setTabView (value) {
+    this.setState({selectedView: value})
+  }
+
+  setRecipeState (property, recipe){
+    this.setState({property: recipe})
+  }
+
   setStateThroughProps (event, newStateValue) {
+    console.log('setStateThroughProps', newStateValue)
     event.preventDefault()
-    this.setState({ newStateValue })
+    this.setState(newStateValue, () => console.log('this.state.activeRecipe'))
   }
 
   renderSelectedRecipe (recipeID) {
@@ -85,11 +99,6 @@ class App extends Component {
     .then(res => {
       const { selectedRecipeName, selectedRecipeMethods, selectedRecipeIMG } = res
       this.setState({ selectedRecipeName, selectedRecipeMethods, selectedRecipeIMG }, () => {
-        // console.log('renderSelectedRecipe: ',this)
-        // <Redirect to='/home/viewrecipe' />
-        // this.props.history.push('/home/viewrecipe')
-        // this.context.router.history.push('/home/viewrecipe')
-        // ORIGINAL: this.context.router.history.push('/home/viewrecipe/' + recipeID)
       })
     })
     .catch(error => {
@@ -104,7 +113,7 @@ class App extends Component {
   renderComponentWithProps (component) {
     console.log('COMPONENT called', component)
     if (component === 'ProfilePageUser') {
-      return <ProfilePageUser state={this.state} setStateThroughProps={this.setStateThroughProps} renderSelectedRecipe={this.renderSelectedRecipe} />
+      return <ProfilePageUser setTabView={this.setTabView} state={this.state} setStateThroughProps={this.setStateThroughProps} setRecipeState={this.setRecipeState} renderSelectedRecipe={this.renderSelectedRecipe} />
     }
     if (component === 'ViewOwnRecipes') {
       return <ViewOwnRecipes state={this.state} setStateThroughProps={this.setStateThroughProps} />
@@ -115,11 +124,10 @@ class App extends Component {
     if (component === 'SearchRecipes') {
       return <SearchRecipes state={this.state} setStateThroughProps={this.setStateThroughProps} />
     }
+
   }
 
   render () {
-    console.log('AddRecipe', {AddRecipe})
-    console.log('this App', this)
     return (
       <Router>
         <div>
@@ -139,13 +147,23 @@ class App extends Component {
     )
   }
 }
-
 /*
-Eugene
-CHANGES: 
-<Route exact path='/home/' render={this.checkSession.bind(this)} />
-<Route path='/welcome' component={Main} />
-<Route exact path='/home' component={MainPageUser} />
+
+<Router>
+        <div>
+          <MainPageUser />
+          <Route exact path='/' render={this.checkSession.bind(this)} />          
+          <Route path='/welcome' component={Main} />
+          <Route exact path='/home' render={() => this.renderComponentWithProps('ProfilePageUser')} />
+          <Route path='/home/recipes' render={() => this.renderComponentWithProps('ViewOwnRecipes')} />
+          <Route path='/home/viewrecipe' render={() => this.renderComponentWithProps('ViewSelectedRecipe')} />
+          <Route exact path='/home/search' render={() => this.renderComponentWithProps('SearchRecipes')} />
+          <Route exact path='/home/add' component={AddRecipe} />
+          <Route path='/forkly' component={MainPageNonUser} />
+          <Route path='/signup' component={SignUpPage} />
+          <Route path='/login' component={LoginPage} />
+        </div>
+      </Router>
 
 */
 

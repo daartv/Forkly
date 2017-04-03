@@ -1,9 +1,12 @@
 const MockData = [
   {
-    img: 'https://files.slack.com/files-tmb/T3YD9REQK-F4ST7FEV8-ec5103a4b2/cake_example_img_360.jpg',
+    img: 'https://www.chowstatic.com/assets/recipe_photos/30175_easy_pumpkin_pie.jpg',
     title: 'Breakfast',
     author: 'jill111',
-    id: 555
+    id: '58e046b9352723121e4df94e',
+    name: 'Cake',
+    ingredients: [ { "ingredient" : "Milk", "units" : "2", "quantity" : "cup" } ],
+    directions: "Directions direction direction."
   },
   {
     img: 'https://www.chowstatic.com/assets/recipe_photos/30175_easy_pumpkin_pie.jpg',
