@@ -2,7 +2,7 @@ import React from 'react'
 
 const SignUpPage = () => {
   return (
-    <h1>Hello World this is sign up page!</h1>
+    <h1>this is a signup page</h1>
   )
 }
 
