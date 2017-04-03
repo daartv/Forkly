@@ -29,4 +29,4 @@ node_modules/
 bower_components/
 
 # API KEYS
-server/setup.js
+// removed setup.js
